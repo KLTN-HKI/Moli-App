@@ -5,9 +5,10 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:moli_app/app/app.dart';
 import 'package:moli_app/bootstrap.dart';
 
+import 'package:moli_app/src/features/features.dart';
+
 void main() {
-  bootstrap(() => const App());
+  bootstrap(() => const MoliApp());
 }

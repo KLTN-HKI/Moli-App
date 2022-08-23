@@ -1,0 +1,9 @@
+{
+    "@@locale": "vi",
+    "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": ""
+    },
+    "hello":"Xin chào",
+    "langauge":"Ngôn ngữ"
+}

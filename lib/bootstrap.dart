@@ -10,6 +10,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:moli_app/src/dependency_container.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -29,8 +30,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
+  WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = AppBlocObserver();
+  await resolveDependencies();
 
   await runZonedGuarded(
     () async => runApp(await builder()),
