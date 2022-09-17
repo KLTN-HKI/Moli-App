@@ -7,6 +7,9 @@ abstract class AuthenticationStorageService {
   /// Returns last authentication token
   Future<String?> getAuthToken();
 
+  /// Returns last authentication token
+  Future<bool?> getFirstTime();
+
   /// Check error type to be token expired error
   bool checkErrorTokenExpired(Response<dynamic> response);
 

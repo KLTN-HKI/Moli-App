@@ -12,7 +12,7 @@ class ImageAssets {
   static const String avatar = '$path/avatar.png';
 
   static String randomAvatar =
-      'https://picsum.photos/200/300?random=${Random().nextInt(999)}';
+      'https://picsum.photos/1920/1080?random=${Random().nextInt(999)}';
   static String randomImage =
       'https://picsum.photos/1920/1080?random=${Random().nextInt(999)}';
 }

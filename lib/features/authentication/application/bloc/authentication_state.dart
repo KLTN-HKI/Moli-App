@@ -9,6 +9,7 @@ class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState.authenticating() = AUTHENTICATING;
 
   const factory AuthenticationState.authenticated() = AUTHENTICATED;
+  const factory AuthenticationState.firstTime() = FIRSTTIME;
 
   const factory AuthenticationState.failed({required String reason}) = FAILED;
 }

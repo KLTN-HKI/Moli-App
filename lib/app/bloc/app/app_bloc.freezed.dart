@@ -233,6 +233,7 @@ mixin _$AppState {
     required TResult Function() initial,
     required TResult Function() authenticated,
     required TResult Function() unauthenticated,
+    required TResult Function() firstTimeLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -240,6 +241,7 @@ mixin _$AppState {
     TResult Function()? initial,
     TResult Function()? authenticated,
     TResult Function()? unauthenticated,
+    TResult Function()? firstTimeLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -247,6 +249,7 @@ mixin _$AppState {
     TResult Function()? initial,
     TResult Function()? authenticated,
     TResult Function()? unauthenticated,
+    TResult Function()? firstTimeLogin,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -255,6 +258,7 @@ mixin _$AppState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_FirstTimeLogin value) firstTimeLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -262,6 +266,7 @@ mixin _$AppState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_FirstTimeLogin value)? firstTimeLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -269,6 +274,7 @@ mixin _$AppState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_FirstTimeLogin value)? firstTimeLogin,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -331,6 +337,7 @@ class _$_Initial implements _Initial {
     required TResult Function() initial,
     required TResult Function() authenticated,
     required TResult Function() unauthenticated,
+    required TResult Function() firstTimeLogin,
   }) {
     return initial();
   }
@@ -341,6 +348,7 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function()? authenticated,
     TResult Function()? unauthenticated,
+    TResult Function()? firstTimeLogin,
   }) {
     return initial?.call();
   }
@@ -351,6 +359,7 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function()? authenticated,
     TResult Function()? unauthenticated,
+    TResult Function()? firstTimeLogin,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -365,6 +374,7 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_FirstTimeLogin value) firstTimeLogin,
   }) {
     return initial(this);
   }
@@ -375,6 +385,7 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_FirstTimeLogin value)? firstTimeLogin,
   }) {
     return initial?.call(this);
   }
@@ -385,6 +396,7 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_FirstTimeLogin value)? firstTimeLogin,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -441,6 +453,7 @@ class _$_Authenticated implements _Authenticated {
     required TResult Function() initial,
     required TResult Function() authenticated,
     required TResult Function() unauthenticated,
+    required TResult Function() firstTimeLogin,
   }) {
     return authenticated();
   }
@@ -451,6 +464,7 @@ class _$_Authenticated implements _Authenticated {
     TResult Function()? initial,
     TResult Function()? authenticated,
     TResult Function()? unauthenticated,
+    TResult Function()? firstTimeLogin,
   }) {
     return authenticated?.call();
   }
@@ -461,6 +475,7 @@ class _$_Authenticated implements _Authenticated {
     TResult Function()? initial,
     TResult Function()? authenticated,
     TResult Function()? unauthenticated,
+    TResult Function()? firstTimeLogin,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -475,6 +490,7 @@ class _$_Authenticated implements _Authenticated {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_FirstTimeLogin value) firstTimeLogin,
   }) {
     return authenticated(this);
   }
@@ -485,6 +501,7 @@ class _$_Authenticated implements _Authenticated {
     TResult Function(_Initial value)? initial,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_FirstTimeLogin value)? firstTimeLogin,
   }) {
     return authenticated?.call(this);
   }
@@ -495,6 +512,7 @@ class _$_Authenticated implements _Authenticated {
     TResult Function(_Initial value)? initial,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_FirstTimeLogin value)? firstTimeLogin,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -552,6 +570,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     required TResult Function() initial,
     required TResult Function() authenticated,
     required TResult Function() unauthenticated,
+    required TResult Function() firstTimeLogin,
   }) {
     return unauthenticated();
   }
@@ -562,6 +581,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     TResult Function()? initial,
     TResult Function()? authenticated,
     TResult Function()? unauthenticated,
+    TResult Function()? firstTimeLogin,
   }) {
     return unauthenticated?.call();
   }
@@ -572,6 +592,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     TResult Function()? initial,
     TResult Function()? authenticated,
     TResult Function()? unauthenticated,
+    TResult Function()? firstTimeLogin,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -586,6 +607,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_FirstTimeLogin value) firstTimeLogin,
   }) {
     return unauthenticated(this);
   }
@@ -596,6 +618,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     TResult Function(_Initial value)? initial,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_FirstTimeLogin value)? firstTimeLogin,
   }) {
     return unauthenticated?.call(this);
   }
@@ -606,6 +629,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     TResult Function(_Initial value)? initial,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_FirstTimeLogin value)? firstTimeLogin,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -617,4 +641,120 @@ class _$_Unauthenticated implements _Unauthenticated {
 
 abstract class _Unauthenticated implements AppState {
   const factory _Unauthenticated() = _$_Unauthenticated;
+}
+
+/// @nodoc
+abstract class _$$_FirstTimeLoginCopyWith<$Res> {
+  factory _$$_FirstTimeLoginCopyWith(
+          _$_FirstTimeLogin value, $Res Function(_$_FirstTimeLogin) then) =
+      __$$_FirstTimeLoginCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_FirstTimeLoginCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+    implements _$$_FirstTimeLoginCopyWith<$Res> {
+  __$$_FirstTimeLoginCopyWithImpl(
+      _$_FirstTimeLogin _value, $Res Function(_$_FirstTimeLogin) _then)
+      : super(_value, (v) => _then(v as _$_FirstTimeLogin));
+
+  @override
+  _$_FirstTimeLogin get _value => super._value as _$_FirstTimeLogin;
+}
+
+/// @nodoc
+
+class _$_FirstTimeLogin implements _FirstTimeLogin {
+  const _$_FirstTimeLogin();
+
+  @override
+  String toString() {
+    return 'AppState.firstTimeLogin()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_FirstTimeLogin);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() authenticated,
+    required TResult Function() unauthenticated,
+    required TResult Function() firstTimeLogin,
+  }) {
+    return firstTimeLogin();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? authenticated,
+    TResult Function()? unauthenticated,
+    TResult Function()? firstTimeLogin,
+  }) {
+    return firstTimeLogin?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? authenticated,
+    TResult Function()? unauthenticated,
+    TResult Function()? firstTimeLogin,
+    required TResult orElse(),
+  }) {
+    if (firstTimeLogin != null) {
+      return firstTimeLogin();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_FirstTimeLogin value) firstTimeLogin,
+  }) {
+    return firstTimeLogin(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_FirstTimeLogin value)? firstTimeLogin,
+  }) {
+    return firstTimeLogin?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_FirstTimeLogin value)? firstTimeLogin,
+    required TResult orElse(),
+  }) {
+    if (firstTimeLogin != null) {
+      return firstTimeLogin(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FirstTimeLogin implements AppState {
+  const factory _FirstTimeLogin() = _$_FirstTimeLogin;
 }

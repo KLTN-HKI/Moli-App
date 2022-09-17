@@ -64,5 +64,5 @@ Future<void> resolveLocalDataSource() async {
   // Hive initialize
   await Hive.initFlutter(appDocumentDirectory.path);
   await Hive.openBox('settings');
-  await Hive.openBox('onboarding');
+  await Hive.openBox<bool?>('onboarding');
 }

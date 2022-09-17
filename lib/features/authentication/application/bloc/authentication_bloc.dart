@@ -26,10 +26,11 @@ class AuthenticationBloc
   FutureOr<void> _onInitial(
       _Initial event, Emitter<AuthenticationState> emit) async {
     final String? authenticated = await _authService.getAuthToken();
+    final bool? isFirstTime = await _authService.getFirstTime();
     log('token: $authenticated');
-    // await Future<void>.delayed(const Duration(seconds: 2));
-
-    if (authenticated == null || authenticated == '') {
+    if (isFirstTime == null || isFirstTime) {
+      emit(const AuthenticationState.firstTime());
+    } else if (authenticated == null || authenticated == '') {
       _onLoggedOut(const _LoggedOut(), emit);
     } else {
       emit(const AuthenticationState.authenticated());

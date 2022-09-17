@@ -34,6 +34,11 @@ class AuthenticationService extends AuthenticationStorageService {
   }
 
   @override
+  Future<bool?> getFirstTime() async {
+    return _keyValueStorage.getItem<bool?>('onboarding', key: 'firstTime');
+  }
+
+  @override
   Future<String?> refreshTokenRequest({
     required DioError dioError,
     required ErrorInterceptorHandler handler,

@@ -36,7 +36,7 @@ class PhoneCubit extends Cubit<PhoneState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
       final bool result = await _authRepo.checkPhoneNumberExist(
-          params: <String, dynamic>{'phoneNumber': state.phoneNumber.value});
+          params: <String, dynamic>{'username': state.phoneNumber.value});
       log(result.toString());
       if (!result) {
         emit(state.copyWith(status: FormzStatus.submissionSuccess));

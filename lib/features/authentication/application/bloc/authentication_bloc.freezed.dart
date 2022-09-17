@@ -448,6 +448,7 @@ mixin _$AuthenticationState {
     required TResult Function() unauthenticated,
     required TResult Function() authenticating,
     required TResult Function() authenticated,
+    required TResult Function() firstTime,
     required TResult Function(String reason) failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -456,6 +457,7 @@ mixin _$AuthenticationState {
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
     TResult Function()? authenticated,
+    TResult Function()? firstTime,
     TResult Function(String reason)? failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -464,6 +466,7 @@ mixin _$AuthenticationState {
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
     TResult Function()? authenticated,
+    TResult Function()? firstTime,
     TResult Function(String reason)? failed,
     required TResult orElse(),
   }) =>
@@ -473,6 +476,7 @@ mixin _$AuthenticationState {
     required TResult Function(UNAUTHENTICATED value) unauthenticated,
     required TResult Function(AUTHENTICATING value) authenticating,
     required TResult Function(AUTHENTICATED value) authenticated,
+    required TResult Function(FIRSTTIME value) firstTime,
     required TResult Function(FAILED value) failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -481,6 +485,7 @@ mixin _$AuthenticationState {
     TResult Function(UNAUTHENTICATED value)? unauthenticated,
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
     TResult Function(FAILED value)? failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -489,6 +494,7 @@ mixin _$AuthenticationState {
     TResult Function(UNAUTHENTICATED value)? unauthenticated,
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
     TResult Function(FAILED value)? failed,
     required TResult orElse(),
   }) =>
@@ -556,6 +562,7 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
     required TResult Function() unauthenticated,
     required TResult Function() authenticating,
     required TResult Function() authenticated,
+    required TResult Function() firstTime,
     required TResult Function(String reason) failed,
   }) {
     return unauthenticated();
@@ -567,6 +574,7 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
     TResult Function()? authenticated,
+    TResult Function()? firstTime,
     TResult Function(String reason)? failed,
   }) {
     return unauthenticated?.call();
@@ -578,6 +586,7 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
     TResult Function()? authenticated,
+    TResult Function()? firstTime,
     TResult Function(String reason)? failed,
     required TResult orElse(),
   }) {
@@ -593,6 +602,7 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
     required TResult Function(UNAUTHENTICATED value) unauthenticated,
     required TResult Function(AUTHENTICATING value) authenticating,
     required TResult Function(AUTHENTICATED value) authenticated,
+    required TResult Function(FIRSTTIME value) firstTime,
     required TResult Function(FAILED value) failed,
   }) {
     return unauthenticated(this);
@@ -604,6 +614,7 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
     TResult Function(UNAUTHENTICATED value)? unauthenticated,
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
     TResult Function(FAILED value)? failed,
   }) {
     return unauthenticated?.call(this);
@@ -615,6 +626,7 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
     TResult Function(UNAUTHENTICATED value)? unauthenticated,
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
     TResult Function(FAILED value)? failed,
     required TResult orElse(),
   }) {
@@ -673,6 +685,7 @@ class _$AUTHENTICATING implements AUTHENTICATING {
     required TResult Function() unauthenticated,
     required TResult Function() authenticating,
     required TResult Function() authenticated,
+    required TResult Function() firstTime,
     required TResult Function(String reason) failed,
   }) {
     return authenticating();
@@ -684,6 +697,7 @@ class _$AUTHENTICATING implements AUTHENTICATING {
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
     TResult Function()? authenticated,
+    TResult Function()? firstTime,
     TResult Function(String reason)? failed,
   }) {
     return authenticating?.call();
@@ -695,6 +709,7 @@ class _$AUTHENTICATING implements AUTHENTICATING {
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
     TResult Function()? authenticated,
+    TResult Function()? firstTime,
     TResult Function(String reason)? failed,
     required TResult orElse(),
   }) {
@@ -710,6 +725,7 @@ class _$AUTHENTICATING implements AUTHENTICATING {
     required TResult Function(UNAUTHENTICATED value) unauthenticated,
     required TResult Function(AUTHENTICATING value) authenticating,
     required TResult Function(AUTHENTICATED value) authenticated,
+    required TResult Function(FIRSTTIME value) firstTime,
     required TResult Function(FAILED value) failed,
   }) {
     return authenticating(this);
@@ -721,6 +737,7 @@ class _$AUTHENTICATING implements AUTHENTICATING {
     TResult Function(UNAUTHENTICATED value)? unauthenticated,
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
     TResult Function(FAILED value)? failed,
   }) {
     return authenticating?.call(this);
@@ -732,6 +749,7 @@ class _$AUTHENTICATING implements AUTHENTICATING {
     TResult Function(UNAUTHENTICATED value)? unauthenticated,
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
     TResult Function(FAILED value)? failed,
     required TResult orElse(),
   }) {
@@ -790,6 +808,7 @@ class _$AUTHENTICATED implements AUTHENTICATED {
     required TResult Function() unauthenticated,
     required TResult Function() authenticating,
     required TResult Function() authenticated,
+    required TResult Function() firstTime,
     required TResult Function(String reason) failed,
   }) {
     return authenticated();
@@ -801,6 +820,7 @@ class _$AUTHENTICATED implements AUTHENTICATED {
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
     TResult Function()? authenticated,
+    TResult Function()? firstTime,
     TResult Function(String reason)? failed,
   }) {
     return authenticated?.call();
@@ -812,6 +832,7 @@ class _$AUTHENTICATED implements AUTHENTICATED {
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
     TResult Function()? authenticated,
+    TResult Function()? firstTime,
     TResult Function(String reason)? failed,
     required TResult orElse(),
   }) {
@@ -827,6 +848,7 @@ class _$AUTHENTICATED implements AUTHENTICATED {
     required TResult Function(UNAUTHENTICATED value) unauthenticated,
     required TResult Function(AUTHENTICATING value) authenticating,
     required TResult Function(AUTHENTICATED value) authenticated,
+    required TResult Function(FIRSTTIME value) firstTime,
     required TResult Function(FAILED value) failed,
   }) {
     return authenticated(this);
@@ -838,6 +860,7 @@ class _$AUTHENTICATED implements AUTHENTICATED {
     TResult Function(UNAUTHENTICATED value)? unauthenticated,
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
     TResult Function(FAILED value)? failed,
   }) {
     return authenticated?.call(this);
@@ -849,6 +872,7 @@ class _$AUTHENTICATED implements AUTHENTICATED {
     TResult Function(UNAUTHENTICATED value)? unauthenticated,
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
     TResult Function(FAILED value)? failed,
     required TResult orElse(),
   }) {
@@ -861,6 +885,129 @@ class _$AUTHENTICATED implements AUTHENTICATED {
 
 abstract class AUTHENTICATED implements AuthenticationState {
   const factory AUTHENTICATED() = _$AUTHENTICATED;
+}
+
+/// @nodoc
+abstract class _$$FIRSTTIMECopyWith<$Res> {
+  factory _$$FIRSTTIMECopyWith(
+          _$FIRSTTIME value, $Res Function(_$FIRSTTIME) then) =
+      __$$FIRSTTIMECopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$FIRSTTIMECopyWithImpl<$Res>
+    extends _$AuthenticationStateCopyWithImpl<$Res>
+    implements _$$FIRSTTIMECopyWith<$Res> {
+  __$$FIRSTTIMECopyWithImpl(
+      _$FIRSTTIME _value, $Res Function(_$FIRSTTIME) _then)
+      : super(_value, (v) => _then(v as _$FIRSTTIME));
+
+  @override
+  _$FIRSTTIME get _value => super._value as _$FIRSTTIME;
+}
+
+/// @nodoc
+
+class _$FIRSTTIME implements FIRSTTIME {
+  const _$FIRSTTIME();
+
+  @override
+  String toString() {
+    return 'AuthenticationState.firstTime()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$FIRSTTIME);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unauthenticated,
+    required TResult Function() authenticating,
+    required TResult Function() authenticated,
+    required TResult Function() firstTime,
+    required TResult Function(String reason) failed,
+  }) {
+    return firstTime();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unauthenticated,
+    TResult Function()? authenticating,
+    TResult Function()? authenticated,
+    TResult Function()? firstTime,
+    TResult Function(String reason)? failed,
+  }) {
+    return firstTime?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unauthenticated,
+    TResult Function()? authenticating,
+    TResult Function()? authenticated,
+    TResult Function()? firstTime,
+    TResult Function(String reason)? failed,
+    required TResult orElse(),
+  }) {
+    if (firstTime != null) {
+      return firstTime();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UNAUTHENTICATED value) unauthenticated,
+    required TResult Function(AUTHENTICATING value) authenticating,
+    required TResult Function(AUTHENTICATED value) authenticated,
+    required TResult Function(FIRSTTIME value) firstTime,
+    required TResult Function(FAILED value) failed,
+  }) {
+    return firstTime(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(UNAUTHENTICATED value)? unauthenticated,
+    TResult Function(AUTHENTICATING value)? authenticating,
+    TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
+    TResult Function(FAILED value)? failed,
+  }) {
+    return firstTime?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UNAUTHENTICATED value)? unauthenticated,
+    TResult Function(AUTHENTICATING value)? authenticating,
+    TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
+    TResult Function(FAILED value)? failed,
+    required TResult orElse(),
+  }) {
+    if (firstTime != null) {
+      return firstTime(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FIRSTTIME implements AuthenticationState {
+  const factory FIRSTTIME() = _$FIRSTTIME;
 }
 
 /// @nodoc
@@ -929,6 +1076,7 @@ class _$FAILED implements FAILED {
     required TResult Function() unauthenticated,
     required TResult Function() authenticating,
     required TResult Function() authenticated,
+    required TResult Function() firstTime,
     required TResult Function(String reason) failed,
   }) {
     return failed(reason);
@@ -940,6 +1088,7 @@ class _$FAILED implements FAILED {
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
     TResult Function()? authenticated,
+    TResult Function()? firstTime,
     TResult Function(String reason)? failed,
   }) {
     return failed?.call(reason);
@@ -951,6 +1100,7 @@ class _$FAILED implements FAILED {
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
     TResult Function()? authenticated,
+    TResult Function()? firstTime,
     TResult Function(String reason)? failed,
     required TResult orElse(),
   }) {
@@ -966,6 +1116,7 @@ class _$FAILED implements FAILED {
     required TResult Function(UNAUTHENTICATED value) unauthenticated,
     required TResult Function(AUTHENTICATING value) authenticating,
     required TResult Function(AUTHENTICATED value) authenticated,
+    required TResult Function(FIRSTTIME value) firstTime,
     required TResult Function(FAILED value) failed,
   }) {
     return failed(this);
@@ -977,6 +1128,7 @@ class _$FAILED implements FAILED {
     TResult Function(UNAUTHENTICATED value)? unauthenticated,
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
     TResult Function(FAILED value)? failed,
   }) {
     return failed?.call(this);
@@ -988,6 +1140,7 @@ class _$FAILED implements FAILED {
     TResult Function(UNAUTHENTICATED value)? unauthenticated,
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
+    TResult Function(FIRSTTIME value)? firstTime,
     TResult Function(FAILED value)? failed,
     required TResult orElse(),
   }) {

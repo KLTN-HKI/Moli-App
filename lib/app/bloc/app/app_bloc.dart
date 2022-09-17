@@ -22,6 +22,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             add(const AppEvent.updateState(AppState.unauthenticated())),
         authenticated: () =>
             add(const AppEvent.updateState(AppState.authenticated())),
+        firstTime: () =>
+            add(const AppEvent.updateState(AppState.firstTimeLogin())),
       );
     });
   }

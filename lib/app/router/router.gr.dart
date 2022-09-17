@@ -17,6 +17,10 @@ class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    IntroductionRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const IntroductionPage());
+    },
     DashboardRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const DashboardPage());
@@ -45,17 +49,26 @@ class _$AppRouter extends RootStackRouter {
 
   @override
   List<RouteConfig> get routes => [
+        RouteConfig(IntroductionRoute.name, path: '/welcome'),
         RouteConfig(DashboardRoute.name, path: '/', children: [
           RouteConfig(ProfileRoute.name,
               path: 'profile', parent: DashboardRoute.name),
           RouteConfig(SettingRoute.name,
               path: 'setting', parent: DashboardRoute.name)
         ]),
-        RouteConfig(LoginRoute.name, path: 'login'),
+        RouteConfig(LoginRoute.name, path: '/login'),
         RouteConfig(CheckPhoneNumberRoute.name,
-            path: 'check-exist-phone-number'),
-        RouteConfig(RegisterRoute.name, path: 'register')
+            path: '/check-exist-phone-number'),
+        RouteConfig(RegisterRoute.name, path: '/register')
       ];
+}
+
+/// generated route for
+/// [IntroductionPage]
+class IntroductionRoute extends PageRouteInfo<void> {
+  const IntroductionRoute() : super(IntroductionRoute.name, path: '/welcome');
+
+  static const String name = 'IntroductionRoute';
 }
 
 /// generated route for
@@ -70,7 +83,7 @@ class DashboardRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [LoginPage]
 class LoginRoute extends PageRouteInfo<void> {
-  const LoginRoute() : super(LoginRoute.name, path: 'login');
+  const LoginRoute() : super(LoginRoute.name, path: '/login');
 
   static const String name = 'LoginRoute';
 }
@@ -79,7 +92,7 @@ class LoginRoute extends PageRouteInfo<void> {
 /// [CheckPhoneNumberPage]
 class CheckPhoneNumberRoute extends PageRouteInfo<void> {
   const CheckPhoneNumberRoute()
-      : super(CheckPhoneNumberRoute.name, path: 'check-exist-phone-number');
+      : super(CheckPhoneNumberRoute.name, path: '/check-exist-phone-number');
 
   static const String name = 'CheckPhoneNumberRoute';
 }
@@ -87,7 +100,7 @@ class CheckPhoneNumberRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [RegisterPage]
 class RegisterRoute extends PageRouteInfo<void> {
-  const RegisterRoute() : super(RegisterRoute.name, path: 'register');
+  const RegisterRoute() : super(RegisterRoute.name, path: '/register');
 
   static const String name = 'RegisterRoute';
 }

@@ -51,6 +51,8 @@ class _DashboardPageState extends State<DashboardPage> {
         // );
         state.maybeWhen(
           orElse: () {},
+          firstTimeLogin: () => AutoRouter.of(context)
+              .replaceAll(<PageRouteInfo<dynamic>>[const IntroductionRoute()]),
           unauthenticated: () => AutoRouter.of(context)
               .replaceAll(<PageRouteInfo<dynamic>>[const LoginRoute()]),
           authenticated: () => AutoRouter.of(context)

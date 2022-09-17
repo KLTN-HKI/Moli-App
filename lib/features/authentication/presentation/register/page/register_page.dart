@@ -10,7 +10,8 @@ import 'components/register_body.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
-  static const String routeName = 'register';
+
+  static const String routeName = '/register';
 
   @override
   Widget build(BuildContext context) {

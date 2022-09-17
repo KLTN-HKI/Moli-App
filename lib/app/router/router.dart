@@ -4,6 +4,7 @@ import 'package:moli_app/features/authentication/presentation/check_user/page/ch
 import 'package:moli_app/features/authentication/presentation/profile/page/profile_page.dart';
 import 'package:moli_app/features/authentication/presentation/register/page/register_page.dart';
 import 'package:moli_app/features/features.dart';
+import 'package:moli_app/features/on_boarding/on_boarding_page.dart';
 import 'package:moli_app/features/splash/splash_page.dart';
 
 import '../../features/setting/setting_page.dart';
@@ -19,6 +20,10 @@ part 'router.gr.dart';
     //   path: SplashPage.routeName,
     //   initial: true,
     // ),
+    AutoRoute(
+      page: IntroductionPage,
+      path: IntroductionPage.routeName,
+    ),
     AutoRoute(
       page: DashboardPage,
       path: DashboardPage.routeName,

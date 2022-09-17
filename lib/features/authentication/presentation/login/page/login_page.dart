@@ -9,7 +9,7 @@ import '../cubit/login_cubit.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
-  static const String routeName = 'login';
+  static const String routeName = '/login';
 
   @override
   Widget build(BuildContext context) {

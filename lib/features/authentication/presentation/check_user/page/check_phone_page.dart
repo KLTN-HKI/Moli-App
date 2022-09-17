@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:moli_app/config/config.dart';
 import 'package:moli_app/constants/constants.dart';
+import 'package:moli_app/features/authentication/presentation/register/page/register_page.dart';
 import 'package:moli_app/features/authentication/presentation/widget/background_stack.dart';
 import 'package:moli_app/shared/shared.dart';
 
@@ -12,7 +13,7 @@ import '../cubit/phone_cubit.dart';
 
 class CheckPhoneNumberPage extends StatelessWidget {
   const CheckPhoneNumberPage({super.key});
-  static const String routeName = 'check-exist-phone-number';
+  static const String routeName = '/check-exist-phone-number';
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class PhoneBody extends StatelessWidget {
     return BlocListener<PhoneCubit, PhoneState>(
       listener: (BuildContext context, PhoneState state) {
         if (state.status == FormzStatus.submissionSuccess) {
-          context.router.pushNamed('/register');
+          context.router.navigateNamed(RegisterPage.routeName);
         } else if (state.status == FormzStatus.submissionFailure) {
           context.showDefaultDialog(
               title: AppText.b0('sdsdsdsds'), content: AppText.b0('dsdasdasd'));
