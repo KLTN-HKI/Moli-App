@@ -1,0 +1,223 @@
+import 'package:flutter/material.dart';
+import 'package:moli_app/constants/constants.dart';
+
+class AppTypography {
+  AppTypography._();
+
+  static const String montserrat = 'Montserrat';
+
+  static TextTheme lightText = const TextTheme(
+    displayLarge: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 58,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    displayMedium: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 46,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    displaySmall: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 36,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    headlineLarge: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 32,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    headlineMedium: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 28,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    headlineSmall: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 24,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    titleLarge: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 18,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    titleMedium: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    titleSmall: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    labelLarge: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    labelMedium: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    labelSmall: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 10,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    bodyLarge: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    bodyMedium: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+    bodySmall: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      height: 1.5,
+      color: ColorPalettes.neutral10,
+    ),
+  );
+  static TextTheme darkText = const TextTheme(
+    displayLarge: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 58,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    displayMedium: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 46,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    displaySmall: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 36,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    headlineLarge: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 32,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    headlineMedium: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 28,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    headlineSmall: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 24,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    titleLarge: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 18,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    titleMedium: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    titleSmall: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    labelLarge: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    labelMedium: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    labelSmall: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 10,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    bodyLarge: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    bodyMedium: TextStyle(
+      fontFamily: montserrat,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+    bodySmall: TextStyle(
+      fontFamily: montserrat,
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      height: 1.5,
+      color: ColorPalettes.neutral99,
+    ),
+  );
+}

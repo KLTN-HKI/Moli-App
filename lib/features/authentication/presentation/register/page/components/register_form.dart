@@ -1,0 +1,168 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
+import 'package:moli_app/constants/constants.dart';
+import 'package:moli_app/shared/shared.dart';
+
+import '../../cubit/register_cubit.dart';
+
+class RegisterForm extends StatelessWidget {
+  const RegisterForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<RegisterCubit, RegisterState>(
+      listenWhen: (RegisterState previous, RegisterState current) =>
+          previous.status != current.status,
+      listener: (BuildContext context, RegisterState state) {},
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.w),
+        child: Column(
+          children: [
+            const _PhoneNumberInput(),
+            SizedBox(height: 12.w),
+            const _PasswordInput(),
+            SizedBox(height: 12.w),
+            const _ConfirmPasswordInput(),
+            SizedBox(height: 60.w),
+            const _RegisterSubmitted(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RegisterSubmitted extends StatelessWidget {
+  const _RegisterSubmitted();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      buildWhen: (RegisterState previous, RegisterState current) =>
+          previous.status != current.status,
+      builder: (BuildContext context, RegisterState state) {
+        return AppElevatedButton(
+          key: const Key('Register_form_submit_button'),
+          onPressed: state.status.isValidated
+              ? () => context.read<RegisterCubit>().register()
+              : null,
+          height: 64,
+          isLoading: state.status.isSubmissionInProgress,
+          primary: context.theme.colorScheme.primary,
+          child: Text(context.l10n.register),
+        );
+      },
+    );
+  }
+}
+
+class _PhoneNumberInput extends StatelessWidget {
+  const _PhoneNumberInput();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      buildWhen: (RegisterState previous, RegisterState current) =>
+          previous.phoneNumber != current.phoneNumber,
+      builder: (BuildContext context, RegisterState state) {
+        return FloatingLabelInput(
+          key: const Key('Register_form_phonenumber_input'),
+          labelText: context.l10n.phone_number,
+          onChanged: (String phoneNumber) =>
+              context.read<RegisterCubit>().phoneNumberChanged(phoneNumber),
+          icon: IconAssets.icMobile,
+          keyboardType: TextInputType.phone,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly
+          ],
+          border: const UnderlineInputBorder(
+            borderSide: BorderSide(color: ColorPalettes.neutral80),
+          ),
+          errorText: state.phoneNumber.invalid ? 'sdt khong hop le' : null,
+        );
+      },
+    );
+  }
+}
+
+class _PasswordInput extends StatefulWidget {
+  const _PasswordInput();
+
+  @override
+  State<_PasswordInput> createState() => _PasswordInputState();
+}
+
+class _PasswordInputState extends State<_PasswordInput> {
+  bool _obscureText = true;
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      buildWhen: (RegisterState previous, RegisterState current) =>
+          previous.password != current.password,
+      builder: (BuildContext context, RegisterState state) {
+        return FloatingLabelInput(
+          key: const Key('Register_form_password_input'),
+          labelText: context.l10n.password,
+          onChanged: (String password) =>
+              context.read<RegisterCubit>().passwordChanged(password),
+          icon: IconAssets.icLock,
+          showHiddenInput: _toggle,
+          obscureText: _obscureText,
+          border: const UnderlineInputBorder(
+            borderSide: BorderSide(color: ColorPalettes.neutral80),
+          ),
+          errorText: state.password.invalid ? 'mat khau khong hop le!' : null,
+        );
+      },
+    );
+  }
+}
+
+class _ConfirmPasswordInput extends StatefulWidget {
+  const _ConfirmPasswordInput();
+
+  @override
+  State<_ConfirmPasswordInput> createState() => _ConfirmPasswordInputState();
+}
+
+class _ConfirmPasswordInputState extends State<_ConfirmPasswordInput> {
+  bool _obscureText = true;
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      buildWhen: (RegisterState previous, RegisterState current) =>
+          previous.password != current.password,
+      builder: (BuildContext context, RegisterState state) {
+        return FloatingLabelInput(
+          key: const Key('Register_form_password_input'),
+          labelText: context.l10n.password,
+          onChanged: (String password) =>
+              context.read<RegisterCubit>().passwordChanged(password),
+          icon: IconAssets.icLock,
+          showHiddenInput: _toggle,
+          obscureText: _obscureText,
+          border: const UnderlineInputBorder(
+            borderSide: BorderSide(color: ColorPalettes.neutral80),
+          ),
+          errorText: state.password.invalid ? 'mat khau khong hop le!' : null,
+        );
+      },
+    );
+  }
+}
