@@ -41,55 +41,49 @@ class BaseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        InkWell(
-          onTap: onTap,
-          child: Container(
-            height: headerFlex ? null : height ?? 76,
-            padding: padding ??
-                const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-            decoration: BoxDecoration(
-              color: backgroundColor ?? context.colorScheme.background,
-              borderRadius: borderRadius ?? BorderRadius.circular(12),
-              // border: isSelected ? Border.all(color: ColorPalattes.primary40) : null,
-              boxShadow: withShadow
-                  ? shadowBox ??
-                      <BoxShadow>[
-                        BoxShadow(
-                            offset: const Offset(0, 2),
-                            blurRadius: 8,
-                            color: ColorPalettes.neutral10.withOpacity(.15)),
-                      ]
-                  : null,
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                if (leading != null) ...<Widget>[
-                  leading!,
-                  if (leadingGap != null)
-                    SizedBox(width: leadingGap)
-                  else
-                    SizedBox(width: 24.w),
-                ],
-                Flexible(
-                  fit: FlexFit.tight,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: mainAxisAlignment,
-                    children: header,
-                  ),
-                ),
-                if (trailing != null) trailing!
-              ],
-            ),
-          ),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: borderRadius ?? BorderRadius.circular(12),
+      child: Ink(
+        height: headerFlex ? null : height ?? 76,
+        padding:
+            padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: backgroundColor ?? context.colorScheme.background,
+          borderRadius: borderRadius ?? BorderRadius.circular(12),
+          // border: isSelected ? Border.all(color: ColorPalattes.primary40) : null,
+          boxShadow: withShadow
+              ? shadowBox ??
+                  <BoxShadow>[
+                    BoxShadow(
+                        offset: const Offset(0, 2),
+                        blurRadius: 8,
+                        color: ColorPalettes.neutral10.withOpacity(.15)),
+                  ]
+              : null,
         ),
-      ],
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            if (leading != null) ...<Widget>[
+              leading!,
+              if (leadingGap != null)
+                SizedBox(width: leadingGap)
+              else
+                SizedBox(width: 24.w),
+            ],
+            Flexible(
+              fit: FlexFit.tight,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: mainAxisAlignment,
+                children: header,
+              ),
+            ),
+            if (trailing != null) trailing!
+          ],
+        ),
+      ),
     );
   }
 }

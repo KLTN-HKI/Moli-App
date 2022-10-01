@@ -10,6 +10,7 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'phoneNumber') String? phoneNumber,
+    @JsonKey(name: 'realPhoneNumber') String? realPhoneNumber,
     @JsonKey(name: 'address') String? address,
     @JsonKey(name: 'gender') String? gender,
     @JsonKey(name: 'dateOfBirth') String? dateOfBirth,

@@ -11,7 +11,10 @@ analyzer:
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
-    - "lib/src/localization/**.dart"
+    - "**/*.dev.dart"
+    - "**/*.stg.dart"
+    - "**/*.prod.dart"
+    - "lib/localization/**.dart"
 
 linter:
   rules:

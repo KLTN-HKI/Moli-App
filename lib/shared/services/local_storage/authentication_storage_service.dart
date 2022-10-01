@@ -1,14 +1,8 @@
 import 'package:dio/dio.dart';
 
 abstract class AuthenticationStorageService {
-  /// The name of the message on which this interceptor is triggered.
-  String get tokenExpiredException => 'TokenExpiredException';
-
   /// Returns last authentication token
   Future<String?> getAuthToken();
-
-  /// Returns last authentication token
-  Future<bool?> getFirstTime();
 
   /// Check error type to be token expired error
   bool checkErrorTokenExpired(Response<dynamic> response);

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/color_palattes.dart';
+import 'package:go_router/go_router.dart';
+import 'package:moli_app/localization/l10n.dart';
 import '../../shared.dart';
 
 extension CustomizeContextExt on BuildContext {
+  AppLanguage get l10n => AppLanguage.of(this);
+
+  GoRouter get goRouter => GoRouter.of(this);
+
   /// The same of [MediaQuery.of(context).size]
   Size get mediaQuerySize => MediaQuery.of(this).size;
 
@@ -60,7 +65,6 @@ extension CustomizeContextExt on BuildContext {
   TextTheme get textTheme => theme.textTheme;
 
   ColorScheme get colorScheme => theme.colorScheme;
-
 
   /// Check if dark mode theme is enable
   bool get isDarkMode => theme.brightness == Brightness.dark;

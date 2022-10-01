@@ -17,35 +17,45 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$RegisterState {
   PhoneNumber get phoneNumber => throw _privateConstructorUsedError;
+  Email get email => throw _privateConstructorUsedError;
   Password get password => throw _privateConstructorUsedError;
+  ConfirmPassword get confirmPassword => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
+            PhoneNumber phoneNumber,
+            Email email,
+            Password password,
+            ConfirmPassword confirmPassword,
+            FormzStatus status)
         initial,
     required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
+            PhoneNumber phoneNumber,
+            Email email,
+            Password password,
+            ConfirmPassword confirmPassword,
+            FormzStatus status)
         validating,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         validating,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         validating,
     required TResult orElse(),
   }) =>
@@ -80,7 +90,12 @@ abstract class $RegisterStateCopyWith<$Res> {
   factory $RegisterStateCopyWith(
           RegisterState value, $Res Function(RegisterState) then) =
       _$RegisterStateCopyWithImpl<$Res>;
-  $Res call({PhoneNumber phoneNumber, Password password, FormzStatus status});
+  $Res call(
+      {PhoneNumber phoneNumber,
+      Email email,
+      Password password,
+      ConfirmPassword confirmPassword,
+      FormzStatus status});
 }
 
 /// @nodoc
@@ -95,7 +110,9 @@ class _$RegisterStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? phoneNumber = freezed,
+    Object? email = freezed,
     Object? password = freezed,
+    Object? confirmPassword = freezed,
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
@@ -103,10 +120,18 @@ class _$RegisterStateCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as PhoneNumber,
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as Email,
       password: password == freezed
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as Password,
+      confirmPassword: confirmPassword == freezed
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as ConfirmPassword,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -122,7 +147,12 @@ abstract class _$$_InitialCopyWith<$Res>
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
   @override
-  $Res call({PhoneNumber phoneNumber, Password password, FormzStatus status});
+  $Res call(
+      {PhoneNumber phoneNumber,
+      Email email,
+      Password password,
+      ConfirmPassword confirmPassword,
+      FormzStatus status});
 }
 
 /// @nodoc
@@ -137,7 +167,9 @@ class __$$_InitialCopyWithImpl<$Res> extends _$RegisterStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? phoneNumber = freezed,
+    Object? email = freezed,
     Object? password = freezed,
+    Object? confirmPassword = freezed,
     Object? status = freezed,
   }) {
     return _then(_$_Initial(
@@ -145,10 +177,18 @@ class __$$_InitialCopyWithImpl<$Res> extends _$RegisterStateCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as PhoneNumber,
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as Email,
       password: password == freezed
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as Password,
+      confirmPassword: confirmPassword == freezed
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as ConfirmPassword,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -162,7 +202,9 @@ class __$$_InitialCopyWithImpl<$Res> extends _$RegisterStateCopyWithImpl<$Res>
 class _$_Initial implements _Initial {
   const _$_Initial(
       {this.phoneNumber = const PhoneNumber.pure(),
+      this.email = const Email.pure(),
       this.password = const Password.pure(),
+      this.confirmPassword = const ConfirmPassword.pure(),
       this.status = FormzStatus.valid});
 
   @override
@@ -170,14 +212,20 @@ class _$_Initial implements _Initial {
   final PhoneNumber phoneNumber;
   @override
   @JsonKey()
+  final Email email;
+  @override
+  @JsonKey()
   final Password password;
+  @override
+  @JsonKey()
+  final ConfirmPassword confirmPassword;
   @override
   @JsonKey()
   final FormzStatus status;
 
   @override
   String toString() {
-    return 'RegisterState.initial(phoneNumber: $phoneNumber, password: $password, status: $status)';
+    return 'RegisterState.initial(phoneNumber: $phoneNumber, email: $email, password: $password, confirmPassword: $confirmPassword, status: $status)';
   }
 
   @override
@@ -187,7 +235,10 @@ class _$_Initial implements _Initial {
             other is _$_Initial &&
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
+            const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality()
+                .equals(other.confirmPassword, confirmPassword) &&
             const DeepCollectionEquality().equals(other.status, status));
   }
 
@@ -195,7 +246,9 @@ class _$_Initial implements _Initial {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(phoneNumber),
+      const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(confirmPassword),
       const DeepCollectionEquality().hash(status));
 
   @JsonKey(ignore: true)
@@ -207,41 +260,49 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
+            PhoneNumber phoneNumber,
+            Email email,
+            Password password,
+            ConfirmPassword confirmPassword,
+            FormzStatus status)
         initial,
     required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
+            PhoneNumber phoneNumber,
+            Email email,
+            Password password,
+            ConfirmPassword confirmPassword,
+            FormzStatus status)
         validating,
   }) {
-    return initial(phoneNumber, password, status);
+    return initial(phoneNumber, email, password, confirmPassword, status);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         validating,
   }) {
-    return initial?.call(phoneNumber, password, status);
+    return initial?.call(phoneNumber, email, password, confirmPassword, status);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         validating,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(phoneNumber, password, status);
+      return initial(phoneNumber, email, password, confirmPassword, status);
     }
     return orElse();
   }
@@ -281,13 +342,19 @@ class _$_Initial implements _Initial {
 abstract class _Initial implements RegisterState {
   const factory _Initial(
       {final PhoneNumber phoneNumber,
+      final Email email,
       final Password password,
+      final ConfirmPassword confirmPassword,
       final FormzStatus status}) = _$_Initial;
 
   @override
   PhoneNumber get phoneNumber;
   @override
+  Email get email;
+  @override
   Password get password;
+  @override
+  ConfirmPassword get confirmPassword;
   @override
   FormzStatus get status;
   @override
@@ -303,7 +370,12 @@ abstract class _$$_ValidatingCopyWith<$Res>
           _$_Validating value, $Res Function(_$_Validating) then) =
       __$$_ValidatingCopyWithImpl<$Res>;
   @override
-  $Res call({PhoneNumber phoneNumber, Password password, FormzStatus status});
+  $Res call(
+      {PhoneNumber phoneNumber,
+      Email email,
+      Password password,
+      ConfirmPassword confirmPassword,
+      FormzStatus status});
 }
 
 /// @nodoc
@@ -320,7 +392,9 @@ class __$$_ValidatingCopyWithImpl<$Res>
   @override
   $Res call({
     Object? phoneNumber = freezed,
+    Object? email = freezed,
     Object? password = freezed,
+    Object? confirmPassword = freezed,
     Object? status = freezed,
   }) {
     return _then(_$_Validating(
@@ -328,10 +402,18 @@ class __$$_ValidatingCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as PhoneNumber,
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as Email,
       password: password == freezed
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as Password,
+      confirmPassword: confirmPassword == freezed
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as ConfirmPassword,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -345,19 +427,25 @@ class __$$_ValidatingCopyWithImpl<$Res>
 class _$_Validating implements _Validating {
   const _$_Validating(
       {required this.phoneNumber,
+      required this.email,
       required this.password,
+      required this.confirmPassword,
       required this.status});
 
   @override
   final PhoneNumber phoneNumber;
   @override
+  final Email email;
+  @override
   final Password password;
+  @override
+  final ConfirmPassword confirmPassword;
   @override
   final FormzStatus status;
 
   @override
   String toString() {
-    return 'RegisterState.validating(phoneNumber: $phoneNumber, password: $password, status: $status)';
+    return 'RegisterState.validating(phoneNumber: $phoneNumber, email: $email, password: $password, confirmPassword: $confirmPassword, status: $status)';
   }
 
   @override
@@ -367,7 +455,10 @@ class _$_Validating implements _Validating {
             other is _$_Validating &&
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
+            const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality()
+                .equals(other.confirmPassword, confirmPassword) &&
             const DeepCollectionEquality().equals(other.status, status));
   }
 
@@ -375,7 +466,9 @@ class _$_Validating implements _Validating {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(phoneNumber),
+      const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(confirmPassword),
       const DeepCollectionEquality().hash(status));
 
   @JsonKey(ignore: true)
@@ -387,41 +480,50 @@ class _$_Validating implements _Validating {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
+            PhoneNumber phoneNumber,
+            Email email,
+            Password password,
+            ConfirmPassword confirmPassword,
+            FormzStatus status)
         initial,
     required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
+            PhoneNumber phoneNumber,
+            Email email,
+            Password password,
+            ConfirmPassword confirmPassword,
+            FormzStatus status)
         validating,
   }) {
-    return validating(phoneNumber, password, status);
+    return validating(phoneNumber, email, password, confirmPassword, status);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         validating,
   }) {
-    return validating?.call(phoneNumber, password, status);
+    return validating?.call(
+        phoneNumber, email, password, confirmPassword, status);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Email email, Password password,
+            ConfirmPassword confirmPassword, FormzStatus status)?
         validating,
     required TResult orElse(),
   }) {
     if (validating != null) {
-      return validating(phoneNumber, password, status);
+      return validating(phoneNumber, email, password, confirmPassword, status);
     }
     return orElse();
   }
@@ -461,13 +563,19 @@ class _$_Validating implements _Validating {
 abstract class _Validating implements RegisterState {
   const factory _Validating(
       {required final PhoneNumber phoneNumber,
+      required final Email email,
       required final Password password,
+      required final ConfirmPassword confirmPassword,
       required final FormzStatus status}) = _$_Validating;
 
   @override
   PhoneNumber get phoneNumber;
   @override
+  Email get email;
+  @override
   Password get password;
+  @override
+  ConfirmPassword get confirmPassword;
   @override
   FormzStatus get status;
   @override

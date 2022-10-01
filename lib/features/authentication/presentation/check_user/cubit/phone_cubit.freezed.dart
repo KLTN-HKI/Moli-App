@@ -139,7 +139,7 @@ class __$$_InitialCopyWithImpl<$Res> extends _$PhoneStateCopyWithImpl<$Res>
 class _$_Initial implements _Initial {
   const _$_Initial(
       {this.phoneNumber = const PhoneNumber.pure(),
-      this.status = FormzStatus.valid});
+      this.status = FormzStatus.pure});
 
   @override
   @JsonKey()

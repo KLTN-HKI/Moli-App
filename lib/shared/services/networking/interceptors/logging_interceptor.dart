@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
+import 'dart:developer' as dev;
 
 import 'package:dio/dio.dart';
 
-import '../../../shared.dart';
+import '../../../common/common.dart';
 
 /// A class that intercepts network requests for logging purposes only. This is
 /// the second interceptor in case of both request and response.
@@ -44,13 +43,13 @@ class LoggingInterceptor extends Interceptor {
     options.headers.forEach((String k, Object? v) => logPrint('\t\t$k: $v'));
 
     if (options.queryParameters.isNotEmpty) {
-      logPrint('\tqueryParams:');
+      logPrint('\tQueryParams:');
       options.queryParameters
           .forEach((String k, Object? v) => logPrint('\t\t$k: $v'));
     }
 
-    if (options.data != null) {
-      logPrint('\tBody: ${_getBody(options.data)}');
+    if (options.data is JSON) {
+      logPrint('\tBody:\n\t ${_getBody(options.data)}');
     }
 
     _printFooter(title: httpMethod);
@@ -132,13 +131,12 @@ class LoggingInterceptor extends Interceptor {
       logPrint('\tException: ${response.statusMessage}', type: 2);
       try {
         final String? message =
-            ((response.data as JSON)['errors'] as List<JSON>).first['message']
-                as String?;
+            (((response.data as JSON)['errors'] as List<dynamic>).first
+                as JSON)['message'] as String?;
         logPrint('\tMessage: $message', type: 2);
-      } catch (_) {
-        logPrint("\tMessage: can't find message for server", type: 2);
-      }
-    } else if (dioError is SocketException) {
+      } catch (_) {}
+    } else if (dioError.type == DioErrorType.other &&
+        dioError.message.contains(ExceptionConstants.SocketException)) {
       _printHeader(
           title: 'ERROR ║ Exception: FetchDataException',
           text: 'Message: No internet connectivity',
@@ -168,22 +166,22 @@ class LoggingInterceptor extends Interceptor {
   void logPrint(String message, {int type = 0}) {
     switch (type) {
       case 0:
-        log('\x1B[36m$message');
+        dev.log('\x1B[33m$message', name: 'Dio');
         break;
       case 1:
-        log('\x1B[32m$message');
+        dev.log('\x1B[32m$message', name: 'Dio');
         break;
       case 2:
-        log('\x1B[31m$message');
+        dev.log('\x1B[31m$message', name: 'Dio');
         break;
       default:
-        log(message);
+        dev.log(message, name: 'Dio');
     }
   }
 
   void _printHeader({String? title, String? text, int type = 0}) {
     logPrint('╔╣ $title', type: type);
-    logPrint('║  $text', type: type);
+    logPrint('║ $text', type: type);
   }
 
   void _printFooter({String? title, int type = 0}) {
@@ -207,9 +205,11 @@ class LoggingInterceptor extends Interceptor {
         components.add('-H "$k: $v"');
       }
     });
-    String data = json.encode(options.data);
-    data = data.replaceAll('"', r'\"');
-    components.add('-d "$data"');
+    if (options.data != null) {
+      String data = json.encode(options.data);
+      data = data.replaceAll('"', r'\"');
+      components.add('-d "$data"');
+    }
     return components.join(' ');
   }
 }

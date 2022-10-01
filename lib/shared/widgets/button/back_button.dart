@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:moli_app/constants/constants.dart';
 import '../../shared.dart';
@@ -24,7 +23,7 @@ class CustomBackButton extends StatelessWidget {
           size: 24,
           color: color ?? ColorPalettes.white,
         ),
-        onPressed: onPressed ?? () => AutoRouter.of(context).pop(),
+        onPressed:  onPressed ?? () => context.goRouter.pop(),
       ),
     );
   }

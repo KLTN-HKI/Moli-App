@@ -5,6 +5,6 @@ class SettingPage extends StatelessWidget {
   static const String routeName = 'setting';
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

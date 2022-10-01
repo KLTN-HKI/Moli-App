@@ -1,10 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:moli_app/app/bloc/bloc.dart';
-import 'package:moli_app/app/router/router.dart';
 import 'package:moli_app/constants/constants.dart';
 import 'package:moli_app/features/features.dart';
 import 'package:moli_app/shared/shared.dart';
@@ -16,13 +13,12 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AppBloc, AppState>(
-      listener: (BuildContext context, AppState state) {
-        state.mapOrNull(
-          authenticated: (value) => AutoRouter.of(context).replaceAll(
-            <PageRouteInfo<dynamic>>[const DashboardRoute()],
-          ),
-        );
+    return BlocListener<LoginCubit, LoginState>(
+      listener: (BuildContext context, LoginState state) {
+        if (state.status == FormzStatus.submissionFailure &&
+            state.exception is NetworkException) {
+          context.showNetworkExceptionDialog(state.exception!);
+        }
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -59,9 +55,9 @@ class _LoginSubmitted extends StatelessWidget {
       builder: (BuildContext context, LoginState state) {
         return AppElevatedButton(
           key: const Key('login_form_submit_button'),
-          onPressed: state.status.isValidated
-              ? () => context.read<LoginCubit>().login()
-              : null,
+          onPressed: () => context
+              .read<LoginCubit>()
+              .login(state.phoneNumber.value, state.password.value),
           height: 64,
           isLoading: state.status.isSubmissionInProgress,
           primary: context.theme.colorScheme.primary,
@@ -86,6 +82,9 @@ class _PhoneNumberInput extends StatelessWidget {
           labelText: context.l10n.phone_number,
           onChanged: (String phoneNumber) =>
               context.read<LoginCubit>().phoneNumberChanged(phoneNumber),
+          onSubmitted: (_) => context
+              .read<LoginCubit>()
+              .login(state.phoneNumber.value, state.password.value),
           icon: IconAssets.icMobile,
           keyboardType: TextInputType.phone,
           inputFormatters: <TextInputFormatter>[

@@ -17,6 +17,7 @@ class AppOutlinedButton extends StatelessWidget {
     this.isLoading = false,
     this.dense = true,
     this.height,
+    this.borderRadius,
   });
 
   final Widget child;
@@ -43,6 +44,8 @@ class AppOutlinedButton extends StatelessWidget {
 
   final double? height;
 
+  final BorderRadiusGeometry? borderRadius;
+
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
@@ -51,14 +54,10 @@ class AppOutlinedButton extends StatelessWidget {
         shadowColor: ColorPalettes.primary10,
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
         side: BorderSide(color: primary ?? ColorPalettes.neutralVariant50),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        textStyle: context.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w500,
-            color: onPressed != null
-                ? ColorPalettes.primary10
-                : ColorPalettes.neutralVariant10),
-        primary: primary ?? ColorPalettes.primary40,
-        onSurface: primary,
+        shape: RoundedRectangleBorder(
+            borderRadius: borderRadius ?? BorderRadius.circular(8)),
+        textStyle: context.textTheme.titleMedium?.weight500,
+        foregroundColor: primary ?? context.colorScheme.primary,
         minimumSize: Size(
           expandedWith ? double.infinity : 0,
           height != null
@@ -69,8 +68,8 @@ class AppOutlinedButton extends StatelessWidget {
         ),
         alignment: alignment,
       ),
-      onPressed: onPressed,
-      onLongPress: onLongPress,
+      onPressed: isLoading ? () {} : onPressed,
+      onLongPress: isLoading ? () {} : onLongPress,
       onHover: onHover,
       onFocusChange: onFocusChange,
       child: AnimatedSize(

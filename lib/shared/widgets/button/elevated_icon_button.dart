@@ -21,6 +21,7 @@ class AppElevatedButtonIcon extends StatelessWidget {
     this.isLoading = false,
     this.dense = true,
     this.height,
+    this.borderRadius,
   });
 
   final Widget label;
@@ -49,6 +50,8 @@ class AppElevatedButtonIcon extends StatelessWidget {
 
   final double? height;
 
+  final BorderRadiusGeometry? borderRadius;
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
@@ -57,7 +60,8 @@ class AppElevatedButtonIcon extends StatelessWidget {
         surfaceTintColor: ColorPalettes.primary10,
         shadowColor: ColorPalettes.primary10,
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        shape: RoundedRectangleBorder(
+            borderRadius: borderRadius ?? BorderRadius.circular(8)),
         textStyle: context.textTheme.titleMedium?.weight500,
         backgroundColor: primary ?? context.colorScheme.primary,
         foregroundColor: onPressed != null
@@ -73,8 +77,8 @@ class AppElevatedButtonIcon extends StatelessWidget {
         ),
         alignment: alignment,
       ),
-      onPressed: onPressed,
-      onLongPress: onLongPress,
+      onPressed: isLoading ? () {} : onPressed,
+      onLongPress: isLoading ? () {} : onLongPress,
       onHover: onHover,
       onFocusChange: onFocusChange,
       icon: AnimatedSize(

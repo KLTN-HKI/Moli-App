@@ -18,54 +18,43 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LoginState {
   PhoneNumber get phoneNumber => throw _privateConstructorUsedError;
   Password get password => throw _privateConstructorUsedError;
+  NetworkException? get exception => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
+    required TResult Function(PhoneNumber phoneNumber, Password password,
+            NetworkException? exception, FormzStatus status)
         initial,
-    required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
-        validating,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Password password,
+            NetworkException? exception, FormzStatus status)?
         initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
-        validating,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Password password,
+            NetworkException? exception, FormzStatus status)?
         initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
-        validating,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Validating value) validating,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Validating value)? validating,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Validating value)? validating,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -80,7 +69,13 @@ abstract class $LoginStateCopyWith<$Res> {
   factory $LoginStateCopyWith(
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res>;
-  $Res call({PhoneNumber phoneNumber, Password password, FormzStatus status});
+  $Res call(
+      {PhoneNumber phoneNumber,
+      Password password,
+      NetworkException? exception,
+      FormzStatus status});
+
+  $NetworkExceptionCopyWith<$Res>? get exception;
 }
 
 /// @nodoc
@@ -95,6 +90,7 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
   $Res call({
     Object? phoneNumber = freezed,
     Object? password = freezed,
+    Object? exception = freezed,
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
@@ -106,11 +102,26 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as Password,
+      exception: exception == freezed
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as NetworkException?,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
     ));
+  }
+
+  @override
+  $NetworkExceptionCopyWith<$Res>? get exception {
+    if (_value.exception == null) {
+      return null;
+    }
+
+    return $NetworkExceptionCopyWith<$Res>(_value.exception!, (value) {
+      return _then(_value.copyWith(exception: value));
+    });
   }
 }
 
@@ -120,7 +131,14 @@ abstract class _$$_InitialCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
   @override
-  $Res call({PhoneNumber phoneNumber, Password password, FormzStatus status});
+  $Res call(
+      {PhoneNumber phoneNumber,
+      Password password,
+      NetworkException? exception,
+      FormzStatus status});
+
+  @override
+  $NetworkExceptionCopyWith<$Res>? get exception;
 }
 
 /// @nodoc
@@ -136,6 +154,7 @@ class __$$_InitialCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
   $Res call({
     Object? phoneNumber = freezed,
     Object? password = freezed,
+    Object? exception = freezed,
     Object? status = freezed,
   }) {
     return _then(_$_Initial(
@@ -147,6 +166,10 @@ class __$$_InitialCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as Password,
+      exception: exception == freezed
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as NetworkException?,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -161,6 +184,7 @@ class _$_Initial implements _Initial {
   const _$_Initial(
       {this.phoneNumber = const PhoneNumber.pure(),
       this.password = const Password.pure(),
+      this.exception,
       this.status = FormzStatus.valid});
 
   @override
@@ -170,12 +194,14 @@ class _$_Initial implements _Initial {
   @JsonKey()
   final Password password;
   @override
+  final NetworkException? exception;
+  @override
   @JsonKey()
   final FormzStatus status;
 
   @override
   String toString() {
-    return 'LoginState.initial(phoneNumber: $phoneNumber, password: $password, status: $status)';
+    return 'LoginState.initial(phoneNumber: $phoneNumber, password: $password, exception: $exception, status: $status)';
   }
 
   @override
@@ -186,6 +212,7 @@ class _$_Initial implements _Initial {
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
             const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality().equals(other.exception, exception) &&
             const DeepCollectionEquality().equals(other.status, status));
   }
 
@@ -194,6 +221,7 @@ class _$_Initial implements _Initial {
       runtimeType,
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(exception),
       const DeepCollectionEquality().hash(status));
 
   @JsonKey(ignore: true)
@@ -204,42 +232,33 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
+    required TResult Function(PhoneNumber phoneNumber, Password password,
+            NetworkException? exception, FormzStatus status)
         initial,
-    required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
-        validating,
   }) {
-    return initial(phoneNumber, password, status);
+    return initial(phoneNumber, password, exception, status);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Password password,
+            NetworkException? exception, FormzStatus status)?
         initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
-        validating,
   }) {
-    return initial?.call(phoneNumber, password, status);
+    return initial?.call(phoneNumber, password, exception, status);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
+    TResult Function(PhoneNumber phoneNumber, Password password,
+            NetworkException? exception, FormzStatus status)?
         initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
-        validating,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(phoneNumber, password, status);
+      return initial(phoneNumber, password, exception, status);
     }
     return orElse();
   }
@@ -248,7 +267,6 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Validating value) validating,
   }) {
     return initial(this);
   }
@@ -257,7 +275,6 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Validating value)? validating,
   }) {
     return initial?.call(this);
   }
@@ -266,7 +283,6 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Validating value)? validating,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -280,6 +296,7 @@ abstract class _Initial implements LoginState {
   const factory _Initial(
       {final PhoneNumber phoneNumber,
       final Password password,
+      final NetworkException? exception,
       final FormzStatus status}) = _$_Initial;
 
   @override
@@ -287,188 +304,11 @@ abstract class _Initial implements LoginState {
   @override
   Password get password;
   @override
+  NetworkException? get exception;
+  @override
   FormzStatus get status;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_ValidatingCopyWith<$Res>
-    implements $LoginStateCopyWith<$Res> {
-  factory _$$_ValidatingCopyWith(
-          _$_Validating value, $Res Function(_$_Validating) then) =
-      __$$_ValidatingCopyWithImpl<$Res>;
-  @override
-  $Res call({PhoneNumber phoneNumber, Password password, FormzStatus status});
-}
-
-/// @nodoc
-class __$$_ValidatingCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
-    implements _$$_ValidatingCopyWith<$Res> {
-  __$$_ValidatingCopyWithImpl(
-      _$_Validating _value, $Res Function(_$_Validating) _then)
-      : super(_value, (v) => _then(v as _$_Validating));
-
-  @override
-  _$_Validating get _value => super._value as _$_Validating;
-
-  @override
-  $Res call({
-    Object? phoneNumber = freezed,
-    Object? password = freezed,
-    Object? status = freezed,
-  }) {
-    return _then(_$_Validating(
-      phoneNumber: phoneNumber == freezed
-          ? _value.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as PhoneNumber,
-      password: password == freezed
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as Password,
-      status: status == freezed
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormzStatus,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_Validating implements _Validating {
-  const _$_Validating(
-      {required this.phoneNumber,
-      required this.password,
-      required this.status});
-
-  @override
-  final PhoneNumber phoneNumber;
-  @override
-  final Password password;
-  @override
-  final FormzStatus status;
-
-  @override
-  String toString() {
-    return 'LoginState.validating(phoneNumber: $phoneNumber, password: $password, status: $status)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Validating &&
-            const DeepCollectionEquality()
-                .equals(other.phoneNumber, phoneNumber) &&
-            const DeepCollectionEquality().equals(other.password, password) &&
-            const DeepCollectionEquality().equals(other.status, status));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(phoneNumber),
-      const DeepCollectionEquality().hash(password),
-      const DeepCollectionEquality().hash(status));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$_ValidatingCopyWith<_$_Validating> get copyWith =>
-      __$$_ValidatingCopyWithImpl<_$_Validating>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
-        initial,
-    required TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)
-        validating,
-  }) {
-    return validating(phoneNumber, password, status);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
-        initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
-        validating,
-  }) {
-    return validating?.call(phoneNumber, password, status);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
-        initial,
-    TResult Function(
-            PhoneNumber phoneNumber, Password password, FormzStatus status)?
-        validating,
-    required TResult orElse(),
-  }) {
-    if (validating != null) {
-      return validating(phoneNumber, password, status);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Validating value) validating,
-  }) {
-    return validating(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Validating value)? validating,
-  }) {
-    return validating?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Validating value)? validating,
-    required TResult orElse(),
-  }) {
-    if (validating != null) {
-      return validating(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Validating implements LoginState {
-  const factory _Validating(
-      {required final PhoneNumber phoneNumber,
-      required final Password password,
-      required final FormzStatus status}) = _$_Validating;
-
-  @override
-  PhoneNumber get phoneNumber;
-  @override
-  Password get password;
-  @override
-  FormzStatus get status;
-  @override
-  @JsonKey(ignore: true)
-  _$$_ValidatingCopyWith<_$_Validating> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -59,7 +59,7 @@ class StringUtils {
   static bool isAlphabetOnly(String s) => hasMatch(s, r'^[a-zA-Z]+$');
 
   /// Checks if string contains at least one Capital Letter
-  static bool hasCapitalletter(String s) => hasMatch(s, '[A-Z]');
+  static bool hasCapitalletter(String s) => hasMatch(s, r'[A-Z]');
 
   /// Checks if string is an video file.
   static bool isVideo(String filePath) {
@@ -142,16 +142,12 @@ class StringUtils {
       hasMatch(s, r'^[a-zA-Z0-9][a-zA-Z0-9_.]+[a-zA-Z0-9]$');
 
   /// Checks if string is URL.
-  static bool isURL(String s) => hasMatch(
-        s,
-        r"^((((H|h)(T|t)|(F|f))(T|t)(P|p)((S|s)?))\://)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}(\:[0-9]{1,5})*(/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$",
-      );
+  static bool isURL(String s) => hasMatch(s,
+      r"^((((H|h)(T|t)|(F|f))(T|t)(P|p)((S|s)?))\://)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}(\:[0-9]{1,5})*(/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$");
 
   /// Checks if string is email.
-  static bool isEmail(String s) => hasMatch(
-        s,
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
-      );
+  static bool isEmail(String s) => hasMatch(s,
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
 
   /// Checks if string is phone number.
   static bool isPhoneNumber(String s) {

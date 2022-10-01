@@ -1,90 +1,165 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moli_app/app/bloc/bloc.dart';
-import 'package:moli_app/app/router/auth_guard.dart';
-import 'package:moli_app/app/router/router.dart';
 import 'package:moli_app/config/config.dart';
+import 'package:moli_app/features/authentication/presentation/check_user/cubit/phone_cubit.dart';
+import 'package:moli_app/features/authentication/presentation/otp/cubit/otp_cubit.dart';
+import 'package:moli_app/features/authentication/presentation/register/cubit/register_cubit.dart';
 import 'package:moli_app/features/features.dart';
+import 'package:moli_app/localization/l10n.dart';
 import 'package:moli_app/shared/shared.dart';
 
+import '../../router/routing.dart';
+
 class MoliApp extends StatelessWidget {
-  MoliApp({super.key});
+  const MoliApp({super.key});
 
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  // final AppRouter _appRouter = AppRouter(authGuard: AuthGuard());
-  final AppRouter _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: <BlocProvider<dynamic>>[
-        BlocProvider<AppBloc>(create: (_) => getIt()),
-        BlocProvider<AppSettingsCubit>(create: (_) => getIt()),
+        BlocProvider<AppBloc>(create: (_) => AppBloc(getIt())),
+        BlocProvider<AppSettingsCubit>(create: (_) => AppSettingsCubit()),
+        BlocProvider<AppConnectCubit>(create: (_) => AppConnectCubit()),
         BlocProvider<AuthenticationBloc>(create: (_) => getIt()),
-        BlocProvider<AppConnectCubit>(create: (_) => getIt()),
+        BlocProvider<PhoneCubit>(
+          create: (_) => PhoneCubit(),
+        ),
+        BlocProvider<OtpCubit>(
+          create: (_) => OtpCubit(),
+        ),
+        BlocProvider<RegisterCubit>(
+          create: (_) => RegisterCubit(LoginCubit()),
+        ),
       ],
-      child: ScreenUtilInit(
-        designSize: const Size(375, 812),
-        minTextAdapt: true,
-        builder: (BuildContext context, Widget? child) {
-          return BlocBuilder<AppBloc, AppState>(
-            builder: (BuildContext context, AppState appState) {
-              return BlocBuilder<AppSettingsCubit, AppSettingsState>(
-                builder: (BuildContext context, AppSettingsState state) {
-                  return MaterialApp.router(
-                    key: navigatorKey,
-                    debugShowCheckedModeBanner: false,
-                    themeMode: state.themeMode,
-                    theme: AppSettingsCubit.lightTheme,
-                    darkTheme: AppSettingsCubit.darkTheme,
-                    routeInformationParser: _appRouter.defaultRouteParser(),
-                    /* routerDelegate: AutoRouterDelegate.declarative(_appRouter,
-                        routes: (_) => appState.maybeWhen(
-                            // initial: () => [const DashboardRoute()],
-                            authenticated: () => [const DashboardRoute()],
-                            unauthenticated: () => [const LoginRoute()],
-                            orElse: () => [])), */
-                    routerDelegate: _appRouter.delegate(),
-                    locale: state.locale,
-                    supportedLocales: AppLocalizations.supportedLocales,
-                    localizationsDelegates: const <
-                        LocalizationsDelegate<dynamic>>[
-                      AppLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                    ],
-                    builder: (BuildContext context, Widget? child) {
-                      return BlocListener<AppConnectCubit, AppConnectState>(
-                        listener:
-                            (BuildContext context, AppConnectState state) {
-                          // state.when(
-                          //   connected: () {
-                          //     context.scaffoldMessenger.showSnackBar(const SnackBar(
-                          //       key: Key('Internet Connected'),
-                          //       content: Text('Internet Connected'),
-                          //     ));
-                          //   },
-                          //   disconnected: () {
-                          //     context.scaffoldMessenger.showSnackBar(const SnackBar(
-                          //       key: Key('Internet Lost'),
-                          //       content: Text('Internet Lost'),
-                          //     ));
-                          //   },
-                          // );
-                        },
-                        child: child,
-                      );
-                    },
-                  );
-                },
-              );
-            },
-          );
-        },
-      ),
+      child: const MoliView(),
     );
   }
+}
+
+class MoliView extends StatefulWidget {
+  const MoliView({
+    super.key,
+  });
+
+  @override
+  State<MoliView> createState() => _MoliViewState();
+}
+
+class _MoliViewState extends State<MoliView> {
+  late GoRouter _appRouter;
+
+  Future<void> get playNotificationSound =>
+      FlutterRingtonePlayer.playNotification();
+
+  Future<void> get runNotificationvibrate => HapticFeedback.mediumImpact();
+
+  @override
+  void initState() {
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.init());
+    _appRouter = routing();
+
+    /* /// Handle any interaction when the app is in the background via a
+    // Stream listener
+    MoliMessaging.onMessageOpenedApp.listen(_handleMessage);
+
+    /// Foreground messaging
+    MoliMessaging.onMessage.listen((RemoteMessage message) {
+      final String? channel = message.getChannelId();
+      playNotificationSound;
+      if (channel != null) {
+        switch (channel) {
+          case 'appoinment':
+          case 'remind':
+            break;
+          default:
+        }
+      } else {
+        ///Remind incoming class notification
+        final RemoteNotification? notification = message.notification;
+        // now support for class reminding only
+        if (notification != null) {
+          log(name: 'Other push notification', notification.toMap().toString());
+        }
+      }
+    }); */
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      builder: (BuildContext context, Widget? child) {
+        return BlocBuilder<AppSettingsCubit, AppSettingsState>(
+          builder: (BuildContext context, AppSettingsState state) {
+            return MaterialApp.router(
+              key: MoliApp.navigatorKey,
+              routerConfig: _appRouter,
+              debugShowCheckedModeBanner: false,
+              themeMode: state.themeMode,
+              theme: AppSettingsCubit.lightTheme,
+              darkTheme: AppSettingsCubit.darkTheme,
+              locale: state.locale,
+              supportedLocales: AppLanguage.delegate.supportedLocales,
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLanguage.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              builder: (BuildContext context, Widget? child) {
+                return BlocListener<AppConnectCubit, AppConnectState>(
+                  listener: (BuildContext context, AppConnectState state) {
+                    // state.when(
+                    //   connected: () {
+                    //     context.scaffoldMessenger.showSnackBar(const SnackBar(
+                    //       key: Key('Internet Connected'),
+                    //       content: Text('Internet Connected'),
+                    //     ));
+                    //   },
+                    //   disconnected: () {
+                    //     context.scaffoldMessenger.showSnackBar(const SnackBar(
+                    //       key: Key('Internet Lost'),
+                    //       content: Text('Internet Lost'),
+                    //     ));
+                    //   },
+                    // );
+                  },
+                  child: child,
+                );
+              },
+            );
+          },
+        );
+      },
+    );
+  }
+
+  /* void _handleMessage(RemoteMessage message) {
+    final String? channel = message.getChannelId();
+    if (channel != null) {
+      final Map<String, dynamic> data = message.getNotification();
+
+      if (kDebugMode) {
+        log(
+            name: 'AntoreeFirebaseMessaging',
+            '\x1B[35mHandling a message opened app: $data}');
+      }
+
+      switch (channel) {
+        case 'appoinment':
+        case 'remind':
+          break;
+        default:
+      }
+    }
+  } */
 }

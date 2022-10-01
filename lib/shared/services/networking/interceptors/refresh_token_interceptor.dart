@@ -9,14 +9,11 @@ import '../../service.dart';
 /// A class that holds intercepting logic for refreshing expired tokens. This
 /// is the last interceptor in the queue.
 class RefreshTokenInterceptor extends QueuedInterceptor {
-  RefreshTokenInterceptor({
-    required Dio dioClient,
-    required AuthenticationStorageService service,
-  })  : _dio = dioClient,
-        _service = service;
+  RefreshTokenInterceptor(AuthenticationStorageService service)
+      : _service = service;
 
   /// An instance of [Dio] for network requests
-  final Dio _dio;
+
   late final AuthenticationStorageService _service;
 
   /// This method is used to send a refresh token request if the error
@@ -43,7 +40,12 @@ class RefreshTokenInterceptor extends QueuedInterceptor {
         //Make new dio and lock old one
         final Dio tokenDio = Dio();
         //contentType already set in tokenDio headers
-        tokenDio.options = _dio.options;
+        tokenDio.options = BaseOptions(
+          baseUrl: dioError.requestOptions.baseUrl,
+          headers: <String, dynamic>{
+            'accept': 'application/json, text/plain, */*'
+          },
+        );
 
         //Make refresh request and get new token
         final String? newToken = await _service.refreshTokenRequest(
@@ -52,15 +54,12 @@ class RefreshTokenInterceptor extends QueuedInterceptor {
           tokenDio: tokenDio,
         );
 
-        //Make close dio when finish refresh
-        tokenDio.close();
-
         if (newToken == null) {
           return super.onError(dioError, handler);
         }
 
         //Make original req with new token
-        final Response<JSON> response = await _dio.request<JSON>(
+        final Response<JSON> response = await tokenDio.request<JSON>(
           dioError.requestOptions.path,
           data: dioError.requestOptions.data,
           cancelToken: dioError.requestOptions.cancelToken,
@@ -68,6 +67,9 @@ class RefreshTokenInterceptor extends QueuedInterceptor {
             headers: <String, Object?>{'Authorization': 'Bearer $newToken'},
           ),
         );
+
+        //Make close dio when finish refresh
+        tokenDio.close();
         return handler.resolve(response);
       }
     }

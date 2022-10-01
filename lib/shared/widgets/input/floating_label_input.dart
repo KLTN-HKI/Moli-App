@@ -10,6 +10,7 @@ class FloatingLabelInput extends StatefulWidget {
     this.hintText,
     required this.labelText,
     required this.onChanged,
+    this.onSubmitted,
     this.errorText,
     this.icon,
     this.obscureText = false,
@@ -18,19 +19,26 @@ class FloatingLabelInput extends StatefulWidget {
     this.textInputAction,
     this.border,
     this.inputFormatters,
+    this.noteInitValue,
+    this.enabled,
+    this.validator,
   });
 
+  final String? noteInitValue;
   final String? icon;
   final String? hintText;
   final String labelText;
   final bool obscureText;
+  final bool? enabled;
   final String? errorText;
   final VoidCallback? showHiddenInput;
-  final Function(String)? onChanged;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final InputBorder? border;
   final List<TextInputFormatter>? inputFormatters;
+  final String? Function(String?)? validator;
 
   @override
   State<FloatingLabelInput> createState() => _FloatingLabelInputState();
@@ -41,7 +49,7 @@ class _FloatingLabelInputState extends State<FloatingLabelInput> {
   bool showErrorTooltip = false;
   late bool obscureText;
   final FocusNode _focusNode = FocusNode();
-  final TextEditingController _controller = TextEditingController();
+  // final TextEditingController _controller = TextEditingController();
 
   bool get inputIsFilled => textBeingTyped.isNotEmpty;
   bool get inputIsInvalid => widget.errorText != null;
@@ -86,9 +94,12 @@ class _FloatingLabelInputState extends State<FloatingLabelInput> {
     return Stack(
       clipBehavior: Clip.none,
       children: <Widget>[
-        TextField(
+        TextFormField(
+          initialValue: widget.noteInitValue,
           focusNode: _focusNode,
-          controller: _controller,
+          enabled: widget.enabled,
+          // controller: _controller,
+          onFieldSubmitted: widget.onSubmitted,
           onChanged: (String str) {
             if (widget.onChanged != null) {
               widget.onChanged!(str);
@@ -103,6 +114,7 @@ class _FloatingLabelInputState extends State<FloatingLabelInput> {
           style: context.textTheme.bodyLarge,
           cursorColor: ColorPalettes.primary40,
           cursorRadius: const Radius.circular(29),
+          validator: widget.validator,
           decoration: InputDecoration(
             fillColor: ColorPalettes.white,
             hintText: widget.hintText,

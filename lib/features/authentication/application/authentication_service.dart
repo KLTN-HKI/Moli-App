@@ -17,7 +17,6 @@ class AuthenticationService extends AuthenticationStorageService {
 
   final KeyValueStorageBase _keyValueStorage = KeyValueStorageBase.instance;
 
-  @override
   String get tokenExpiredException => 'tokenExpiredException';
 
   @override
@@ -29,11 +28,12 @@ class AuthenticationService extends AuthenticationStorageService {
   }
 
   @override
-  Future<String?> getAuthToken() async {
-    return _keyValueStorage.getEncrypted(_authTokenAccessKey);
-  }
+  Future<String?> getAuthToken() async =>
+      _keyValueStorage.getEncrypted(_authTokenAccessKey);
 
-  @override
+  Future<void> saveAuthToken(String token) async =>
+      _keyValueStorage.setEncrypted(_authTokenAccessKey, token);
+
   Future<bool?> getFirstTime() async {
     return _keyValueStorage.getItem<bool?>('onboarding', key: 'firstTime');
   }
@@ -50,7 +50,7 @@ class AuthenticationService extends AuthenticationStorageService {
       log('\x1B[33m\tBody: $token');
 
       final Response<JSON> response = await tokenDio.post<JSON>(
-        AuthenticationEndpoint.auth(AuthEndpoint.REFRESH_TOKEN),
+        ApiEndpoint.authentication(AuthenticationEndpoint.REFRESH_TOKEN),
         data: token,
       );
 
@@ -98,23 +98,23 @@ class AuthenticationService extends AuthenticationStorageService {
     return _keyValueStorage.getEncrypted(_currentUserKey);
   }
 
-  Future<void> setAuthAccessToken(String token) async {
-    await _keyValueStorage.setEncrypted(_authTokenAccessKey, token);
-  }
-
   Future<void> setAuthRefreshToken(String token) async {
     await _keyValueStorage.setEncrypted(_authTokenRefreshKey, token);
   }
 
-  Future<void> setCurrentUser(String userinfo) async {
-    await _keyValueStorage.setEncrypted(_currentUserKey, userinfo);
+  Future<bool> saveCurrentUser(String userInfo) =>
+      _keyValueStorage.setEncrypted(_currentUserKey, userInfo);
+
+  Future<void> setFirstTimeLogin() async {
+    await _keyValueStorage.saveItem<bool?>('onboarding',
+        key: 'firstTime', value: false);
   }
 
   /// Resets the authentication. Even though these methods are asynchronous, we
   /// don't care about their completion which is why we don't use `await` and
   /// let them execute in the background.
   void resetKeys() {
-    _keyValueStorage.clearHiveBox();
+    _keyValueStorage.clearBox();
     _keyValueStorage.clearEncrypted();
   }
 

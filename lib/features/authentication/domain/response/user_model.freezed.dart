@@ -26,6 +26,8 @@ mixin _$UserModel {
   String? get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'phoneNumber')
   String? get phoneNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'realPhoneNumber')
+  String? get realPhoneNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'address')
   String? get address => throw _privateConstructorUsedError;
   @JsonKey(name: 'gender')
@@ -51,6 +53,7 @@ abstract class $UserModelCopyWith<$Res> {
       {@JsonKey(name: 'id') int? id,
       @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'phoneNumber') String? phoneNumber,
+      @JsonKey(name: 'realPhoneNumber') String? realPhoneNumber,
       @JsonKey(name: 'address') String? address,
       @JsonKey(name: 'gender') String? gender,
       @JsonKey(name: 'dateOfBirth') String? dateOfBirth,
@@ -71,6 +74,7 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? phoneNumber = freezed,
+    Object? realPhoneNumber = freezed,
     Object? address = freezed,
     Object? gender = freezed,
     Object? dateOfBirth = freezed,
@@ -89,6 +93,10 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      realPhoneNumber: realPhoneNumber == freezed
+          ? _value.realPhoneNumber
+          : realPhoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       address: address == freezed
           ? _value.address
@@ -124,6 +132,7 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       {@JsonKey(name: 'id') int? id,
       @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'phoneNumber') String? phoneNumber,
+      @JsonKey(name: 'realPhoneNumber') String? realPhoneNumber,
       @JsonKey(name: 'address') String? address,
       @JsonKey(name: 'gender') String? gender,
       @JsonKey(name: 'dateOfBirth') String? dateOfBirth,
@@ -146,6 +155,7 @@ class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? phoneNumber = freezed,
+    Object? realPhoneNumber = freezed,
     Object? address = freezed,
     Object? gender = freezed,
     Object? dateOfBirth = freezed,
@@ -164,6 +174,10 @@ class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      realPhoneNumber: realPhoneNumber == freezed
+          ? _value.realPhoneNumber
+          : realPhoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       address: address == freezed
           ? _value.address
@@ -196,6 +210,7 @@ class _$_UserModel implements _UserModel {
       {@JsonKey(name: 'id') this.id,
       @JsonKey(name: 'name') this.name,
       @JsonKey(name: 'phoneNumber') this.phoneNumber,
+      @JsonKey(name: 'realPhoneNumber') this.realPhoneNumber,
       @JsonKey(name: 'address') this.address,
       @JsonKey(name: 'gender') this.gender,
       @JsonKey(name: 'dateOfBirth') this.dateOfBirth,
@@ -215,6 +230,9 @@ class _$_UserModel implements _UserModel {
   @JsonKey(name: 'phoneNumber')
   final String? phoneNumber;
   @override
+  @JsonKey(name: 'realPhoneNumber')
+  final String? realPhoneNumber;
+  @override
   @JsonKey(name: 'address')
   final String? address;
   @override
@@ -232,7 +250,7 @@ class _$_UserModel implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, phoneNumber: $phoneNumber, address: $address, gender: $gender, dateOfBirth: $dateOfBirth, citizenIdentification: $citizenIdentification, email: $email)';
+    return 'UserModel(id: $id, name: $name, phoneNumber: $phoneNumber, realPhoneNumber: $realPhoneNumber, address: $address, gender: $gender, dateOfBirth: $dateOfBirth, citizenIdentification: $citizenIdentification, email: $email)';
   }
 
   @override
@@ -244,6 +262,8 @@ class _$_UserModel implements _UserModel {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
+            const DeepCollectionEquality()
+                .equals(other.realPhoneNumber, realPhoneNumber) &&
             const DeepCollectionEquality().equals(other.address, address) &&
             const DeepCollectionEquality().equals(other.gender, gender) &&
             const DeepCollectionEquality()
@@ -260,6 +280,7 @@ class _$_UserModel implements _UserModel {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(phoneNumber),
+      const DeepCollectionEquality().hash(realPhoneNumber),
       const DeepCollectionEquality().hash(address),
       const DeepCollectionEquality().hash(gender),
       const DeepCollectionEquality().hash(dateOfBirth),
@@ -287,6 +308,8 @@ abstract class _UserModel implements UserModel {
           final String? name,
       @JsonKey(name: 'phoneNumber')
           final String? phoneNumber,
+      @JsonKey(name: 'realPhoneNumber')
+          final String? realPhoneNumber,
       @JsonKey(name: 'address')
           final String? address,
       @JsonKey(name: 'gender')
@@ -310,6 +333,9 @@ abstract class _UserModel implements UserModel {
   @override
   @JsonKey(name: 'phoneNumber')
   String? get phoneNumber;
+  @override
+  @JsonKey(name: 'realPhoneNumber')
+  String? get realPhoneNumber;
   @override
   @JsonKey(name: 'address')
   String? get address;

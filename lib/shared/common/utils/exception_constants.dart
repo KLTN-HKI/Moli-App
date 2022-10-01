@@ -32,5 +32,11 @@ class ExceptionConstants {
   static const String FormatException = 'FormatException';
 
   /// The name of the exception for an unknown type of failure.
+  static const String ApiException = 'ApiException';
+
+  /// The name of the exception for an unknown type of failure.
+  static const String OtherException = 'OtherException';
+
+  /// The name of the exception for an unknown type of failure.
   static const String UnrecognizedException = 'UnrecognizedException';
 }

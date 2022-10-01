@@ -1,32 +1,25 @@
-import 'dart:convert';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:moli_app/config/dependency_container.dart';
 import 'package:moli_app/features/authentication/domain/response/user_model.dart';
 import 'package:moli_app/features/features.dart';
 import 'package:moli_app/shared/shared.dart';
 
-import '../../../domain/form/password.dart';
-import '../../../domain/form/phone_number.dart';
-import '../../../domain/response/login_model.dart';
+import '../../../domain/formz/password.dart';
+import '../../../domain/formz/phone_number.dart';
 
 part 'login_cubit.freezed.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit({
-    required AuthenticationRepository authenticationRepository,
-    required AuthenticationBloc authenticationBloc,
-    required AuthenticationService authenticationService,
-  })  : _authRepo = authenticationRepository,
-        _authBloc = authenticationBloc,
-        _authService = authenticationService,
+  LoginCubit()
+      : _authRepo = getIt(),
+        _authBloc = getIt(),
         super(const LoginState.initial());
 
   final AuthenticationRepository _authRepo;
   final AuthenticationBloc _authBloc;
-  final AuthenticationService _authService;
 
   void phoneNumberChanged(String value) {
     final PhoneNumber phoneNumber = PhoneNumber.dirty(value);
@@ -50,29 +43,21 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  Future<void> login() async {
+  Future<void> login(String phoneNumber, String password) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
-      final LoginModel result =
+      final String result =
           await _authRepo.sendLoginData(data: <String, dynamic>{
-        'username': state.phoneNumber.value,
-        'password': state.password.value,
+        'username': phoneNumber,
+        'password': password,
       });
-      if (result != null) {
-        _authBloc.add(AuthenticationEvent.loggedIn(
-          accessToken: result.accessToken ?? '',
-          // refreshToken: result.refreshToken ?? '',
-        ));
-
-        final UserModel user = await _authRepo.getUserInfo();
-        if (user != null) {
-          await _authService.setCurrentUser(jsonEncode(user));
-        }
-
-        emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      }
+      _authBloc.add(AuthenticationEvent.saveToken(result));
+      
+      final UserModel user = await _authRepo.getUserInfo();
+      _authBloc.add(AuthenticationEvent.loggedIn(user));
+      emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on NetworkException catch (e) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzStatus.submissionFailure, exception: e));
     }
   }
 }

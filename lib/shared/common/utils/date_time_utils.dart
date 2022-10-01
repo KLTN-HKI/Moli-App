@@ -13,9 +13,11 @@ class DateTimeUtils {
     }
   }
 
-  static DateTime? parseTime(String? numberString) {
+  static DateTime? parseTime(String? numberString, {bool hmOnly = false}) {
     try {
-      return DateFormat.Hms().parse(numberString!);
+      return hmOnly
+          ? DateFormat.Hms().parse(numberString!)
+          : DateFormat.Hms().parse(numberString!);
     } catch (e) {
       return null;
     }
@@ -79,6 +81,22 @@ class DateTimeUtils {
   static DateTime? fromStringToTime(String? numberString) {
     try {
       return DateFormat.Hms().parse(numberString!);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static String? fromTimeToStringType2(DateTime? time) {
+    try {
+      return DateFormat.Hm().format(time!);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static DateTime? fromStringToTimeType2(String? numberString) {
+    try {
+      return DateFormat.Hm().parse(numberString!);
     } catch (e) {
       return null;
     }

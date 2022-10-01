@@ -19,6 +19,7 @@ class AppElevatedButton extends StatelessWidget {
     this.alignment,
     this.dense = true,
     this.height,
+    this.borderRadius,
   });
 
   final Widget? child;
@@ -45,6 +46,8 @@ class AppElevatedButton extends StatelessWidget {
 
   final bool dense;
 
+  final BorderRadiusGeometry? borderRadius;
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -52,7 +55,8 @@ class AppElevatedButton extends StatelessWidget {
         elevation: 0,
         shadowColor: ColorPalettes.primary10,
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+        shape: RoundedRectangleBorder(
+            borderRadius: borderRadius ?? BorderRadius.circular(8.r)),
         textStyle: context.textTheme.titleLarge?.weight500,
         backgroundColor: primary ?? ColorPalettes.primary40,
         foregroundColor: onPressed != null
@@ -68,8 +72,8 @@ class AppElevatedButton extends StatelessWidget {
         ),
         alignment: alignment,
       ),
-      onPressed: onPressed,
-      onLongPress: onLongPress,
+      onPressed: isLoading ? () {} : onPressed,
+      onLongPress: isLoading ? () {} : onLongPress,
       onHover: onHover,
       onFocusChange: onFocusChange,
       child: AnimatedSize(
@@ -77,7 +81,7 @@ class AppElevatedButton extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
         child: isLoading
             ? SizedBox.square(
-                dimension: 48,
+                dimension: 48.r,
                 child: Lottie.asset(JsonAssets.loading),
               )
             : child,

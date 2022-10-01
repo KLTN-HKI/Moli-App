@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../shared.dart';
+import 'package:moli_app/shared/shared.dart';
 
 extension DefaultDialog on BuildContext {
   Future<T?> showDefaultDialog<T>({
@@ -20,14 +19,9 @@ extension DefaultDialog on BuildContext {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius ?? 12),
           ),
-          contentPadding: const EdgeInsets.fromLTRB(
-            16,
-            24,
-            16,
-            12,
-          ),
+          contentPadding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
           content: SizedBox(
-            width: dialogWidth ?? context.width * .85,
+            width: dialogWidth ?? width * .85,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment:
@@ -36,22 +30,23 @@ extension DefaultDialog on BuildContext {
               children: <Widget>[
                 if (image != null) ...<Widget>[
                   Center(child: image),
-                  SizedBox(height: 24.w),
+                  const SizedBox(height: 24),
                 ],
                 DefaultTextStyle(
-                  style: context.textTheme.titleLarge!,
+                  style: textTheme.titleLarge!.weight600,
                   child: title,
                 ),
-                SizedBox(height: 8.w),
+                const SizedBox(height: 8),
                 DefaultTextStyle(
-                  style: context.textTheme.bodyLarge!,
+                  style: textTheme.bodyLarge!,
                   child: content,
                 ),
-                SizedBox(height: 8.w),
+                const SizedBox(height: 24),
                 ...actions
                     .applySeparator(
-                      separator: SizedBox(height: 8.w),
-                    )
+                        separator: const SizedBox(
+                      height: 8,
+                    ))
                     .toList(),
               ],
             ),

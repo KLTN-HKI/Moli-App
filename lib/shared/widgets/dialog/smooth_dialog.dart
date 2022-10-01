@@ -2,7 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
-import 'package:moli_app/shared/shared.dart';
+
+import '../../shared.dart';
 
 enum SmoothMode { lottie, network, asset, svg }
 
@@ -52,12 +53,7 @@ class SmoothDialog {
               shape: RoundedRectangleBorder(
                 borderRadius: borderRadius ?? BorderRadius.circular(16),
               ),
-              contentPadding: const EdgeInsets.fromLTRB(
-                16,
-                24,
-                16,
-                12,
-              ),
+              contentPadding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
               content: SizedBox(
                 width: dialogWidth ?? context.width * .7,
                 child: Column(
@@ -103,13 +99,13 @@ class SmoothDialog {
                         ),
                       )
                     ],
-                    SizedBox(height: 8.w),
+                    const SizedBox(height: 8),
                     AppText.t0(
                       title,
                       textAlign: TextAlign.center,
                       fontWeight: FontWeight.w700,
                     ),
-                    SizedBox(height: 8.w),
+                    const SizedBox(height: 8),
                     AppText.b0(
                       content,
                       textAlign: TextAlign.center,
@@ -122,7 +118,7 @@ class SmoothDialog {
                           if (dialogType ==
                               DialogType.confirmation) ...<Widget>[
                             buildCancelButton(context),
-                            SizedBox(width: 4.w),
+                            const SizedBox(width: 4),
                           ],
                           buildOkButton(context)
                         ],
@@ -208,7 +204,7 @@ class SmoothDialog {
         },
         borderRadius: buttonBorderRadius,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
           child: AppText.l0(
             buttonConfig?.dialogDone ?? context.l10n.i_got_it,
             textAlign: TextAlign.center,
@@ -237,7 +233,7 @@ class SmoothDialog {
         },
         borderRadius: buttonBorderRadius,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
           child: AppText.l0(
             buttonConfig?.dialogCancel ?? context.l10n.cancel,
             textAlign: TextAlign.center,

@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 
 /// Base class containing a unified API for key-value pairs' storage.
 /// This class provides low level methods for storing:
@@ -21,17 +23,50 @@ class KeyValueStorageBase {
 
   /// Get instance of this class
   static KeyValueStorageBase get instance =>
-      _instance ?? const KeyValueStorageBase._();
+      _instance ??= const KeyValueStorageBase._();
 
   /// Initializer for shared prefs and flutter secure storage
   /// Should be called in main before runApp and
   /// after WidgetsBinding.FlutterInitialized(), to allow for synchronous tasks
   /// when possible.
-  static Future<void> init() async {
+  static Future<void> initialize() async {
+    final Directory appDocumentDirectory =
+        await getApplicationDocumentsDirectory();
+    // Hive initialize
+    await Hive.initFlutter(appDocumentDirectory.path);
+
+    await Hive.openBox('settings');
+    await Hive.openBox<bool?>('onboarding');
+
+    // FlutterSecureStorage initialize
     _secureStorage ??= const FlutterSecureStorage();
   }
 
-  /// Read the value for the key from common hive storage
+  /// Reads the decrypted value for the key from secure storage
+  Future<String?> getEncrypted(String key) {
+    try {
+      return _secureStorage!.read(key: key);
+    } on PlatformException {
+      return Future<String?>.value();
+    }
+  }
+
+  /// Sets the encrypted value for the key to secure storage
+  Future<bool> setEncrypted(String key, String value) {
+    try {
+      _secureStorage!.write(key: key, value: value);
+      return Future<bool>.value(true);
+    } on PlatformException catch (_) {
+      return Future<bool>.value(false);
+    }
+  }
+
+  /// Erases encrypted keys
+  Future<void> clearEncrypted() => _secureStorage!.deleteAll();
+
+  /* ------------------ HIVE STORAGE ----------------------- */
+
+  // Read the value for the key from common hive storage
   T? getItem<T>(String boxKey, {required dynamic key}) {
     try {
       final Box<T> hiveBox = Hive.box<T>(boxKey);
@@ -68,9 +103,9 @@ class KeyValueStorageBase {
   }
 
   /// Sets the value for the key (id) to common hive storage
-  Future<void> saveItem(String boxKey,
-      {required dynamic key, dynamic value}) async {
-    final Box<dynamic> hiveBox = Hive.box<dynamic>(boxKey);
+  Future<void> saveItem<T>(String boxKey,
+      {required dynamic key, required T value}) async {
+    final Box<T> hiveBox = Hive.box<T>(boxKey);
 
     await hiveBox.put(key, value);
   }
@@ -90,34 +125,5 @@ class KeyValueStorageBase {
   }
 
   /// Erases hive storage keys
-  Future<void> clearHiveBox() => Hive.close();
-
-  /// Reads the decrypted value for the key from secure storage
-  Future<String?> getEncrypted(String key) {
-    try {
-      return _secureStorage!.read(key: key);
-    } on PlatformException {
-      return Future<String?>.value();
-    }
-  }
-
-  /// Sets the encrypted value for the key to secure storage
-  Future<bool> setEncrypted(String key, String value) {
-    try {
-      _secureStorage!.write(key: key, value: value);
-      return Future<bool>.value(true);
-    } on PlatformException catch (_) {
-      return Future<bool>.value(false);
-    }
-  }
-
-  /// Erases encrypted keys
-  Future<bool> clearEncrypted() async {
-    try {
-      await _secureStorage!.deleteAll();
-      return true;
-    } on PlatformException catch (_) {
-      return false;
-    }
-  }
+  Future<void> clearBox() => Hive.deleteFromDisk();
 }

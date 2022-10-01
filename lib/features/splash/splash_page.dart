@@ -1,62 +1,47 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:moli_app/app/bloc/bloc.dart';
-import 'package:moli_app/app/router/router.dart';
-import 'package:moli_app/features/authentication/authentication.dart';
-import 'package:moli_app/features/dashboard/dashboard.dart';
+import 'package:lottie/lottie.dart';
+import 'package:moli_app/constants/constants.dart';
+import 'package:moli_app/features/features.dart';
+import 'package:moli_app/router/router.dart';
+import 'package:moli_app/shared/shared.dart';
 
-import '../../constants/constants.dart';
-
-class SplashPage extends StatefulWidget {
+class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
-  static const String routeName = '/splash';
+  static const String routeName = '/';
 
-  @override
-  State<SplashPage> createState() => _SplashPageState();
-}
 
-class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AppBloc, AppState>(
-      listener: (BuildContext context, AppState state) {
-        state.maybeWhen(
-          orElse: () {},
-          unauthenticated: () => AutoRouter.of(context)
-              .replaceAll(<PageRouteInfo<dynamic>>[const LoginRoute()]),
-          authenticated: () => AutoRouter.of(context)
-              .replaceAll(<PageRouteInfo<dynamic>>[const DashboardRoute()]),
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listener: (BuildContext context, AuthenticationState state) {
+        state.whenOrNull(
+          unauthenticated: () => context.goRouter.go(Routes.auth),
+          authenticated: (_) => context.goRouter.go(Routes.home),
+          firstTime: () => context.goRouter.go(Routes.onBoarding),
         );
       },
       child: Scaffold(
-        body: Stack(
-          alignment: Alignment.center,
+        backgroundColor:
+            context.isDarkMode ? ColorPalettes.white : ColorPalettes.white,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
+            // SvgPicture.asset(IconAssets.appIcon),
+            Lottie.asset(
+              JsonAssets.medical,
               width: 1.sw,
-              height: 1.sh,
-              child: Image.asset(
-                ImageAssets.background,
-                fit: BoxFit.cover,
-              ),
+              height: 1.sw,
+              fit: BoxFit.fill,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SvgPicture.asset(IconAssets.appIcon),
-                SizedBox(height: 12.r),
-                Text(
-                  AppConstant.appName,
-                  style: TextStyle(
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                )
-              ],
+            // SizedBox(height: 12.r),
+            Text(
+              AppConstant.appName,
+              style: TextStyle(
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w700,
+                  color: ColorPalettes.primary40),
             )
           ],
         ),

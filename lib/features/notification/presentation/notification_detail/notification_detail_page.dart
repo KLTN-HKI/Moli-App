@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:moli_app/constants/color_palattes.dart';
 import 'package:moli_app/shared/shared.dart';
 
@@ -15,7 +13,7 @@ class NotificationDetailPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Column(
-          children: [
+          children: <Widget>[
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.w),
               child: Container(
@@ -24,7 +22,7 @@ class NotificationDetailPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: context.colorScheme.background,
                   borderRadius: BorderRadius.circular(12.r),
-                  boxShadow: [
+                  boxShadow: <BoxShadow>[
                     BoxShadow(
                         blurRadius: 17,
                         color: ColorPalettes.black.withOpacity(.15)),

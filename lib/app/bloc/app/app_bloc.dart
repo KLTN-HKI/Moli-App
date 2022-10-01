@@ -8,20 +8,16 @@ part 'app_state.dart';
 part 'app_bloc.freezed.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  AppBloc({
-    required AuthenticationBloc authenticationBloc,
-  }) : super(const AppState.initial()) {
+  AppBloc(AuthenticationBloc authenticationBloc)
+      : super(const AppState.initial()) {
     on<_UpdateState>(_onUpdateState);
 
-    // Init app
-    authenticationBloc.add(const AuthenticationEvent.init());
     // Listen Authen Bloc
     authenticationBloc.stream.listen((AuthenticationState authState) {
       authState.whenOrNull(
         unauthenticated: () =>
-            add(const AppEvent.updateState(AppState.unauthenticated())),
-        authenticated: () =>
-            add(const AppEvent.updateState(AppState.authenticated())),
+            add(const AppEvent.updateState(AppState.login())),
+        authenticated: (_) => add(const AppEvent.updateState(AppState.home())),
         firstTime: () =>
             add(const AppEvent.updateState(AppState.firstTimeLogin())),
       );

@@ -1,0 +1,150 @@
+{
+  "project_info": {
+    "project_number": "1061884193636",
+    "project_id": "ancq-developer",
+    "storage_bucket": "ancq-developer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061884193636:android:179fec91bd286033586871",
+        "android_client_info": {
+          "package_name": "com.ancq.moli"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061884193636-4ok4bv43ha1fsljr4tkgs3n95uumm4aj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ancq.moli",
+            "certificate_hash": "605171e99623108e66568d520da9f1ef6746d2de"
+          }
+        },
+        {
+          "client_id": "1061884193636-6dus7rnodd8j9usa5kb5cgbq9bmbc7l3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ancq.moli",
+            "certificate_hash": "4ea1de3a2c2a6eb56ba53a129905b5cd6d0e8708"
+          }
+        },
+        {
+          "client_id": "1061884193636-rlts5h91pl87cv2qubov5mao4pjsa00p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtgbmUioXe5-wW3nQZJE6uFBZjN-IvaeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061884193636-rlts5h91pl87cv2qubov5mao4pjsa00p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1061884193636-ncb4v7te91s227jfghhkeqka1ds63r9t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ancq.moli.stg"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061884193636:android:25da73a18e11ec3f586871",
+        "android_client_info": {
+          "package_name": "com.ancq.moli.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061884193636-kpodg6k97g15cr1ff8a2jti2v7gkqf43.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ancq.moli.dev",
+            "certificate_hash": "4ea1de3a2c2a6eb56ba53a129905b5cd6d0e8708"
+          }
+        },
+        {
+          "client_id": "1061884193636-rlts5h91pl87cv2qubov5mao4pjsa00p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtgbmUioXe5-wW3nQZJE6uFBZjN-IvaeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061884193636-rlts5h91pl87cv2qubov5mao4pjsa00p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1061884193636-ncb4v7te91s227jfghhkeqka1ds63r9t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ancq.moli.stg"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061884193636:android:4efca9c60aa4d02d586871",
+        "android_client_info": {
+          "package_name": "com.ancq.moli.stg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061884193636-gl9lq1dm8konhb45r6l598tfbrugaon0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ancq.moli.stg",
+            "certificate_hash": "4ea1de3a2c2a6eb56ba53a129905b5cd6d0e8708"
+          }
+        },
+        {
+          "client_id": "1061884193636-rlts5h91pl87cv2qubov5mao4pjsa00p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtgbmUioXe5-wW3nQZJE6uFBZjN-IvaeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061884193636-rlts5h91pl87cv2qubov5mao4pjsa00p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1061884193636-ncb4v7te91s227jfghhkeqka1ds63r9t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ancq.moli.stg"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

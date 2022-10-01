@@ -51,12 +51,11 @@ class AppTextButton extends StatelessWidget {
         shadowColor: ColorPalettes.primary10,
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        textStyle: context.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w500,
-            color: onPressed != null
-                ? ColorPalettes.primary10
-                : ColorPalettes.neutralVariant10),
-        primary: primary ?? ColorPalettes.primary40,
+        textStyle: context.textTheme.titleMedium?.weight500,
+        foregroundColor: onPressed != null
+            ? ColorPalettes.primary10
+            : ColorPalettes.neutralVariant10,
+        backgroundColor: primary ?? ColorPalettes.primary40,
         minimumSize: Size(
           expandedWith ? double.infinity : 0,
           height != null
@@ -67,8 +66,8 @@ class AppTextButton extends StatelessWidget {
         ),
         alignment: alignment,
       ),
-      onPressed: onPressed,
-      onLongPress: onLongPress,
+      onPressed: isLoading ? () {} : onPressed,
+      onLongPress: isLoading ? () {} : onLongPress,
       onHover: onHover,
       onFocusChange: onFocusChange,
       child: AnimatedSwitcher(

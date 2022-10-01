@@ -1,5 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:developer' as dev;
+
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 //Helpers
@@ -12,121 +15,96 @@ class NetworkException with _$NetworkException implements Exception {
   const NetworkException._() : super();
 
   const factory NetworkException.FormatException({
-    required String name,
-    required String message,
+    @Default(ExceptionConstants.FormatException) String name,
   }) = _FormatException;
 
   const factory NetworkException.FetchDataException({
-    required String name,
-    required String message,
+    @Default(ExceptionConstants.FetchDataException) String name,
   }) = _FetchDataException;
 
-  const factory NetworkException.ApiException({
-    required String name,
-    required String message,
-  }) = _ApiException;
-
   const factory NetworkException.TokenExpiredException({
-    required String name,
-    required String message,
+    @Default(ExceptionConstants.TokenExpiredException) String name,
   }) = _TokenExpiredException;
 
+  const factory NetworkException.OtherException({
+    @Default(ExceptionConstants.OtherException) String name,
+  }) = _OtherException;
+
   const factory NetworkException.UnrecognizedException({
-    required String name,
-    required String message,
+    @Default(ExceptionConstants.UnrecognizedException) String name,
   }) = _UnrecognizedException;
 
   const factory NetworkException.CancelException({
-    required String name,
-    required String message,
+    @Default(ExceptionConstants.CancelException) String name,
   }) = _CancelException;
 
   const factory NetworkException.ConnectTimeoutException({
-    required String name,
-    required String message,
+    @Default(ExceptionConstants.ConnectTimeoutException) String name,
   }) = _ConnectTimeoutException;
 
   const factory NetworkException.ReceiveTimeoutException({
-    required String name,
-    required String message,
+    @Default(ExceptionConstants.ReceiveTimeoutException) String name,
   }) = _ReceiveTimeoutException;
 
   const factory NetworkException.SendTimeoutException({
-    required String name,
-    required String message,
+    @Default(ExceptionConstants.SendTimeoutException) String name,
   }) = _SendTimeoutException;
 
-  static NetworkException getDioException(Exception error) {
-    try {
-      if (error is DioError) {
-        switch (error.type) {
-          case DioErrorType.cancel:
-            return const NetworkException.CancelException(
-              name: ExceptionConstants.CancelException,
-              message: 'Request cancelled prematurely',
-            );
-          case DioErrorType.connectTimeout:
-            return const NetworkException.ConnectTimeoutException(
-              name: ExceptionConstants.ConnectTimeoutException,
-              message: 'Connection not established',
-            );
-          case DioErrorType.sendTimeout:
-            return const NetworkException.SendTimeoutException(
-              name: ExceptionConstants.SendTimeoutException,
-              message: 'Failed to send',
-            );
-          case DioErrorType.receiveTimeout:
-            return const NetworkException.ReceiveTimeoutException(
-              name: ExceptionConstants.ReceiveTimeoutException,
-              message: 'Failed to receive',
-            );
-          case DioErrorType.response:
-          case DioErrorType.other:
-            if (error.message.contains(ExceptionConstants.SocketException)) {
-              return const NetworkException.FetchDataException(
-                name: ExceptionConstants.FetchDataException,
-                message: 'No internet connectivity',
-              );
-            }
+  const factory NetworkException.ApiException({
+    @Default(ExceptionConstants.FormatException) String name,
+    required String message,
+  }) = _ApiException;
 
-            String? message;
-            if (error.response?.data is JSON) {
-              final JSON data = error.response?.data as JSON;
-              if (data['errors'] is List<QueryParams>) {
-                message =
-                    (data['errors'] as List<QueryParams>).first['message'];
-              }
-            }
-
-            switch (message) {
-              case 'Your session expire, please login again':
-                return NetworkException.TokenExpiredException(
-                  name: ExceptionConstants.TokenExpiredException,
-                  message: message ?? error.message,
-                );
-              default:
-                return NetworkException.ApiException(
-                  name: error.type.toString(),
-                  message: message ?? error.message,
-                );
-            }
-        }
-      } else {
-        return const NetworkException.UnrecognizedException(
-          name: ExceptionConstants.UnrecognizedException,
-          message: 'Error unrecognized',
-        );
+  static NetworkException getDioException(Object error) {
+    if (kDebugMode) {
+      StackTrace? stackTrace;
+      if (error is Error) {
+        stackTrace = error.stackTrace;
       }
-    } on FormatException catch (e) {
-      return NetworkException.FormatException(
-        name: ExceptionConstants.FormatException,
-        message: e.message,
-      );
-    } on Exception catch (_) {
-      return const NetworkException.UnrecognizedException(
-        name: ExceptionConstants.UnrecognizedException,
-        message: 'Error unrecognized',
-      );
+      dev.log('\x1B[33mError type: ${error.runtimeType}',
+          error: error, stackTrace: stackTrace);
+    }
+
+    if (error is DioError) {
+      switch (error.type) {
+        case DioErrorType.cancel:
+          return const NetworkException.CancelException();
+        case DioErrorType.connectTimeout:
+          return const NetworkException.ConnectTimeoutException();
+        case DioErrorType.sendTimeout:
+          return const NetworkException.SendTimeoutException();
+        case DioErrorType.receiveTimeout:
+          return const NetworkException.ReceiveTimeoutException();
+        case DioErrorType.response:
+        case DioErrorType.other:
+          if (error.message.contains(ExceptionConstants.SocketException)) {
+            return const NetworkException.FetchDataException();
+          } else if (error.response?.statusCode == 400) {
+            return const NetworkException.FormatException();
+          }
+
+          String? message;
+          try {
+            message =
+                (((error.response?.data as JSON)['errors'] as List<dynamic>)
+                    .first as JSON)['message'] as String?;
+          } catch (_) {}
+
+          switch (message) {
+            case 'Your session expire, please login again':
+              return const NetworkException.TokenExpiredException();
+            default:
+              return NetworkException.ApiException(
+                message: message ?? error.message,
+              );
+          }
+      }
+    } else if (error is FormatException || error is TypeError) {
+      return const NetworkException.FormatException();
+    } else if (error is Exception || error is Error) {
+      return const NetworkException.OtherException();
+    } else {
+      return const NetworkException.UnrecognizedException();
     }
   }
 }

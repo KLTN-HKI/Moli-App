@@ -1,42 +1,54 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:moli_app/config/config.dart';
 import 'package:moli_app/constants/constants.dart';
-import 'package:moli_app/features/authentication/presentation/register/page/register_page.dart';
+import 'package:moli_app/features/authentication/authentication.dart';
+import 'package:moli_app/features/authentication/presentation/register/cubit/register_cubit.dart';
 import 'package:moli_app/features/authentication/presentation/widget/background_stack.dart';
+import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
 
+import '../../otp/cubit/otp_cubit.dart';
 import '../cubit/phone_cubit.dart';
 
 class CheckPhoneNumberPage extends StatelessWidget {
   const CheckPhoneNumberPage({super.key});
-  static const String routeName = '/check-exist-phone-number';
+  static const String routeName = 'check-exist-phone-number';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: ColorPalettes.transparent,
-        systemOverlayStyle: context.isDarkMode
-            ? SystemUiOverlayStyle.light
-            : SystemUiOverlayStyle.dark,
-      ),
+      appBar: const HeaderAppBar(transparentAppBar: true),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: BlocProvider<PhoneCubit>(
-          create: (BuildContext context) => PhoneCubit(
-            authenticationBloc: getIt(),
-            authenticationRepository: getIt(),
-          ),
+        child: const PhoneBody(),
+      ),
+    );
+    /* return MultiBlocProvider(
+      providers: <BlocProvider<dynamic>>[
+        BlocProvider<PhoneCubit>(
+          create: (_) => PhoneCubit(),
+        ),
+        BlocProvider<OtpCubit>(
+          create: (_) => OtpCubit(),
+        ),
+        BlocProvider<RegisterCubit>(
+          create: (_) => RegisterCubit(LoginCubit()),
+        ),
+      ],
+      child: Scaffold(
+        // resizeToAvoidBottomInset: false,
+        extendBodyBehindAppBar: true,
+        appBar: const HeaderAppBar(transparentAppBar: true),
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
           child: const PhoneBody(),
         ),
       ),
-    );
+    ); */
   }
 }
 
@@ -48,23 +60,42 @@ class PhoneBody extends StatelessWidget {
     return BlocListener<PhoneCubit, PhoneState>(
       listener: (BuildContext context, PhoneState state) {
         if (state.status == FormzStatus.submissionSuccess) {
-          context.router.navigateNamed(RegisterPage.routeName);
+          context.read<RegisterCubit>().phoneChanged(state.phoneNumber.value);
+          context.read<OtpCubit>().sendOTP('+84${state.phoneNumber.value}');
         } else if (state.status == FormzStatus.submissionFailure) {
           context.showDefaultDialog(
-              title: AppText.b0('sdsdsdsds'), content: AppText.b0('dsdasdasd'));
+              crossAxisAlignment: CrossAxisAlignment.center,
+              image: Image.asset(ImageAssets.errorResponse),
+              title: AppText.b0('Số điện thoại đã tồn tại').weight500,
+              content: AppText.b0(''),
+              actions: <Widget>[
+                AppElevatedButton(
+                  onPressed: () =>
+                      Navigator.of(context, rootNavigator: true).pop(),
+                  child: Text(context.l10n.i_got_it),
+                )
+              ]);
         }
       },
-      child: BackgroundStack(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              AppText.t0('Nhập số điện thoại để tiếp tục'),
-              const _PhoneNumberInput(),
-              SizedBox(height: 40.w),
-              const _CheckPhoneNumberExistButton(),
-            ],
+      child: BlocListener<OtpCubit, OtpState>(
+        listener: (BuildContext context, OtpState state) {
+          state.whenOrNull(
+            codeSent: () =>
+                context.goRouter.push('${Routes.auth}/${OTPPage.routeName}'),
+          );
+        },
+        child: BackgroundStack(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                AppText.t0('Nhập số điện thoại để tiếp tục'),
+                const _PhoneNumberInput(),
+                SizedBox(height: 40.w),
+                const _CheckPhoneNumberExistButton(),
+              ],
+            ),
           ),
         ),
       ),
@@ -110,15 +141,20 @@ class _CheckPhoneNumberExistButton extends StatelessWidget {
       buildWhen: (PhoneState previous, PhoneState current) =>
           previous.status != current.status,
       builder: (BuildContext context, PhoneState state) {
-        return AppElevatedButton(
-          key: const Key('login_form_submit_button'),
-          onPressed: state.status.isValidated
-              ? () => context.read<PhoneCubit>().checkPhoneNumberExist()
-              : null,
-          height: 64,
-          isLoading: state.status.isSubmissionInProgress,
-          primary: context.theme.colorScheme.primary,
-          child: Text(context.l10n.to_continue),
+        return BlocBuilder<OtpCubit, OtpState>(
+          builder: (BuildContext context, OtpState otpState) {
+            return AppElevatedButton(
+              key: const Key('check_phone_submit_button'),
+              onPressed: state.status.isValidated
+                  ? () => context.read<PhoneCubit>().checkPhoneNumberExist()
+                  : null,
+              height: 64,
+              isLoading:
+                  otpState.maybeWhen(loading: () => true, orElse: () => false),
+              primary: context.theme.colorScheme.primary,
+              child: Text(context.l10n.to_continue),
+            );
+          },
         );
       },
     );

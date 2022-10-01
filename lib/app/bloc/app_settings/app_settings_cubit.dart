@@ -15,11 +15,12 @@ class AppSettingsCubit extends Cubit<AppSettingsState> {
           locale: const Locale('vi', 'VN'),
         )) {
 // Get local data
-    final Locale locale = SchedulerBinding.instance.window.locale;
+    // final Locale locale = SchedulerBinding.instance.window.locale;
 
     // Change settings
     changeThemeMode(ThemeMode.light);
-    changeLanguage(locale.languageCode);
+    changeLanguage('vi');
+    // changeLanguage(locale.languageCode);
 
     // Listen user change system settings change
     WidgetsBinding.instance.window.onPlatformBrightnessChanged = () {

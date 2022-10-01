@@ -1,4 +1,4 @@
-package com.kltn.moli.moli_app
+package com.ancq.moli
 
 import io.flutter.embedding.android.FlutterActivity
 

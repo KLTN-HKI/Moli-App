@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:moli_app/shared/shared.dart';
 
@@ -13,15 +12,16 @@ class RegisterBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackgroundStack(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          AppText.d2(context.l10n.register).weight500,
-          SizedBox(height: 4.w),
-          AppText.b1(context.l10n.please_enter),
-          SizedBox(height: 16.w),
-          const RegisterForm()
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            AppText.d2(context.l10n.register).weight500,
+            SizedBox(height: 4.w),
+            AppText.b1('Vui lòng điền đầy đủ thông tin để đăng ký'),
+            const RegisterForm()
+          ],
+        ),
       ),
     );
   }

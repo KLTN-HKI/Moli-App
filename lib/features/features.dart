@@ -1,3 +1,10 @@
-export '../app/page/moli_app.dart';
+export 'appointment/appointment.dart';
 export 'authentication/authentication.dart';
 export 'dashboard/dashboard.dart';
+export 'dashboard/dashboard.dart';
+export 'home/home_page.dart';
+export 'notification/presentation/notification_detail/notification_detail_page.dart';
+export 'notification/presentation/pages/notification_page.dart';
+export 'on_boarding/on_boarding_page.dart';
+export 'setting/setting_page.dart';
+export 'splash/splash_page.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:moli_app/constants/color_palattes.dart';
 
 class AppIcon extends StatelessWidget {
   const AppIcon(

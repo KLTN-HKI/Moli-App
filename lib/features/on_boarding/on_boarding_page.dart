@@ -1,9 +1,7 @@
-import 'package:auto_route/annotations.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:moli_app/app/router/router.dart';
-import 'package:moli_app/constants/image_assets.dart';
+import 'package:moli_app/constants/constants.dart';
+import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
 
 class IntroductionPage extends StatefulWidget {
@@ -19,40 +17,47 @@ class _IntroductionPageState extends State<IntroductionPage> {
 
   @override
   void initState() {
+    // context.read<AuthenticationBloc>().add(const AuthenticationEvent.init());
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
-      pages: [
+      pages: <PageViewModel>[
         PageViewModel(
-          title: "Title 1",
-          bodyWidget: AppText.b0('Do something'),
-          image: Center(child: Image.network(ImageAssets.randomImage)),
+          title: 'Đặt lịch nhanh chóng',
+          bodyWidget: AppText.b0(''),
+          image: Image.asset(
+            ImageAssets.doctors,
+            fit: BoxFit.cover,
+          ),
+          decoration: const PageDecoration(
+            titlePadding: EdgeInsets.zero,
+            imageFlex: 2,
+            imagePadding: EdgeInsets.zero,
+          ),
         ),
         PageViewModel(
-          title: "Title 2",
-          bodyWidget: AppText.b0('Do something'),
-          image: Center(child: Image.network(ImageAssets.randomImage)),
-        ),
-        PageViewModel(
-          title: "Title 3",
-          bodyWidget: AppText.b0('Do something'),
-          image: Center(child: Image.network(ImageAssets.randomImage)),
+          title: 'Đội ngũ bác sĩ tận tâm, uy tín',
+          bodyWidget: AppText.b0(''),
+          image: Image.asset(ImageAssets.doctors1),
+          decoration: const PageDecoration(
+            titlePadding: EdgeInsets.zero,
+            imageFlex: 2,
+            imagePadding: EdgeInsets.zero,
+          ),
         ),
       ],
       showBackButton: true,
-      showSkipButton: false,
+      curve: Curves.fastOutSlowIn,
+      dotsDecorator: DotsDecorator(activeColor: context.colorScheme.primary),
       back: const Icon(Icons.arrow_back),
-      done: const Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
-      next: const Text("Next", style: TextStyle(fontWeight: FontWeight.w600)),
-      onDone: () => AutoRouter.of(context).replaceAll([const LoginRoute()]),
+      done:
+          const Text('Bắt đầu', style: TextStyle(fontWeight: FontWeight.w600)),
+      next:
+          const Text('Tiếp tục', style: TextStyle(fontWeight: FontWeight.w600)),
+      onDone: () => context.goRouter.push(Routes.auth),
     );
   }
 }

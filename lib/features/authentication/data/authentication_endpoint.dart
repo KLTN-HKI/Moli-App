@@ -4,34 +4,36 @@ import 'package:flutter/material.dart';
 /// A utility class for getting paths for API endpoints.
 /// This class has no constructor and all methods are `static`.
 @immutable
-class AuthenticationEndpoint {
-  const AuthenticationEndpoint._();
+class ApiEndpoint {
+  const ApiEndpoint._();
 
   /// Returns the path for an authentication [endpoint].
-  static String auth(AuthEndpoint endpoint) {
+  static String authentication(AuthenticationEndpoint endpoint) {
     const String path = '/api';
     switch (endpoint) {
-      case AuthEndpoint.REGISTER:
+      case AuthenticationEndpoint.REGISTER:
         return '$path/sign-up';
-      case AuthEndpoint.LOGIN:
+      case AuthenticationEndpoint.LOGIN:
         return '$path/login';
-      case AuthEndpoint.REFRESH_TOKEN:
+      case AuthenticationEndpoint.REFRESH_TOKEN:
         return '$path/..';
-      case AuthEndpoint.RESET_PASSWORD:
+      case AuthenticationEndpoint.RESET_PASSWORD:
         return '$path/reset-password';
-      case AuthEndpoint.VERIFY_OTP:
-        return '$path/otp'; 
-      case AuthEndpoint.CHECK_PHONE_NUMBER:
+      case AuthenticationEndpoint.VERIFY_OTP:
+        return '$path/otp';
+      case AuthenticationEndpoint.CHECK_PHONE_NUMBER:
         return '$path/existing-phone-check';
-      case AuthEndpoint.PROFILE:
+      case AuthenticationEndpoint.PROFILE:
         return '$path/patient/info';
-      case AuthEndpoint.EDIT_PROFILE:
+      case AuthenticationEndpoint.EDIT_PROFILE:
         return '$path/patient/edit-info';
+      case AuthenticationEndpoint.REGISTER_NOTIFICATION:
+        return '$path/notification/registration-token';
     }
   }
 }
 
-enum AuthEndpoint {
+enum AuthenticationEndpoint {
   /// An endpoint for registration requests.
   REGISTER,
 
@@ -55,4 +57,6 @@ enum AuthEndpoint {
 
   /// An endpoint for edit user info
   EDIT_PROFILE,
+
+  REGISTER_NOTIFICATION
 }

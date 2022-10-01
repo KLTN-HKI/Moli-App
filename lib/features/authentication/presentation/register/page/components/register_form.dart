@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:moli_app/constants/constants.dart';
 import 'package:moli_app/shared/shared.dart';
-
 import '../../cubit/register_cubit.dart';
 
 class RegisterForm extends StatelessWidget {
@@ -15,45 +14,28 @@ class RegisterForm extends StatelessWidget {
     return BlocListener<RegisterCubit, RegisterState>(
       listenWhen: (RegisterState previous, RegisterState current) =>
           previous.status != current.status,
-      listener: (BuildContext context, RegisterState state) {},
+      listener: (BuildContext context, RegisterState state) {
+        if (state.status == FormzStatus.submissionFailure) {
+          context.showDefaultDialog(
+              title: const Text('Dang ky that bai'),
+              content: Text(state.status.toString()));
+        }
+      },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
         child: Column(
-          children: [
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
             const _PhoneNumberInput(),
+            SizedBox(height: 12.w),
+            const _EmailInput(),
             SizedBox(height: 12.w),
             const _PasswordInput(),
             SizedBox(height: 12.w),
             const _ConfirmPasswordInput(),
-            SizedBox(height: 60.w),
-            const _RegisterSubmitted(),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _RegisterSubmitted extends StatelessWidget {
-  const _RegisterSubmitted();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterCubit, RegisterState>(
-      buildWhen: (RegisterState previous, RegisterState current) =>
-          previous.status != current.status,
-      builder: (BuildContext context, RegisterState state) {
-        return AppElevatedButton(
-          key: const Key('Register_form_submit_button'),
-          onPressed: state.status.isValidated
-              ? () => context.read<RegisterCubit>().register()
-              : null,
-          height: 64,
-          isLoading: state.status.isSubmissionInProgress,
-          primary: context.theme.colorScheme.primary,
-          child: Text(context.l10n.register),
-        );
-      },
     );
   }
 }
@@ -70,13 +52,41 @@ class _PhoneNumberInput extends StatelessWidget {
         return FloatingLabelInput(
           key: const Key('Register_form_phonenumber_input'),
           labelText: context.l10n.phone_number,
-          onChanged: (String phoneNumber) =>
-              context.read<RegisterCubit>().phoneNumberChanged(phoneNumber),
+          enabled: false,
+          noteInitValue: state.phoneNumber.value,
+          onChanged: (String phoneNumber) {},
           icon: IconAssets.icMobile,
           keyboardType: TextInputType.phone,
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly
           ],
+          border: const UnderlineInputBorder(
+            borderSide: BorderSide(color: ColorPalettes.neutral80),
+          ),
+          errorText: state.phoneNumber.invalid ? 'sdt khong hop le' : null,
+        );
+      },
+    );
+  }
+}
+
+class _EmailInput extends StatelessWidget {
+  const _EmailInput();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      buildWhen: (RegisterState previous, RegisterState current) =>
+          previous.phoneNumber != current.phoneNumber,
+      builder: (BuildContext context, RegisterState state) {
+        return FloatingLabelInput(
+          key: const Key('Register_form_phonenumber_input'),
+          labelText: 'Email',
+          noteInitValue: state.email.value,
+          onChanged: (String email) =>
+              context.read<RegisterCubit>().emailChanged(email),
+          icon: IconAssets.icMobile,
+          keyboardType: TextInputType.emailAddress,
           border: const UnderlineInputBorder(
             borderSide: BorderSide(color: ColorPalettes.neutral80),
           ),
@@ -147,20 +157,21 @@ class _ConfirmPasswordInputState extends State<_ConfirmPasswordInput> {
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterCubit, RegisterState>(
       buildWhen: (RegisterState previous, RegisterState current) =>
-          previous.password != current.password,
+          previous.password != current.password ||
+          previous.confirmPassword != current.confirmPassword,
       builder: (BuildContext context, RegisterState state) {
         return FloatingLabelInput(
           key: const Key('Register_form_password_input'),
-          labelText: context.l10n.password,
+          labelText: context.l10n.confirm_password,
           onChanged: (String password) =>
-              context.read<RegisterCubit>().passwordChanged(password),
+              context.read<RegisterCubit>().confirmPasswordChanged(password),
           icon: IconAssets.icLock,
           showHiddenInput: _toggle,
           obscureText: _obscureText,
           border: const UnderlineInputBorder(
             borderSide: BorderSide(color: ColorPalettes.neutral80),
           ),
-          errorText: state.password.invalid ? 'mat khau khong hop le!' : null,
+          errorText: state.confirmPassword.error?.text(),
         );
       },
     );

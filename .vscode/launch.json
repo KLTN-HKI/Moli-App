@@ -15,7 +15,7 @@
         "--target",
         "lib/main_development.dart",
         "--dart-define",
-        "BASE_URL=http://localhost:8080/",
+        "BASE_URL=http://localhost:8080",
       ],
       "flutterMode": "debug",
     },
@@ -30,7 +30,7 @@
         "--target",
         "lib/main_staging.dart",
         "--dart-define",
-        "BASE_URL=http://localhost:8080/",
+        "BASE_URL=http://localhost:8080",
       ],
       "flutterMode": "debug",
     },
@@ -45,7 +45,7 @@
         "--target",
         "lib/main_production.dart",
         "--dart-define",
-        "BASE_URL=http://localhost:8080/",
+        "BASE_URL=http://192.168.1.113:8080", //On android if can't run use  use ip address to run
       ],
       "flutterMode": "debug",
     }

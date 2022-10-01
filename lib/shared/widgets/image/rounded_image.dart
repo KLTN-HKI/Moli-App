@@ -6,7 +6,7 @@ class RoundedImage extends StatelessWidget {
   const RoundedImage({
     super.key,
     this.size = 56,
-    this.imageURL = '',
+    this.imageURL,
     this.border,
   });
 
@@ -28,18 +28,13 @@ class RoundedImage extends StatelessWidget {
             border: border,
             shape: BoxShape.circle,
           ),
-          child: CircleAvatar(
-            backgroundImage: imageProvider,
-          ),
+          child: CircleAvatar(backgroundImage: imageProvider),
         );
       },
-      placeholder: (BuildContext context, String url) =>
-          const LoadingIndicator(),
+      progressIndicatorBuilder: (_, String url, DownloadProgress progress) =>
+          Center(child: CircularProgressIndicator(value: progress.progress)),
       errorWidget: (BuildContext context, String url, dynamic error) =>
-          ErrorImage(
-        size: size,
-        isRounded: true,
-      ),
+          ErrorImage(size: size, isRounded: true),
     );
   }
 }

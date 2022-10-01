@@ -5,6 +5,7 @@ import '../../common/common.dart';
 //services
 import 'api_interface.dart';
 import 'dio_service.dart';
+import 'network_exception.dart';
 
 /// A service class implementing methods for basic API requests.
 class ApiService implements ApiInterface {
@@ -41,7 +42,7 @@ class ApiService implements ApiInterface {
     required T Function(JSON responseBody) converter,
   }) async {
     //Entire map of response
-    final JSON data = await _dioService.get(
+    final List<dynamic> data = await _dioService.get(
       endpoint: endpoint,
       options: Options(headers: <String, Object?>{
         'requiresAuthToken': requiresAuthToken,
@@ -50,11 +51,8 @@ class ApiService implements ApiInterface {
       cancelToken: cancelToken,
     );
 
-    //Items of table as json
-    final List<Object?> body = data['body'] as List<Object?>;
-
     //Returning the deserialized objects
-    return body.map((Object? dataMap) => converter(dataMap! as JSON)).toList();
+    return data.map((dynamic dataMap) => converter(dataMap as JSON)).toList();
   }
 
   /// An implementation of the base method for requesting a document of data
@@ -82,16 +80,21 @@ class ApiService implements ApiInterface {
     bool requiresAuthToken = true,
     required T Function(JSON responseBody) converter,
   }) async {
-    //Entire map of response
-    final JSON data = await _dioService.get(
-      endpoint: endpoint,
-      queryParams: queryParams,
-      options: Options(
-          headers: <String, Object?>{'requiresAuthToken': requiresAuthToken}),
-      cancelToken: cancelToken,
-    );
-    //Returning the deserialized object
-    return converter(data);
+    try {
+      //Entire map of response
+      final JSON data = await _dioService.get(
+        endpoint: endpoint,
+        queryParams: queryParams,
+        options: Options(
+            headers: <String, Object?>{'requiresAuthToken': requiresAuthToken}),
+        cancelToken: cancelToken,
+      );
+
+      //Returning the deserialized object
+      return converter(data);
+    } catch (ex) {
+      throw NetworkException.getDioException(ex);
+    }
   }
 
   /// An implementation of the base method for inserting [data] at
@@ -118,16 +121,20 @@ class ApiService implements ApiInterface {
     bool requiresAuthToken = true,
     required T Function(JSON response) converter,
   }) async {
-    //Entire map of response
-    final JSON dataMap = await _dioService.post(
-      endpoint: endpoint,
-      data: data,
-      options: Options(
-          headers: <String, Object?>{'requiresAuthToken': requiresAuthToken}),
-      cancelToken: cancelToken,
-    );
+    try {
+      //Entire map of response
+      final JSON dataMap = await _dioService.post(
+        endpoint: endpoint,
+        data: data,
+        options: Options(
+            headers: <String, Object?>{'requiresAuthToken': requiresAuthToken}),
+        cancelToken: cancelToken,
+      );
 
-    return converter(dataMap);
+      return converter(dataMap);
+    } catch (ex) {
+      throw NetworkException.getDioException(ex);
+    }
   }
 
   /// An implementation of the base method for updating [data]
@@ -154,16 +161,20 @@ class ApiService implements ApiInterface {
     bool requiresAuthToken = true,
     required T Function(JSON response) converter,
   }) async {
-    //Entire map of response
-    final JSON dataMap = await _dioService.patch(
-      endpoint: endpoint,
-      data: data,
-      options: Options(
-          headers: <String, Object?>{'requiresAuthToken': requiresAuthToken}),
-      cancelToken: cancelToken,
-    );
+    try {
+      //Entire map of response
+      final JSON dataMap = await _dioService.patch(
+        endpoint: endpoint,
+        data: data,
+        options: Options(
+            headers: <String, Object?>{'requiresAuthToken': requiresAuthToken}),
+        cancelToken: cancelToken,
+      );
 
-    return converter(dataMap);
+      return converter(dataMap);
+    } catch (ex) {
+      throw NetworkException.getDioException(ex);
+    }
   }
 
   /// An implementation of the base method for deleting [data]
@@ -190,16 +201,20 @@ class ApiService implements ApiInterface {
     bool requiresAuthToken = true,
     required T Function(JSON response) converter,
   }) async {
-    //Entire map of response
-    final JSON dataMap = await _dioService.delete(
-      endpoint: endpoint,
-      data: data,
-      options: Options(
-          headers: <String, Object?>{'requiresAuthToken': requiresAuthToken}),
-      cancelToken: cancelToken,
-    );
+    try {
+      //Entire map of response
+      final JSON dataMap = await _dioService.delete(
+        endpoint: endpoint,
+        data: data,
+        options: Options(
+            headers: <String, Object?>{'requiresAuthToken': requiresAuthToken}),
+        cancelToken: cancelToken,
+      );
 
-    return converter(dataMap);
+      return converter(dataMap);
+    } catch (ex) {
+      throw NetworkException.getDioException(ex);
+    }
   }
 
   /// An implementation of the base method for cancelling

@@ -52,23 +52,19 @@ class DioService {
   /// the **default** [cancelToken] inside [DioService] is used.
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<JSON> get({
+  Future<T> get<T>({
     required String endpoint,
     JSON? queryParams,
     Options? options,
     CancelToken? cancelToken,
   }) async {
-    try {
-      final Response<JSON> response = await _dio.get<JSON>(
-        endpoint,
-        queryParameters: queryParams,
-        options: options,
-        cancelToken: cancelToken ?? _cancelToken,
-      );
-      return response.data!;
-    } on Exception catch (ex) {
-      throw NetworkException.getDioException(ex);
-    }
+    final Response<T> response = await _dio.get<T>(
+      endpoint,
+      queryParameters: queryParams,
+      options: options,
+      cancelToken: cancelToken ?? _cancelToken,
+    );
+    return response.data!;
   }
 
   /// This method sends a `POST` request to the [endpoint] and returns the
@@ -83,23 +79,19 @@ class DioService {
   /// the **default** [cancelToken] inside [DioService] is used.
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<JSON> post({
+  Future<T> post<T>({
     required String endpoint,
     JSON? data,
     Options? options,
     CancelToken? cancelToken,
   }) async {
-    try {
-      final Response<JSON> response = await _dio.post<JSON>(
-        endpoint,
-        data: data,
-        options: options,
-        cancelToken: cancelToken ?? _cancelToken,
-      );
-      return response.data!;
-    } on Exception catch (ex) {
-      throw NetworkException.getDioException(ex);
-    }
+    final Response<T> response = await _dio.post<T>(
+      endpoint,
+      data: data,
+      options: options,
+      cancelToken: cancelToken ?? _cancelToken,
+    );
+    return response.data!;
   }
 
   /// This method sends a `PATCH` request to the [endpoint] and returns the
@@ -114,23 +106,19 @@ class DioService {
   /// the **default** [cancelToken] inside [DioService] is used.
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<JSON> patch({
+  Future<T> patch<T>({
     required String endpoint,
     JSON? data,
     Options? options,
     CancelToken? cancelToken,
   }) async {
-    try {
-      final Response<JSON> response = await _dio.put<JSON>(
-        endpoint,
-        data: data,
-        options: options,
-        cancelToken: cancelToken ?? _cancelToken,
-      );
-      return response.data!;
-    } on Exception catch (ex) {
-      throw NetworkException.getDioException(ex);
-    }
+    final Response<T> response = await _dio.put<T>(
+      endpoint,
+      data: data,
+      options: options,
+      cancelToken: cancelToken ?? _cancelToken,
+    );
+    return response.data!;
   }
 
   /// This method sends a `DELETE` request to the [endpoint] and returns the
@@ -145,22 +133,18 @@ class DioService {
   /// the **default** [cancelToken] inside [DioService] is used.
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<JSON> delete({
+  Future<T> delete<T>({
     required String endpoint,
     JSON? data,
     Options? options,
     CancelToken? cancelToken,
   }) async {
-    try {
-      final Response<JSON> response = await _dio.delete<JSON>(
-        endpoint,
-        data: data,
-        options: options,
-        cancelToken: cancelToken ?? _cancelToken,
-      );
-      return response.data!;
-    } on Exception catch (ex) {
-      throw NetworkException.getDioException(ex);
-    }
+    final Response<T> response = await _dio.delete<T>(
+      endpoint,
+      data: data,
+      options: options,
+      cancelToken: cancelToken ?? _cancelToken,
+    );
+    return response.data!;
   }
 }

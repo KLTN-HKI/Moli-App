@@ -19,22 +19,25 @@ mixin _$AuthenticationEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(String accessToken) loggedIn,
+    required TResult Function(UserModel user) loggedIn,
     required TResult Function() loggedOut,
+    required TResult Function(String token) saveToken,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(String accessToken)? loggedIn,
+    TResult Function(UserModel user)? loggedIn,
     TResult Function()? loggedOut,
+    TResult Function(String token)? saveToken,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(String accessToken)? loggedIn,
+    TResult Function(UserModel user)? loggedIn,
     TResult Function()? loggedOut,
+    TResult Function(String token)? saveToken,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$AuthenticationEvent {
     required TResult Function(_Initial value) init,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_LoggedOut value) loggedOut,
+    required TResult Function(_SaveToken value) saveToken,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$AuthenticationEvent {
     TResult Function(_Initial value)? init,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_SaveToken value)? saveToken,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$AuthenticationEvent {
     TResult Function(_Initial value)? init,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_SaveToken value)? saveToken,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,8 +126,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(String accessToken) loggedIn,
+    required TResult Function(UserModel user) loggedIn,
     required TResult Function() loggedOut,
+    required TResult Function(String token) saveToken,
   }) {
     return init();
   }
@@ -130,8 +137,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(String accessToken)? loggedIn,
+    TResult Function(UserModel user)? loggedIn,
     TResult Function()? loggedOut,
+    TResult Function(String token)? saveToken,
   }) {
     return init?.call();
   }
@@ -140,8 +148,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(String accessToken)? loggedIn,
+    TResult Function(UserModel user)? loggedIn,
     TResult Function()? loggedOut,
+    TResult Function(String token)? saveToken,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -156,6 +165,7 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) init,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_LoggedOut value) loggedOut,
+    required TResult Function(_SaveToken value) saveToken,
   }) {
     return init(this);
   }
@@ -166,6 +176,7 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? init,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_SaveToken value)? saveToken,
   }) {
     return init?.call(this);
   }
@@ -176,6 +187,7 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? init,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_SaveToken value)? saveToken,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -194,7 +206,9 @@ abstract class _$$_LoggedInCopyWith<$Res> {
   factory _$$_LoggedInCopyWith(
           _$_LoggedIn value, $Res Function(_$_LoggedIn) then) =
       __$$_LoggedInCopyWithImpl<$Res>;
-  $Res call({String accessToken});
+  $Res call({UserModel user});
+
+  $UserModelCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -210,28 +224,35 @@ class __$$_LoggedInCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? accessToken = freezed,
+    Object? user = freezed,
   }) {
     return _then(_$_LoggedIn(
-      accessToken: accessToken == freezed
-          ? _value.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel,
     ));
+  }
+
+  @override
+  $UserModelCopyWith<$Res> get user {
+    return $UserModelCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$_LoggedIn implements _LoggedIn {
-  const _$_LoggedIn({required this.accessToken});
+  const _$_LoggedIn(this.user);
 
   @override
-  final String accessToken;
+  final UserModel user;
 
   @override
   String toString() {
-    return 'AuthenticationEvent.loggedIn(accessToken: $accessToken)';
+    return 'AuthenticationEvent.loggedIn(user: $user)';
   }
 
   @override
@@ -239,13 +260,12 @@ class _$_LoggedIn implements _LoggedIn {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LoggedIn &&
-            const DeepCollectionEquality()
-                .equals(other.accessToken, accessToken));
+            const DeepCollectionEquality().equals(other.user, user));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(accessToken));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
 
   @JsonKey(ignore: true)
   @override
@@ -256,32 +276,35 @@ class _$_LoggedIn implements _LoggedIn {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(String accessToken) loggedIn,
+    required TResult Function(UserModel user) loggedIn,
     required TResult Function() loggedOut,
+    required TResult Function(String token) saveToken,
   }) {
-    return loggedIn(accessToken);
+    return loggedIn(user);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(String accessToken)? loggedIn,
+    TResult Function(UserModel user)? loggedIn,
     TResult Function()? loggedOut,
+    TResult Function(String token)? saveToken,
   }) {
-    return loggedIn?.call(accessToken);
+    return loggedIn?.call(user);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(String accessToken)? loggedIn,
+    TResult Function(UserModel user)? loggedIn,
     TResult Function()? loggedOut,
+    TResult Function(String token)? saveToken,
     required TResult orElse(),
   }) {
     if (loggedIn != null) {
-      return loggedIn(accessToken);
+      return loggedIn(user);
     }
     return orElse();
   }
@@ -292,6 +315,7 @@ class _$_LoggedIn implements _LoggedIn {
     required TResult Function(_Initial value) init,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_LoggedOut value) loggedOut,
+    required TResult Function(_SaveToken value) saveToken,
   }) {
     return loggedIn(this);
   }
@@ -302,6 +326,7 @@ class _$_LoggedIn implements _LoggedIn {
     TResult Function(_Initial value)? init,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_SaveToken value)? saveToken,
   }) {
     return loggedIn?.call(this);
   }
@@ -312,6 +337,7 @@ class _$_LoggedIn implements _LoggedIn {
     TResult Function(_Initial value)? init,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_SaveToken value)? saveToken,
     required TResult orElse(),
   }) {
     if (loggedIn != null) {
@@ -322,9 +348,9 @@ class _$_LoggedIn implements _LoggedIn {
 }
 
 abstract class _LoggedIn implements AuthenticationEvent {
-  const factory _LoggedIn({required final String accessToken}) = _$_LoggedIn;
+  const factory _LoggedIn(final UserModel user) = _$_LoggedIn;
 
-  String get accessToken;
+  UserModel get user;
   @JsonKey(ignore: true)
   _$$_LoggedInCopyWith<_$_LoggedIn> get copyWith =>
       throw _privateConstructorUsedError;
@@ -372,8 +398,9 @@ class _$_LoggedOut implements _LoggedOut {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(String accessToken) loggedIn,
+    required TResult Function(UserModel user) loggedIn,
     required TResult Function() loggedOut,
+    required TResult Function(String token) saveToken,
   }) {
     return loggedOut();
   }
@@ -382,8 +409,9 @@ class _$_LoggedOut implements _LoggedOut {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(String accessToken)? loggedIn,
+    TResult Function(UserModel user)? loggedIn,
     TResult Function()? loggedOut,
+    TResult Function(String token)? saveToken,
   }) {
     return loggedOut?.call();
   }
@@ -392,8 +420,9 @@ class _$_LoggedOut implements _LoggedOut {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(String accessToken)? loggedIn,
+    TResult Function(UserModel user)? loggedIn,
     TResult Function()? loggedOut,
+    TResult Function(String token)? saveToken,
     required TResult orElse(),
   }) {
     if (loggedOut != null) {
@@ -408,6 +437,7 @@ class _$_LoggedOut implements _LoggedOut {
     required TResult Function(_Initial value) init,
     required TResult Function(_LoggedIn value) loggedIn,
     required TResult Function(_LoggedOut value) loggedOut,
+    required TResult Function(_SaveToken value) saveToken,
   }) {
     return loggedOut(this);
   }
@@ -418,6 +448,7 @@ class _$_LoggedOut implements _LoggedOut {
     TResult Function(_Initial value)? init,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_SaveToken value)? saveToken,
   }) {
     return loggedOut?.call(this);
   }
@@ -428,6 +459,7 @@ class _$_LoggedOut implements _LoggedOut {
     TResult Function(_Initial value)? init,
     TResult Function(_LoggedIn value)? loggedIn,
     TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_SaveToken value)? saveToken,
     required TResult orElse(),
   }) {
     if (loggedOut != null) {
@@ -442,32 +474,175 @@ abstract class _LoggedOut implements AuthenticationEvent {
 }
 
 /// @nodoc
+abstract class _$$_SaveTokenCopyWith<$Res> {
+  factory _$$_SaveTokenCopyWith(
+          _$_SaveToken value, $Res Function(_$_SaveToken) then) =
+      __$$_SaveTokenCopyWithImpl<$Res>;
+  $Res call({String token});
+}
+
+/// @nodoc
+class __$$_SaveTokenCopyWithImpl<$Res>
+    extends _$AuthenticationEventCopyWithImpl<$Res>
+    implements _$$_SaveTokenCopyWith<$Res> {
+  __$$_SaveTokenCopyWithImpl(
+      _$_SaveToken _value, $Res Function(_$_SaveToken) _then)
+      : super(_value, (v) => _then(v as _$_SaveToken));
+
+  @override
+  _$_SaveToken get _value => super._value as _$_SaveToken;
+
+  @override
+  $Res call({
+    Object? token = freezed,
+  }) {
+    return _then(_$_SaveToken(
+      token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SaveToken implements _SaveToken {
+  const _$_SaveToken(this.token);
+
+  @override
+  final String token;
+
+  @override
+  String toString() {
+    return 'AuthenticationEvent.saveToken(token: $token)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SaveToken &&
+            const DeepCollectionEquality().equals(other.token, token));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(token));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_SaveTokenCopyWith<_$_SaveToken> get copyWith =>
+      __$$_SaveTokenCopyWithImpl<_$_SaveToken>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(UserModel user) loggedIn,
+    required TResult Function() loggedOut,
+    required TResult Function(String token) saveToken,
+  }) {
+    return saveToken(token);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(UserModel user)? loggedIn,
+    TResult Function()? loggedOut,
+    TResult Function(String token)? saveToken,
+  }) {
+    return saveToken?.call(token);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(UserModel user)? loggedIn,
+    TResult Function()? loggedOut,
+    TResult Function(String token)? saveToken,
+    required TResult orElse(),
+  }) {
+    if (saveToken != null) {
+      return saveToken(token);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) init,
+    required TResult Function(_LoggedIn value) loggedIn,
+    required TResult Function(_LoggedOut value) loggedOut,
+    required TResult Function(_SaveToken value) saveToken,
+  }) {
+    return saveToken(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? init,
+    TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_SaveToken value)? saveToken,
+  }) {
+    return saveToken?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? init,
+    TResult Function(_LoggedIn value)? loggedIn,
+    TResult Function(_LoggedOut value)? loggedOut,
+    TResult Function(_SaveToken value)? saveToken,
+    required TResult orElse(),
+  }) {
+    if (saveToken != null) {
+      return saveToken(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SaveToken implements AuthenticationEvent {
+  const factory _SaveToken(final String token) = _$_SaveToken;
+
+  String get token;
+  @JsonKey(ignore: true)
+  _$$_SaveTokenCopyWith<_$_SaveToken> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$AuthenticationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unauthenticated,
     required TResult Function() authenticating,
-    required TResult Function() authenticated,
+    required TResult Function(UserModel user) authenticated,
     required TResult Function() firstTime,
-    required TResult Function(String reason) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
-    TResult Function()? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
-    TResult Function()? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -477,7 +652,6 @@ mixin _$AuthenticationState {
     required TResult Function(AUTHENTICATING value) authenticating,
     required TResult Function(AUTHENTICATED value) authenticated,
     required TResult Function(FIRSTTIME value) firstTime,
-    required TResult Function(FAILED value) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -486,7 +660,6 @@ mixin _$AuthenticationState {
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
     TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -495,7 +668,6 @@ mixin _$AuthenticationState {
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
     TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -561,9 +733,8 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
   TResult when<TResult extends Object?>({
     required TResult Function() unauthenticated,
     required TResult Function() authenticating,
-    required TResult Function() authenticated,
+    required TResult Function(UserModel user) authenticated,
     required TResult Function() firstTime,
-    required TResult Function(String reason) failed,
   }) {
     return unauthenticated();
   }
@@ -573,9 +744,8 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
-    TResult Function()? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
   }) {
     return unauthenticated?.call();
   }
@@ -585,9 +755,8 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
-    TResult Function()? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -603,7 +772,6 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
     required TResult Function(AUTHENTICATING value) authenticating,
     required TResult Function(AUTHENTICATED value) authenticated,
     required TResult Function(FIRSTTIME value) firstTime,
-    required TResult Function(FAILED value) failed,
   }) {
     return unauthenticated(this);
   }
@@ -615,7 +783,6 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
     TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
   }) {
     return unauthenticated?.call(this);
   }
@@ -627,7 +794,6 @@ class _$UNAUTHENTICATED implements UNAUTHENTICATED {
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
     TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -684,9 +850,8 @@ class _$AUTHENTICATING implements AUTHENTICATING {
   TResult when<TResult extends Object?>({
     required TResult Function() unauthenticated,
     required TResult Function() authenticating,
-    required TResult Function() authenticated,
+    required TResult Function(UserModel user) authenticated,
     required TResult Function() firstTime,
-    required TResult Function(String reason) failed,
   }) {
     return authenticating();
   }
@@ -696,9 +861,8 @@ class _$AUTHENTICATING implements AUTHENTICATING {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
-    TResult Function()? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
   }) {
     return authenticating?.call();
   }
@@ -708,9 +872,8 @@ class _$AUTHENTICATING implements AUTHENTICATING {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
-    TResult Function()? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
     required TResult orElse(),
   }) {
     if (authenticating != null) {
@@ -726,7 +889,6 @@ class _$AUTHENTICATING implements AUTHENTICATING {
     required TResult Function(AUTHENTICATING value) authenticating,
     required TResult Function(AUTHENTICATED value) authenticated,
     required TResult Function(FIRSTTIME value) firstTime,
-    required TResult Function(FAILED value) failed,
   }) {
     return authenticating(this);
   }
@@ -738,7 +900,6 @@ class _$AUTHENTICATING implements AUTHENTICATING {
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
     TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
   }) {
     return authenticating?.call(this);
   }
@@ -750,7 +911,6 @@ class _$AUTHENTICATING implements AUTHENTICATING {
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
     TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
     required TResult orElse(),
   }) {
     if (authenticating != null) {
@@ -769,6 +929,9 @@ abstract class _$$AUTHENTICATEDCopyWith<$Res> {
   factory _$$AUTHENTICATEDCopyWith(
           _$AUTHENTICATED value, $Res Function(_$AUTHENTICATED) then) =
       __$$AUTHENTICATEDCopyWithImpl<$Res>;
+  $Res call({UserModel user});
+
+  $UserModelCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -781,37 +944,66 @@ class __$$AUTHENTICATEDCopyWithImpl<$Res>
 
   @override
   _$AUTHENTICATED get _value => super._value as _$AUTHENTICATED;
+
+  @override
+  $Res call({
+    Object? user = freezed,
+  }) {
+    return _then(_$AUTHENTICATED(
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel,
+    ));
+  }
+
+  @override
+  $UserModelCopyWith<$Res> get user {
+    return $UserModelCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$AUTHENTICATED implements AUTHENTICATED {
-  const _$AUTHENTICATED();
+  const _$AUTHENTICATED(this.user);
+
+  @override
+  final UserModel user;
 
   @override
   String toString() {
-    return 'AuthenticationState.authenticated()';
+    return 'AuthenticationState.authenticated(user: $user)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AUTHENTICATED);
+        (other.runtimeType == runtimeType &&
+            other is _$AUTHENTICATED &&
+            const DeepCollectionEquality().equals(other.user, user));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$AUTHENTICATEDCopyWith<_$AUTHENTICATED> get copyWith =>
+      __$$AUTHENTICATEDCopyWithImpl<_$AUTHENTICATED>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unauthenticated,
     required TResult Function() authenticating,
-    required TResult Function() authenticated,
+    required TResult Function(UserModel user) authenticated,
     required TResult Function() firstTime,
-    required TResult Function(String reason) failed,
   }) {
-    return authenticated();
+    return authenticated(user);
   }
 
   @override
@@ -819,11 +1011,10 @@ class _$AUTHENTICATED implements AUTHENTICATED {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
-    TResult Function()? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
   }) {
-    return authenticated?.call();
+    return authenticated?.call(user);
   }
 
   @override
@@ -831,13 +1022,12 @@ class _$AUTHENTICATED implements AUTHENTICATED {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
-    TResult Function()? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated();
+      return authenticated(user);
     }
     return orElse();
   }
@@ -849,7 +1039,6 @@ class _$AUTHENTICATED implements AUTHENTICATED {
     required TResult Function(AUTHENTICATING value) authenticating,
     required TResult Function(AUTHENTICATED value) authenticated,
     required TResult Function(FIRSTTIME value) firstTime,
-    required TResult Function(FAILED value) failed,
   }) {
     return authenticated(this);
   }
@@ -861,7 +1050,6 @@ class _$AUTHENTICATED implements AUTHENTICATED {
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
     TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
   }) {
     return authenticated?.call(this);
   }
@@ -873,7 +1061,6 @@ class _$AUTHENTICATED implements AUTHENTICATED {
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
     TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -884,7 +1071,12 @@ class _$AUTHENTICATED implements AUTHENTICATED {
 }
 
 abstract class AUTHENTICATED implements AuthenticationState {
-  const factory AUTHENTICATED() = _$AUTHENTICATED;
+  const factory AUTHENTICATED(final UserModel user) = _$AUTHENTICATED;
+
+  UserModel get user;
+  @JsonKey(ignore: true)
+  _$$AUTHENTICATEDCopyWith<_$AUTHENTICATED> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -930,9 +1122,8 @@ class _$FIRSTTIME implements FIRSTTIME {
   TResult when<TResult extends Object?>({
     required TResult Function() unauthenticated,
     required TResult Function() authenticating,
-    required TResult Function() authenticated,
+    required TResult Function(UserModel user) authenticated,
     required TResult Function() firstTime,
-    required TResult Function(String reason) failed,
   }) {
     return firstTime();
   }
@@ -942,9 +1133,8 @@ class _$FIRSTTIME implements FIRSTTIME {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
-    TResult Function()? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
   }) {
     return firstTime?.call();
   }
@@ -954,9 +1144,8 @@ class _$FIRSTTIME implements FIRSTTIME {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? authenticating,
-    TResult Function()? authenticated,
+    TResult Function(UserModel user)? authenticated,
     TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
     required TResult orElse(),
   }) {
     if (firstTime != null) {
@@ -972,7 +1161,6 @@ class _$FIRSTTIME implements FIRSTTIME {
     required TResult Function(AUTHENTICATING value) authenticating,
     required TResult Function(AUTHENTICATED value) authenticated,
     required TResult Function(FIRSTTIME value) firstTime,
-    required TResult Function(FAILED value) failed,
   }) {
     return firstTime(this);
   }
@@ -984,7 +1172,6 @@ class _$FIRSTTIME implements FIRSTTIME {
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
     TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
   }) {
     return firstTime?.call(this);
   }
@@ -996,7 +1183,6 @@ class _$FIRSTTIME implements FIRSTTIME {
     TResult Function(AUTHENTICATING value)? authenticating,
     TResult Function(AUTHENTICATED value)? authenticated,
     TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
     required TResult orElse(),
   }) {
     if (firstTime != null) {
@@ -1008,154 +1194,4 @@ class _$FIRSTTIME implements FIRSTTIME {
 
 abstract class FIRSTTIME implements AuthenticationState {
   const factory FIRSTTIME() = _$FIRSTTIME;
-}
-
-/// @nodoc
-abstract class _$$FAILEDCopyWith<$Res> {
-  factory _$$FAILEDCopyWith(_$FAILED value, $Res Function(_$FAILED) then) =
-      __$$FAILEDCopyWithImpl<$Res>;
-  $Res call({String reason});
-}
-
-/// @nodoc
-class __$$FAILEDCopyWithImpl<$Res>
-    extends _$AuthenticationStateCopyWithImpl<$Res>
-    implements _$$FAILEDCopyWith<$Res> {
-  __$$FAILEDCopyWithImpl(_$FAILED _value, $Res Function(_$FAILED) _then)
-      : super(_value, (v) => _then(v as _$FAILED));
-
-  @override
-  _$FAILED get _value => super._value as _$FAILED;
-
-  @override
-  $Res call({
-    Object? reason = freezed,
-  }) {
-    return _then(_$FAILED(
-      reason: reason == freezed
-          ? _value.reason
-          : reason // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$FAILED implements FAILED {
-  const _$FAILED({required this.reason});
-
-  @override
-  final String reason;
-
-  @override
-  String toString() {
-    return 'AuthenticationState.failed(reason: $reason)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FAILED &&
-            const DeepCollectionEquality().equals(other.reason, reason));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(reason));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$FAILEDCopyWith<_$FAILED> get copyWith =>
-      __$$FAILEDCopyWithImpl<_$FAILED>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() unauthenticated,
-    required TResult Function() authenticating,
-    required TResult Function() authenticated,
-    required TResult Function() firstTime,
-    required TResult Function(String reason) failed,
-  }) {
-    return failed(reason);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? unauthenticated,
-    TResult Function()? authenticating,
-    TResult Function()? authenticated,
-    TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
-  }) {
-    return failed?.call(reason);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? unauthenticated,
-    TResult Function()? authenticating,
-    TResult Function()? authenticated,
-    TResult Function()? firstTime,
-    TResult Function(String reason)? failed,
-    required TResult orElse(),
-  }) {
-    if (failed != null) {
-      return failed(reason);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(UNAUTHENTICATED value) unauthenticated,
-    required TResult Function(AUTHENTICATING value) authenticating,
-    required TResult Function(AUTHENTICATED value) authenticated,
-    required TResult Function(FIRSTTIME value) firstTime,
-    required TResult Function(FAILED value) failed,
-  }) {
-    return failed(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UNAUTHENTICATED value)? unauthenticated,
-    TResult Function(AUTHENTICATING value)? authenticating,
-    TResult Function(AUTHENTICATED value)? authenticated,
-    TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
-  }) {
-    return failed?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(UNAUTHENTICATED value)? unauthenticated,
-    TResult Function(AUTHENTICATING value)? authenticating,
-    TResult Function(AUTHENTICATED value)? authenticated,
-    TResult Function(FIRSTTIME value)? firstTime,
-    TResult Function(FAILED value)? failed,
-    required TResult orElse(),
-  }) {
-    if (failed != null) {
-      return failed(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class FAILED implements AuthenticationState {
-  const factory FAILED({required final String reason}) = _$FAILED;
-
-  String get reason;
-  @JsonKey(ignore: true)
-  _$$FAILEDCopyWith<_$FAILED> get copyWith =>
-      throw _privateConstructorUsedError;
 }

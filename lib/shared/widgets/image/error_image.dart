@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/constants.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_app/constants/color_palattes.dart';
+import 'package:moli_app/constants/image_assets.dart';
 
 class ErrorImage extends StatelessWidget {
   const ErrorImage({super.key, this.size, this.isRounded = false});
@@ -13,11 +13,10 @@ class ErrorImage extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(isRounded ? 50 : 0),
         child: Container(
-          height: double.infinity,
           decoration: const BoxDecoration(
             color: ColorPalettes.neutral99,
           ),
-          child: const AppIcon(IconAssets.appIcon),
+          child: Image.asset(ImageAssets.appIcon, height: size),
         ),
       ),
     );
