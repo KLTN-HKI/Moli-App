@@ -3,6 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import '../features/authentication/authentication.dart';
 import '../features/hospital/data/hospital_repository_api.dart';
+import '../features/notification/application/bloc/notification_bloc.dart';
+import '../features/notification/data/notification_repository_api.dart';
+import '../features/notification/data/notification_repository_local.dart';
 import '../shared/shared.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -32,5 +35,10 @@ Future<void> resolveDependencies({
     ..registerSingleton<AuthenticationRepository>(
         AuthenticationRepository(apiService: getIt<ApiService>()))
     ..registerSingleton<AuthenticationBloc>(AuthenticationBloc(getIt()))
+
+    /// Notification
+    ..registerSingleton<NotificationBloc>(NotificationBloc())
+    ..registerSingleton<NotificationRepositoryApi>(NotificationRepositoryApi())
+    ..registerSingletonAsync(NotificationRepositoryLocal.initialize)
     ..registerSingleton<HospitalRepositoryApi>(HospitalRepositoryApi());
 }

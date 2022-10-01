@@ -19,7 +19,7 @@ class ImageAssets {
   static const String errorResponse = '$path/error_response.png';
   static const String noInternet = '$path/no_internet.png';
   static const String notFound = '$path/not_found.png';
-  static const String otherError = '$path/other_error.png';
+  static const String otherError = '$path/ban_error.png';
   static const String otpVerify = '$path/otp_verify.png';
   static const String requestFail = '$path/request_fail.png';
   static const String resetPassword = '$path/reset_password.png';

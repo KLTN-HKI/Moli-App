@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moli_app/app/bloc/bloc.dart';
 import 'package:moli_app/config/config.dart';
@@ -10,6 +8,8 @@ import 'package:moli_app/features/authentication/presentation/check_user/cubit/p
 import 'package:moli_app/features/authentication/presentation/otp/cubit/otp_cubit.dart';
 import 'package:moli_app/features/authentication/presentation/register/cubit/register_cubit.dart';
 import 'package:moli_app/features/features.dart';
+import 'package:moli_app/features/notification/application/bloc/notification_bloc.dart';
+import 'package:moli_app/features/notification/application/notification_service.dart';
 import 'package:moli_app/localization/l10n.dart';
 import 'package:moli_app/shared/shared.dart';
 
@@ -28,6 +28,7 @@ class MoliApp extends StatelessWidget {
         BlocProvider<AppSettingsCubit>(create: (_) => AppSettingsCubit()),
         BlocProvider<AppConnectCubit>(create: (_) => AppConnectCubit()),
         BlocProvider<AuthenticationBloc>(create: (_) => getIt()),
+        BlocProvider<NotificationBloc>(create: (_) => getIt()),
         BlocProvider<PhoneCubit>(
           create: (_) => PhoneCubit(),
         ),
@@ -55,41 +56,18 @@ class MoliView extends StatefulWidget {
 class _MoliViewState extends State<MoliView> {
   late GoRouter _appRouter;
 
-  Future<void> get playNotificationSound =>
-      FlutterRingtonePlayer.playNotification();
-
-  Future<void> get runNotificationvibrate => HapticFeedback.mediumImpact();
-
   @override
   void initState() {
-    context.read<AuthenticationBloc>().add(const AuthenticationEvent.init());
-    _appRouter = routing();
-
-    /* /// Handle any interaction when the app is in the background via a
-    // Stream listener
-    MoliMessaging.onMessageOpenedApp.listen(_handleMessage);
-
-    /// Foreground messaging
-    MoliMessaging.onMessage.listen((RemoteMessage message) {
-      final String? channel = message.getChannelId();
-      playNotificationSound;
-      if (channel != null) {
-        switch (channel) {
-          case 'appoinment':
-          case 'remind':
-            break;
-          default:
-        }
-      } else {
-        ///Remind incoming class notification
-        final RemoteNotification? notification = message.notification;
-        // now support for class reminding only
-        if (notification != null) {
-          log(name: 'Other push notification', notification.toMap().toString());
-        }
-      }
-    }); */
     super.initState();
+    NotificationService.initialize();
+  }
+
+  @override
+  void didChangeDependencies() {
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.init());
+
+    _appRouter = routing();
+    super.didChangeDependencies();
   }
 
   @override

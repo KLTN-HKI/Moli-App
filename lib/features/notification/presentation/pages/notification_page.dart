@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:moli_app/shared/shared.dart';
+
+import '../cubit/notification_list_cubit.dart';
+import 'components/notification_body.dart';
+import 'components/notification_laster.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
@@ -12,71 +17,50 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
+  late final NotificationListCubit _cubit;
+  late final ScrollController _controller;
+
   @override
   void initState() {
     super.initState();
+    _cubit = NotificationListCubit();
+    // _cubit.fetchData();
+
+    _controller = ScrollController();
+    _controller.addListener(_loadMoreData);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _cubit.close();
+    _controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: HeaderAppBar(
-        title: Text(context.l10n.notification),
-        actions: <Widget>[
-          IconButton(onPressed: () {}, icon: const Icon(Iconsax.more)),
-        ],
+    return BlocProvider<NotificationListCubit>.value(
+      value: _cubit,
+      child: Scaffold(
+        appBar: HeaderAppBar(titleText: context.l10n.notification),
+        body: SafeArea(
+            child: RefreshIndicator(
+          onRefresh: () => _cubit.fetchData(),
+          child: ListView(
+            controller: _controller,
+            children: const <Widget>[
+              NotificationLaster(),
+              NotificationBody(),
+            ],
+          ),
+        )),
       ),
-      // body: SafeArea(
-      //     child: ListView.separated(
-      //         itemBuilder: (BuildContext context, int index) => ListTile(
-      //               onTap: () {
-      //                 Navigator.of(context).push(
-      //                   MaterialPageRoute<dynamic>(
-      //                     builder: (BuildContext context) =>
-      //                         const NotificationDetailPage(),
-      //                   ),
-      //                 );
-      //               },
-      //               contentPadding:
-      //                   EdgeInsets.symmetric(horizontal: 24.w, vertical: 4.w),
-      //               leading: Stack(
-      //                 clipBehavior: Clip.none,
-      //                 children: const <Widget>[
-      //                   AppIcon(
-      //                     IconAssets.icNotiCalendar,
-      //                     size: 48,
-      //                     // color: context.colorScheme.errorContainer,
-      //                   )
-      //                   /* RoundedImage(
-      //                       size: 48.w, imageURL: ImageAssets.randomAvatar),
-      //                   Positioned(
-      //                       bottom: -4.w,
-      //                       right: -4.w,
-      //                       child: const AppIcon(
-      //                         IconAssets.icNotiCalendar,
-      //                         size: 24,
-      //                         // color: context.colorScheme.errorContainer,
-      //                       )), */
-      //                 ],
-      //               ),
-      //               title: AppText.t1(context.l10n.notification),
-      //               subtitle: AppText.l2('Hôm nay | 13:00 PM'),
-      //               trailing: Container(
-      //                 padding: EdgeInsets.all(8.r),
-      //                 decoration: BoxDecoration(
-      //                     color: context.colorScheme.primary,
-      //                     borderRadius: BorderRadius.circular(12.r)
-      //                     // shape: BoxShape.circle,
-      //                     ),
-      //                 child: AppText.b2(
-      //                   'New',
-      //                   color: context.colorScheme.background,
-      //                 ),
-      //               ),
-      //             ),
-      //         separatorBuilder: (BuildContext context, int index) =>
-      //             const SizedBox(),
-      //         itemCount: 10)),
     );
+  }
+
+  void _loadMoreData() {
+    if (_controller.position.extentAfter < 100) {
+      _cubit.loadMoreData();
+    }
   }
 }

@@ -7,6 +7,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'hive_box.dart';
+
 /// Base class containing a unified API for key-value pairs' storage.
 /// This class provides low level methods for storing:
 /// - Sensitive keys using [FlutterSecureStorage]
@@ -110,18 +112,22 @@ class KeyValueStorageBase {
     await hiveBox.put(key, value);
   }
 
-  /// Saves all the key - value pairs in the [itemsMap] map.
-  ///
-  /// ```dart
-  /// final itemsMap = {for (var item in items) item.id: item};
-  /// KeyValueStorageBase.saveItems('BOX_KEY', itemsMap : itemsMap);
-  /// ```
-  Future<void> saveItems<T>(String boxKey,
-      {required Map<dynamic, T> itemsMap}) async {
-    final Box<dynamic> hiveBox = Hive.box<dynamic>(boxKey);
+  /// Saves all the [values] with id keys.
+  Future<void> saveItems<T extends HiveBox>(
+      {required Iterable<T> items, bool clear = true}) async {
+    if (items.isNotEmpty) {
+      final Box<T> hiveBox = Hive.box<T>(items.first.boxName);
 
-    await hiveBox.clear();
-    await hiveBox.putAll(itemsMap);
+      if (clear) {
+        await hiveBox.clear();
+      }
+
+      final Map<dynamic, T> itemsMap = <dynamic, T>{
+        for (T item in items) item.id: item
+      };
+
+      await hiveBox.putAll(itemsMap);
+    }
   }
 
   /// Erases hive storage keys

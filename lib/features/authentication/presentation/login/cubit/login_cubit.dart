@@ -14,11 +14,11 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit()
-      : _authRepo = getIt(),
+      : _repository = getIt(),
         _authBloc = getIt(),
         super(const LoginState.initial());
 
-  final AuthenticationRepository _authRepo;
+  final AuthenticationRepository _repository;
   final AuthenticationBloc _authBloc;
 
   void phoneNumberChanged(String value) {
@@ -47,13 +47,19 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
       final String result =
-          await _authRepo.sendLoginData(data: <String, dynamic>{
+          await _repository.sendLoginData(data: <String, dynamic>{
         'username': phoneNumber,
         'password': password,
       });
       _authBloc.add(AuthenticationEvent.saveToken(result));
-      
-      final UserModel user = await _authRepo.getUserInfo();
+
+      /// Register token FCM
+      final String? tokenFCM = await MoliMessaging.instance.getToken();
+      await _repository.registerNotification(data: <String, dynamic>{
+        'registrationToken': tokenFCM,
+      });
+
+      final UserModel user = await _repository.getUserInfo();
       _authBloc.add(AuthenticationEvent.loggedIn(user));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on NetworkException catch (e) {

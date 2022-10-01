@@ -72,7 +72,7 @@ class AuthenticationBloc
       _LoggedOut? event, Emitter<AuthenticationState> emit) async {
     emit(const AuthenticationState.unauthenticated());
     _authService.clearAuthKey();
-    // await MoliMessaging.instance.deleteToken();
+    MoliMessaging.instance.deleteToken();
   }
 
   FutureOr<void> _onSaveToken(
