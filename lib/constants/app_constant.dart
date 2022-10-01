@@ -6,6 +6,6 @@ class AppConstant {
   static String callHotline = 'tel://$hotlineNumber';
   static String unknownDate = '0000-00-00 00:00';
 
-   static const int HIVE_COURSE = 1;
-  static const int HIVE_NOTIFICATION = 2;
+  static const int hiveHospital = 1;
+  static const int hiveNotification = 2;
 }

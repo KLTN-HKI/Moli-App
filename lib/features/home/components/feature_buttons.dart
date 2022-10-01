@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moli_app/constants/constants.dart';
+import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
 
 class FeatureModel {
@@ -37,7 +38,7 @@ class FeatureButtons extends StatelessWidget {
       title: 'Đặt khám\nbệnh viện',
       icon: IconAssets.icCalendarBold,
       color: ColorPalettes.blueAccent,
-      routeName: '/home/hospitals',
+      routeName: Routes.hospitals,
     ),
     FeatureModel(
       title: 'Hồ sơ\ny tế',
@@ -78,7 +79,7 @@ class FeatureButtons extends StatelessWidget {
         return InkWell(
           splashColor: ColorPalettes.transparent,
           onTap: feature.routeName != null
-              ? () => context.goRouter.go(feature.routeName ?? '')
+              ? () => context.goRouter.go(feature.routeName!)
               : null,
           borderRadius: BorderRadius.circular(12.r),
           child: Container(

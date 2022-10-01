@@ -6,11 +6,14 @@ FLutter doctor appointment - Moli
 
 ## Run app 🚀
 
-```dart
+````dart
 flutter pub get
 flutter pub run build_runner build --delete-conflicting-outputs
-flutter run --flavor=production --target="lib/main_production.dart" --dart-define="BASE_URL=www.production.com"
-```
+
+
+``` Run release
+flutter run --flavor=production --target="lib/main_production.dart" --dart-define="BASE_URL=www.ipconfig:8080"
+````
 
 ## Run build runner
 

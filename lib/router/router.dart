@@ -28,7 +28,7 @@ class Routes {
   static const String notification = '/notification';
   static const String menu = '/menu';
 
-  static const String hospitals = 'hospitals';
+  static const String hospitals = '/hospitals';
   static const String hospitalDetail = 'detail';
   static const String doctors = 'doctors';
   static const String doctorDetail = 'detail';

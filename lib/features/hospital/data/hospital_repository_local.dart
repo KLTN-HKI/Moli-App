@@ -6,7 +6,7 @@ import 'hospital_repository.dart';
 class HospitalRepositoryLocal implements HospitalRepository {
   const HospitalRepositoryLocal._();
 
-  static KeyValueStorageBase? _storage;
+  // static KeyValueStorageBase? _storage;
 
   /*  static Future<CourseRepositoryLocal> create() async {
     Hive.registerAdapter<CourseHive>(CourseHiveAdapter());

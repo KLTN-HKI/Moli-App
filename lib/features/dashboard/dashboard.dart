@@ -36,20 +36,20 @@ class DashBoard extends StatelessWidget {
         elevation: 0,
         items: bottomIcons(
           context,
-          context.colorScheme.onSurfaceVariant,
-          context.colorScheme.primary,
+          defaultColor: context.colorScheme.onSurfaceVariant,
+          activeColor: context.colorScheme.primary,
         ),
         currentIndex: _routeToIndex(location),
-        onTap: (int idx) => context.go(_indexToRoute(idx)),
+        onTap: (int index) => context.goRouter.go(indexToLocation(index)),
       ),
     );
   }
 
   List<BottomNavigationBarItem> bottomIcons(
-    BuildContext context,
-    Color defaultColor,
-    Color activeColor,
-  ) =>
+    BuildContext context, {
+    required Color defaultColor,
+    required Color activeColor,
+  }) =>
       <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: AppIcon(IconAssets.icHome, color: defaultColor),
@@ -86,7 +86,7 @@ class DashBoard extends StatelessWidget {
     return 0;
   }
 
-  static String _indexToRoute(int index) {
+  static String indexToLocation(int index) {
     switch (index) {
       case 0:
         return Routes.home;

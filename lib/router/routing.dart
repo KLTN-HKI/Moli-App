@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moli_app/config/config.dart';
+import 'package:moli_app/app/bloc/bloc.dart';
 import 'package:moli_app/features/authentication/presentation/register/page/register_page.dart';
 import 'package:moli_app/features/doctor/presentation/pages/doctor_page.dart';
 import 'package:moli_app/features/doctor/presentation/pages/dotor_detail_page.dart';
@@ -8,8 +9,10 @@ import 'package:moli_app/features/error/error_page.dart';
 import 'package:moli_app/features/features.dart';
 import 'package:moli_app/features/home/page/menu_page.dart';
 import 'package:moli_app/features/hospital/presentation/pages/hospital_page.dart';
+import 'package:moli_app/shared/shared.dart';
 
 import '../features/authentication/presentation/check_user/page/check_phone_page.dart';
+import 'go_router_refresh_stream.dart';
 import 'router.dart';
 import 'transition_page.dart';
 
@@ -18,13 +21,14 @@ final GlobalKey<NavigatorState> moliNavigatorKey =
 final GlobalKey<NavigatorState> moliShellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
 
-GoRouter routing() {
-  final AuthenticationBloc authBloc = getIt<AuthenticationBloc>();
+GoRouter routing(BuildContext context, String? initialLocation) {
+  final AppBloc appBloc = context.read<AppBloc>();
   return GoRouter(
     initialLocation: Routes.splashPage,
     debugLogDiagnostics: true,
     navigatorKey: moliNavigatorKey,
-    refreshListenable: AppNotifier(),
+    observers: <NavigatorObserver>[MoliAnalytics.instance.observer],
+    refreshListenable: GoRouterRefreshStream(appBloc.stream),
     redirect: (_, GoRouterState state) {
       // Page allow all user
       if (Routes.pageNotAuthen
@@ -32,11 +36,11 @@ GoRouter routing() {
         return null;
       }
 
-      final bool isLogin = state.subloc.contains(Routes.auth);
+      final bool isAuth = state.subloc.contains(Routes.auth);
 
-      final String? page = authBloc.state.whenOrNull<String?>(
-        authenticated: (_) => isLogin ? Routes.home : null,
-        unauthenticated: () => !isLogin ? Routes.auth : null,
+      final String? page = appBloc.state.maybeWhen<String?>(
+        home: () => isAuth ? Routes.home : null,
+        orElse: () => !isAuth ? Routes.auth : null,
       );
 
       return page;
@@ -93,20 +97,6 @@ GoRouter routing() {
             pageBuilder: (_, __) => const FadeTransitionPage(child: HomePage()),
             routes: <GoRoute>[
               GoRoute(
-                path: Routes.hospitals,
-                name: Routes.hospitals,
-                parentNavigatorKey: moliNavigatorKey,
-                pageBuilder: (_, __) =>
-                    const FadeTransitionPage(child: HospitalPage()),
-              ),
-              GoRoute(
-                path: '${Routes.hospitals}/${Routes.hospitalDetail}',
-                // name: Routes.hospitals,
-                parentNavigatorKey: moliNavigatorKey,
-                pageBuilder: (_, __) =>
-                    const FadeTransitionPage(child: HospitalDetailPage()),
-              ),
-              GoRoute(
                 path: Routes.doctors,
                 name: Routes.doctors,
                 parentNavigatorKey: moliNavigatorKey,
@@ -159,19 +149,31 @@ GoRouter routing() {
           ),
         ],
       ),
+
+      /// Other route
+      GoRoute(
+        path: Routes.hospitals,
+        name: Routes.hospitals,
+        pageBuilder: (_, __) =>
+            const CupertinoTransitionPage(child: HospitalPage()),
+        routes: <GoRoute>[
+          GoRoute(
+            path: '${Routes.hospitalDetail}/:hospitalId',
+            redirect: (_, GoRouterState state) {
+              if (state.extra == null) {
+                return Routes.home;
+              }
+              return null;
+            },
+            pageBuilder: (_, GoRouterState state) => CupertinoTransitionPage(
+                child: HospitalDetailPage(
+              hospitalId: int.tryParse(state.params['hospitalId']!)!,
+              extra: state.extra,
+            )),
+          ),
+        ],
+      ),
     ],
     errorPageBuilder: (_, __) => const ScaleTransitionPage(child: ErrorPage()),
   );
-}
-
-class AppNotifier extends ChangeNotifier {
-  AppNotifier() : _authBloc = getIt<AuthenticationBloc>() {
-    notifyListeners();
-
-    _authBloc.stream.asBroadcastStream().listen((AuthenticationState state) {
-      notifyListeners();
-    });
-  }
-
-  final AuthenticationBloc _authBloc;
 }

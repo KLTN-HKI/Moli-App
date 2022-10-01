@@ -4,7 +4,7 @@ part of 'doctor_bloc.dart';
 class DoctorState with _$DoctorState {
   const factory DoctorState.initial() = _Initial;
   const factory DoctorState.success({
-    required Doctor hospitals,
+    required DoctorList doctors,
     @Default(false) bool isLoading,
   }) = _Success;
   const factory DoctorState.failed(NetworkException exception) = _Failed;

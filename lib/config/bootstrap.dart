@@ -44,6 +44,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
       await MoliCrashlytics.initialize();
       await MoliRemoteConfig.initialize();
+      await MoliAnalytics.initialize();
       await MoliMessaging.initialize();
       await MoliDynamicLink.initialize();
       await MoliCloudAuthentication.initialize();

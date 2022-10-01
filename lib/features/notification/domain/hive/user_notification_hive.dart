@@ -6,7 +6,7 @@ import '../user_notification.dart';
 
 part 'user_notification_hive.g.dart';
 
-@HiveType(typeId: AppConstant.HIVE_NOTIFICATION)
+@HiveType(typeId: AppConstant.hiveNotification)
 class UserNotificationHive extends HiveBox {
   UserNotificationHive() : super(boxName: boxKey);
 

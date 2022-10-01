@@ -17,4 +17,6 @@ class MoliAnalytics {
     _analytics ??= FirebaseAnalytics.instance;
     _observer ??= FirebaseAnalyticsObserver(analytics: _analytics!);
   }
+
+  FirebaseAnalyticsObserver get observer => _observer!;
 }

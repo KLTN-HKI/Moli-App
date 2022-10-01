@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:moli_app/features/doctor/data/doctor_repository_api.dart';
 import '../features/authentication/authentication.dart';
 import '../features/hospital/data/hospital_repository_api.dart';
 import '../features/notification/application/bloc/notification_bloc.dart';
@@ -40,5 +41,10 @@ Future<void> resolveDependencies({
     ..registerSingleton<NotificationBloc>(NotificationBloc())
     ..registerSingleton<NotificationRepositoryApi>(NotificationRepositoryApi())
     ..registerSingletonAsync(NotificationRepositoryLocal.initialize)
-    ..registerSingleton<HospitalRepositoryApi>(HospitalRepositoryApi());
+
+    ///Hospital
+    ..registerSingleton<HospitalRepositoryApi>(HospitalRepositoryApi())
+
+    ///Doctor
+    ..registerSingleton<DoctorRepositoryApi>(DoctorRepositoryApi());
 }

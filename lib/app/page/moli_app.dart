@@ -45,9 +45,7 @@ class MoliApp extends StatelessWidget {
 }
 
 class MoliView extends StatefulWidget {
-  const MoliView({
-    super.key,
-  });
+  const MoliView({super.key});
 
   @override
   State<MoliView> createState() => _MoliViewState();
@@ -66,7 +64,7 @@ class _MoliViewState extends State<MoliView> {
   void didChangeDependencies() {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.init());
 
-    _appRouter = routing();
+    _appRouter = routing(context, null);
     super.didChangeDependencies();
   }
 
@@ -79,7 +77,6 @@ class _MoliViewState extends State<MoliView> {
         return BlocBuilder<AppSettingsCubit, AppSettingsState>(
           builder: (BuildContext context, AppSettingsState state) {
             return MaterialApp.router(
-              key: MoliApp.navigatorKey,
               routerConfig: _appRouter,
               debugShowCheckedModeBanner: false,
               themeMode: state.themeMode,
@@ -96,20 +93,17 @@ class _MoliViewState extends State<MoliView> {
               builder: (BuildContext context, Widget? child) {
                 return BlocListener<AppConnectCubit, AppConnectState>(
                   listener: (BuildContext context, AppConnectState state) {
-                    // state.when(
-                    //   connected: () {
-                    //     context.scaffoldMessenger.showSnackBar(const SnackBar(
-                    //       key: Key('Internet Connected'),
-                    //       content: Text('Internet Connected'),
-                    //     ));
-                    //   },
-                    //   disconnected: () {
-                    //     context.scaffoldMessenger.showSnackBar(const SnackBar(
-                    //       key: Key('Internet Lost'),
-                    //       content: Text('Internet Lost'),
-                    //     ));
-                    //   },
-                    // );
+                    state.when(connected: () {
+                      context.scaffoldMessenger.showSnackBar(const SnackBar(
+                        key: Key('Internet Connected'),
+                        content: Text('Internet Connected'),
+                      ));
+                    }, disconnected: () {
+                      context.scaffoldMessenger.showSnackBar(const SnackBar(
+                        key: Key('Internet Lost'),
+                        content: Text('Internet Lost'),
+                      ));
+                    });
                   },
                   child: child,
                 );
