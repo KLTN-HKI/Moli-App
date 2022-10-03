@@ -29,10 +29,10 @@ class Routes {
   static const String menu = '/menu';
 
   static const String hospitals = '/hospitals';
-  static const String hospitalDetail = 'detail';
+  static const String hospitalDetail = 'hospital';
   static const String doctors = 'doctors';
-  static const String doctorDetail = 'detail';
-  static const String appointmentDetail = 'detail';
+  static const String doctorDetail = 'doctor';
+  static const String appointmentDetail = 'appointment';
 
   /// Other router
   static const String profile = 'profile';

@@ -6,6 +6,7 @@ import 'package:moli_app/constants/color_palattes.dart';
 import 'package:moli_app/constants/image_assets.dart';
 import 'package:moli_app/features/doctor/domain/doctor.dart';
 import 'package:moli_app/features/doctor/presentation/bloc/doctor_bloc.dart';
+import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
 
 import '../../domain/hospital.dart';
@@ -140,27 +141,7 @@ class HospitalDoctors extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     final Doctor doctor = doctors.doctors[index];
-                    return BaseCard(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      leading: const RoundedRectImage(
-                        width: 60,
-                        height: 60,
-                        imageURL: '',
-                      ),
-                      leadingGap: 12,
-                      content: [
-                        AppText.b0(doctor.name ?? 'sdsd').bold,
-                        const SizedBox(height: 4),
-                        AppText.b0(doctor.specialists
-                            .map((Specialist e) => e.specialistName)
-                            .join('\n')),
-                        const SizedBox(height: 4),
-                      ],
-                    );
+                    return _DoctorItem(doctor: doctor);
                   },
                   childCount: doctors.doctors.length,
                 ),
@@ -170,6 +151,42 @@ class HospitalDoctors extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class _DoctorItem extends StatelessWidget {
+  const _DoctorItem({
+    required this.doctor,
+  });
+
+  final Doctor doctor;
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseCard(
+      onTap: () => context.goRouter.go(
+          '${context.goRouter.location}/${Routes.doctorDetail}/${doctor.id}',
+          extra: doctor),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 12,
+      ),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      leading: const RoundedRectImage(
+        width: 60,
+        height: 60,
+        imageURL: '',
+      ),
+      leadingGap: 12,
+      content: [
+        AppText.b0(doctor.name ?? 'sdsd').bold,
+        const SizedBox(height: 4),
+        AppText.b0(doctor.specialists
+            .map((Specialist e) => e.specialistName)
+            .join('\n')),
+        const SizedBox(height: 4),
+      ],
     );
   }
 }

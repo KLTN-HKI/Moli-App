@@ -13,6 +13,7 @@ class HeaderAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.actions = const <Widget>[],
     this.transparentAppBar = false,
+    this.centerTitle = true,
     this.titleText,
     this.bottom,
     this.shape,
@@ -23,6 +24,7 @@ class HeaderAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? titleText;
   final List<Widget> actions;
   final bool transparentAppBar;
+  final bool centerTitle;
   final PreferredSizeWidget? bottom;
   final ShapeBorder? shape;
 
@@ -53,7 +55,7 @@ class HeaderAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ))
           : const SizedBox(),
-      centerTitle: true,
+      centerTitle: centerTitle,
       title: title ??
           AppText.t0(
             titleText ?? '',

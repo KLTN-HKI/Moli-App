@@ -95,22 +95,7 @@ GoRouter routing(BuildContext context, String? initialLocation) {
             path: Routes.home,
             name: Routes.home,
             pageBuilder: (_, __) => const FadeTransitionPage(child: HomePage()),
-            routes: <GoRoute>[
-              GoRoute(
-                path: Routes.doctors,
-                name: Routes.doctors,
-                parentNavigatorKey: moliNavigatorKey,
-                pageBuilder: (_, __) =>
-                    const FadeTransitionPage(child: DoctorPage()),
-              ),
-              GoRoute(
-                path: '${Routes.doctors}/${Routes.doctorDetail}',
-                // name: Routes.hospitals,
-                parentNavigatorKey: moliNavigatorKey,
-                pageBuilder: (_, __) =>
-                    const FadeTransitionPage(child: DoctorDetailPage()),
-              ),
-            ],
+            // routes: <GoRoute>[],
           ),
           GoRoute(
             path: Routes.appointment,
@@ -158,21 +143,39 @@ GoRouter routing(BuildContext context, String? initialLocation) {
             const CupertinoTransitionPage(child: HospitalPage()),
         routes: <GoRoute>[
           GoRoute(
-            path: '${Routes.hospitalDetail}/:hospitalId',
-            redirect: (_, GoRouterState state) {
-              if (state.extra == null) {
-                return Routes.home;
-              }
-              return null;
-            },
-            pageBuilder: (_, GoRouterState state) => CupertinoTransitionPage(
-                child: HospitalDetailPage(
-              hospitalId: int.tryParse(state.params['hospitalId']!)!,
-              extra: state.extra,
-            )),
-          ),
+              path: ':hospitalId',
+              redirect: (_, GoRouterState state) {
+                if (state.extra == null) {
+                  return Routes.home;
+                }
+                return null;
+              },
+              pageBuilder: (_, GoRouterState state) => CupertinoTransitionPage(
+                    child: HospitalDetailPage(
+                      hospitalId: int.tryParse(state.params['hospitalId']!)!,
+                      extra: state.extra,
+                    ),
+                  ),
+              routes: <RouteBase>[
+                GoRoute(
+                  path: '${Routes.doctorDetail}/:doctorId',
+                  // parentNavigatorKey: moliNavigatorKey,
+                  pageBuilder: (_, GoRouterState state) => FadeTransitionPage(
+                      child: DoctorDetailPage(
+                    doctorId: int.tryParse(state.params['doctorId']!)!,
+                    extra: state.extra,
+                  )),
+                ),
+              ]),
         ],
       ),
+      // GoRoute(
+      //   path: Routes.doctors,
+      //   name: Routes.doctors,
+      //   parentNavigatorKey: moliNavigatorKey,
+      //   pageBuilder: (_, __) => const FadeTransitionPage(child: DoctorPage()),
+      //   routes: <GoRoute>[],
+      // ),
     ],
     errorPageBuilder: (_, __) => const ScaleTransitionPage(child: ErrorPage()),
   );

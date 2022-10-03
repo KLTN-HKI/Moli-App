@@ -14,9 +14,8 @@ class HospitalItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(12.r),
-      onTap: () => context.goRouter.go(
-          '${Routes.hospitals}/${Routes.hospitalDetail}/${hospital.id}',
-          extra: hospital),
+      onTap: () => context.goRouter
+          .go('${Routes.hospitals}/${hospital.id}', extra: hospital),
       child: Ink(
         width: 140.w,
         padding: EdgeInsets.all(12.r),
