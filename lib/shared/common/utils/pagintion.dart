@@ -9,7 +9,7 @@ part 'pagintion.g.dart';
 @freezed
 class Pagination with _$Pagination {
   const factory Pagination({
-    @JsonKey() @Default(1) int currentPage,
+    @JsonKey() @Default(0) int currentPage,
     @JsonKey() @Default(false) bool hasMore,
     @JsonKey() int? totalItems,
     @JsonKey() int? totalItemsInCurrentPage,

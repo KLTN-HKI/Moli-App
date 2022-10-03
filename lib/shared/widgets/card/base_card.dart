@@ -6,83 +6,90 @@ import '../../shared.dart';
 class BaseCard extends StatelessWidget {
   const BaseCard({
     super.key,
-    required this.header,
-    this.onTap,
+    required this.content,
     this.leading,
+    this.leadingGap = 24,
+    this.trailing,
+    this.trailingGap = 24,
     this.height,
     this.padding,
-    this.backgroundColor,
-    this.trailing,
-    this.borderRadius,
-    this.shadowBox,
-    this.leadingGap,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
     this.mainAxisAlignment = MainAxisAlignment.start,
-    this.headerFlex = false,
-    this.withShadow = false,
-    this.isSelected = false,
     this.selectalbe = false,
+    this.isSelected = false,
+    this.onSelected,
+    this.onTap,
+    this.decoration,
   });
 
-  final void Function()? onTap;
+  final VoidCallback? onTap;
   final Widget? leading;
-  final double? leadingGap;
-  final List<Widget> header;
+  final double leadingGap;
+  final List<Widget> content;
+  final double trailingGap;
+  final Widget? trailing;
   final double? height;
   final EdgeInsetsGeometry? padding;
-  final Color? backgroundColor;
+  final CrossAxisAlignment crossAxisAlignment;
   final MainAxisAlignment mainAxisAlignment;
-  final Widget? trailing;
-  final bool headerFlex;
-  final bool withShadow;
-  final BorderRadius? borderRadius;
-  final List<BoxShadow>? shadowBox;
-  final bool isSelected;
   final bool selectalbe;
+  final bool isSelected;
+  final ValueChanged<bool?>? onSelected;
+  final Decoration? decoration;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return Bounceable(
       onTap: onTap,
-      borderRadius: borderRadius ?? BorderRadius.circular(12),
-      child: Ink(
-        height: headerFlex ? null : height ?? 76,
-        padding:
-            padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: backgroundColor ?? context.colorScheme.background,
-          borderRadius: borderRadius ?? BorderRadius.circular(12),
-          // border: isSelected ? Border.all(color: ColorPalattes.primary40) : null,
-          boxShadow: withShadow
-              ? shadowBox ??
-                  <BoxShadow>[
+      child: Stack(
+        children: <Widget>[
+          Container(
+            height: height,
+            padding: padding ?? const EdgeInsets.all(16),
+            decoration: decoration ??
+                BoxDecoration(
+                  color: ColorPalettes.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: <BoxShadow>[
                     BoxShadow(
                         offset: const Offset(0, 2),
-                        blurRadius: 8,
-                        color: ColorPalettes.neutral10.withOpacity(.15)),
-                  ]
-              : null,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            if (leading != null) ...<Widget>[
-              leading!,
-              if (leadingGap != null)
-                SizedBox(width: leadingGap)
-              else
-                SizedBox(width: 24.w),
-            ],
-            Flexible(
-              fit: FlexFit.tight,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: mainAxisAlignment,
-                children: header,
-              ),
+                        blurRadius: 9,
+                        color:
+                            ColorPalettes.neutralVariant50.withOpacity(0.12)),
+                    BoxShadow(
+                        offset: const Offset(0, 22),
+                        blurRadius: 136,
+                        color:
+                            ColorPalettes.neutralVariant50.withOpacity(0.03)),
+                  ],
+                ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: crossAxisAlignment,
+              children: <Widget>[
+                if (leading != null) ...<Widget>[
+                  leading!,
+                  SizedBox(width: leadingGap),
+                ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: mainAxisAlignment,
+                    children: content,
+                  ),
+                ),
+                if (trailing != null) ...<Widget>[
+                  SizedBox(width: trailingGap),
+                  trailing!,
+                ],
+              ],
             ),
-            if (trailing != null) trailing!
-          ],
-        ),
+          ),
+          if (selectalbe)
+            Align(
+                alignment: Alignment.topRight,
+                child: AppCheckbox(onChanged: onSelected, value: isSelected)),
+        ],
       ),
     );
   }

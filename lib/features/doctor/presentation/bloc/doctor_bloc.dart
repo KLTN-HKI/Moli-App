@@ -23,29 +23,30 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
   Future<void> _onFetchDoctorsByHospitalId(
       _FetchDoctorsByHospitalId event, Emitter<DoctorState> emit) async {
     try {
-      final List<Doctor> oldDoctors = state.maybeWhen(
-        success: (DoctorList doctors, bool isLoading) {
-          emit(DoctorState.success(doctors: doctors, isLoading: true));
-          return doctors.doctors;
-        },
-        orElse: () {
-          emit(const DoctorState.initial());
-          return <Doctor>[];
-        },
-      );
-      final DoctorList data = await _repository.fetchDoctorsByHospitalId(
+      final DoctorList oldData = state.maybeWhen(
+          success: (DoctorList doctors, bool isLoading) => doctors,
+          orElse: () => DoctorList());
+      DoctorState.success(doctors: oldData, isLoading: false);
+      final DoctorList newData = await _repository.fetchDoctorsByHospitalId(
         data: <String, dynamic>{
           'page': event.page ?? 0,
         },
         hospitalId: event.hospitalId,
       );
-
-      final List<Doctor> newDoctors = data.doctors;
-      emit(
-        DoctorState.success(
-          doctors: data.copyWith(doctors: oldDoctors + newDoctors),
-        ),
-      );
+      if (newData.pagination.currentPage > oldData.pagination.currentPage) {
+        emit(
+          DoctorState.success(
+            doctors:
+                newData.copyWith(doctors: newData.doctors + oldData.doctors),
+            isLoading: false,
+          ),
+        );
+      } else {
+        emit(DoctorState.success(
+          doctors: newData,
+          isLoading: false,
+        ));
+      }
     } on NetworkException catch (e) {
       emit(DoctorState.failed(e));
     }

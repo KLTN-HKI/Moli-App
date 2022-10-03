@@ -11,17 +11,8 @@ class AppointmentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseCard(
-      // backgroundColor: context.colorScheme.primary,
-      headerFlex: true,
-      withShadow: true,
       padding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 16.w),
-      shadowBox: <BoxShadow>[
-        BoxShadow(blurRadius: 17, color: ColorPalettes.black.withOpacity(.03)),
-        BoxShadow(blurRadius: 5, color: ColorPalettes.black.withOpacity(.04)),
-        BoxShadow(blurRadius: 2, color: ColorPalettes.black.withOpacity(.04)),
-        BoxShadow(blurRadius: 0.8, color: ColorPalettes.black.withOpacity(.06)),
-      ],
-      header: <Widget>[
+      content: <Widget>[
         AppText.t0('bác sĩ ${index + 1}'),
         SizedBox(height: 4.w),
         AppText.b2('Tại phòng khám...'),

@@ -128,8 +128,9 @@ class BaseProfileCard extends StatelessWidget {
 
   Widget _buildBody(UserModel user) => BaseCard(
         mainAxisAlignment: MainAxisAlignment.center,
-        backgroundColor: ColorPalettes.transparent,
-        padding: const EdgeInsets.fromLTRB(24, 0, 12, 0),
+        // backgroundColor: ColorPalettes.transparent,
+        decoration: BoxDecoration(),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         leading: SizedBox(
           height: 56,
           width: 56,
@@ -151,8 +152,8 @@ class BaseProfileCard extends StatelessWidget {
                 const ErrorImage(isRounded: true),
           ),
         ),
-        leadingGap: 24.w,
-        header: <Widget>[
+        leadingGap: 16,
+        content: <Widget>[
           AppText.t0(
             user.name ?? user.email ?? 'unknown',
             textOverflow: TextOverflow.ellipsis,

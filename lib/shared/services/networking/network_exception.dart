@@ -81,23 +81,13 @@ class NetworkException with _$NetworkException implements Exception {
             return const NetworkException.FetchDataException();
           } else if (error.response?.statusCode == 400) {
             return const NetworkException.FormatException();
+          } else if (error.response?.statusCode == 403) {
+            return const NetworkException.TokenExpiredException();
           }
 
-          String? message;
-          try {
-            message =
-                (((error.response?.data as JSON)['errors'] as List<dynamic>)
-                    .first as JSON)['message'] as String?;
-          } catch (_) {}
-
-          switch (message) {
-            case 'Your session expire, please login again':
-              return const NetworkException.TokenExpiredException();
-            default:
-              return NetworkException.ApiException(
-                message: message ?? error.message,
-              );
-          }
+          return NetworkException.ApiException(
+            message: error.message,
+          );
       }
     } else if (error is FormatException || error is TypeError) {
       return const NetworkException.FormatException();
