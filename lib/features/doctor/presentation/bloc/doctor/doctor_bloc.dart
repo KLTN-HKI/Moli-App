@@ -3,9 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moli_app/config/dependency_container.dart';
 import 'package:moli_app/shared/shared.dart';
 
-import '../../data/doctor_repository.dart';
-import '../../data/doctor_repository_api.dart';
-import '../../domain/doctor.dart';
+import '../../../data/doctor_repository.dart';
+import '../../../data/doctor_repository_api.dart';
+import '../../../domain/doctor.dart';
 
 part 'doctor_event.dart';
 part 'doctor_state.dart';
@@ -25,7 +25,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
     try {
       final DoctorList oldData = state.maybeWhen(
           success: (DoctorList doctors, bool isLoading) => doctors,
-          orElse: () => DoctorList());
+          orElse: () => const DoctorList());
       DoctorState.success(doctors: oldData, isLoading: false);
       final DoctorList newData = await _repository.fetchDoctorsByHospitalId(
         data: <String, dynamic>{

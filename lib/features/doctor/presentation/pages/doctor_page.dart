@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moli_app/features/doctor/presentation/bloc/doctor_bloc.dart';
 import 'package:moli_app/shared/shared.dart';
+
+import '../bloc/bloc.dart';
 
 class DoctorPage extends StatelessWidget {
   const DoctorPage({super.key});

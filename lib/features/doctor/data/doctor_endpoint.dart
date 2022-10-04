@@ -5,14 +5,18 @@ class ApiEndpoint {
   static String doctor(DoctorEndpoint endpoint, {int? hospitalId}) {
     const String path = '/api';
     switch (endpoint) {
-      case DoctorEndpoint.byHospitalId:
+      case DoctorEndpoint.doctorByHospitalId:
         assert(
             hospitalId != null, 'hospitalId is required for doctor endpoint');
         return '$path/patient/hospitals/$hospitalId/doctors';
+      case DoctorEndpoint.doctorAvailableTime:
+        return '$path/patient/availability-schedule';
     }
   }
 }
 
 enum DoctorEndpoint {
-  byHospitalId,
+  doctorByHospitalId,
+
+  doctorAvailableTime,
 }

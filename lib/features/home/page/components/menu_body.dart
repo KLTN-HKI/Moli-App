@@ -73,8 +73,7 @@ class MenuBody extends StatelessWidget {
                       ),
                       SizedBox(height: 12.w),
                       Align(
-                        // ignore: always_specify_types
-                        child: FutureBuilder(
+                        child: FutureBuilder<PackageInfo>(
                           future: PackageInfo.fromPlatform(),
                           builder: (BuildContext context,
                                   AsyncSnapshot<PackageInfo> snapshot) =>
@@ -129,7 +128,7 @@ class BaseProfileCard extends StatelessWidget {
   Widget _buildBody(UserModel user) => BaseCard(
         mainAxisAlignment: MainAxisAlignment.center,
         // backgroundColor: ColorPalettes.transparent,
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         leading: SizedBox(
           height: 56,

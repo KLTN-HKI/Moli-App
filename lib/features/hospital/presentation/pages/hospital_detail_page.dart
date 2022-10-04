@@ -5,10 +5,10 @@ import 'package:iconsax/iconsax.dart';
 import 'package:moli_app/constants/color_palattes.dart';
 import 'package:moli_app/constants/image_assets.dart';
 import 'package:moli_app/features/doctor/domain/doctor.dart';
-import 'package:moli_app/features/doctor/presentation/bloc/doctor_bloc.dart';
 import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
 
+import '../../../doctor/presentation/bloc/doctor/doctor_bloc.dart';
 import '../../domain/hospital.dart';
 
 class HospitalDetailPage extends StatefulWidget {
@@ -66,8 +66,8 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<DoctorBloc>(
-      create: (BuildContext context) => DoctorBloc(),
+    return BlocProvider<DoctorBloc>.value(
+      value: _bloc,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: RefreshIndicator(
@@ -105,7 +105,7 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
               ),
               _HospitalInfo(hospital: _hospital),
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 sliver: AppText.t0('Bác sĩ').weight500.sliverBox,
               ),
               BlocProvider<DoctorBloc>.value(
@@ -176,10 +176,9 @@ class _DoctorItem extends StatelessWidget {
       leading: const RoundedRectImage(
         width: 60,
         height: 60,
-        imageURL: '',
       ),
       leadingGap: 12,
-      content: [
+      content: <Widget>[
         AppText.b0(doctor.name ?? 'sdsd').bold,
         const SizedBox(height: 4),
         AppText.b0(doctor.specialists
@@ -193,7 +192,6 @@ class _DoctorItem extends StatelessWidget {
 
 class _HospitalInfo extends StatelessWidget {
   const _HospitalInfo({
-    super.key,
     required Hospital hospital,
   }) : _hospital = hospital;
 

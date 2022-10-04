@@ -16,7 +16,7 @@ class DateTimeUtils {
   static DateTime? parseTime(String? numberString, {bool hmOnly = false}) {
     try {
       return hmOnly
-          ? DateFormat.Hms().parse(numberString!)
+          ? DateFormat.Hm().parse(numberString!)
           : DateFormat.Hms().parse(numberString!);
     } catch (e) {
       return null;
@@ -41,14 +41,14 @@ class DateTimeUtils {
     if (time == null) {
       return null;
     }
-    return DateFormat('yyyy-MM-dd').format(time);
+    return DateFormat('dd-MM-yyyy').format(time);
   }
 
   static DateTime? parseDateTimeDateOnly(String? timeString) {
     if (timeString == null) {
       return null;
     }
-    return DateFormat('yyyy-MM-dd').parse(timeString);
+    return DateFormat('dd-MM-yyyy').parse(timeString);
   }
 
   static String formatDuration(Duration duration) {
