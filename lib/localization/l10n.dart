@@ -2730,6 +2730,16 @@ class AppLanguage {
     );
   }
 
+  /// `Số điện thoại hoặc mật khẩu không đúng!`
+  String get wrong_login_info {
+    return Intl.message(
+      'Số điện thoại hoặc mật khẩu không đúng!',
+      name: 'wrong_login_info',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `năm`
   String get year {
     return Intl.message(

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:moli_app/features/appointment/data/appointment_repository_api.dart';
 import 'package:moli_app/features/doctor/data/doctor_repository_api.dart';
 import '../features/authentication/authentication.dart';
 import '../features/hospital/data/hospital_repository_api.dart';
@@ -46,5 +47,6 @@ Future<void> resolveDependencies({
     ..registerSingleton<HospitalRepositoryApi>(HospitalRepositoryApi())
 
     ///Doctor
-    ..registerSingleton<DoctorRepositoryApi>(DoctorRepositoryApi());
+    ..registerSingleton<DoctorRepositoryApi>(DoctorRepositoryApi())
+    ..registerSingleton<AppointmentRepositoryApi>(AppointmentRepositoryApi());
 }

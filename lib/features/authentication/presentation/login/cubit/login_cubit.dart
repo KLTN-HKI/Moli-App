@@ -28,6 +28,7 @@ class LoginCubit extends Cubit<LoginState> {
         phoneNumber: phoneNumber,
         status: Formz.validate(
             <FormzInput<dynamic, dynamic>>[phoneNumber, state.password]),
+        exception: null,
       ),
     );
   }
@@ -39,12 +40,14 @@ class LoginCubit extends Cubit<LoginState> {
         password: password,
         status: Formz.validate(
             <FormzInput<dynamic, dynamic>>[state.phoneNumber, password]),
+        exception: null,
       ),
     );
   }
 
   Future<void> login(String phoneNumber, String password) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(
+        status: FormzStatus.submissionInProgress, exception: null));
     try {
       final String result =
           await _repository.sendLoginData(data: <String, dynamic>{

@@ -378,6 +378,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "wednesday": MessageLookupByLibrary.simpleMessage("Wednesday"),
         "wednesday_s": MessageLookupByLibrary.simpleMessage("WE"),
         "welcome_to": m8,
+        "wrong_login_info": MessageLookupByLibrary.simpleMessage(
+            "Số điện thoại hoặc mật khẩu không đúng!"),
         "year": MessageLookupByLibrary.simpleMessage("year"),
         "years": MessageLookupByLibrary.simpleMessage("years"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),

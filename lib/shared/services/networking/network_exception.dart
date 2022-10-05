@@ -18,6 +18,10 @@ class NetworkException with _$NetworkException implements Exception {
     @Default(ExceptionConstants.FormatException) String name,
   }) = _FormatException;
 
+  const factory NetworkException.BadRequestException({
+    @Default(ExceptionConstants.BadRequest) String name,
+  }) = _BadRequestException;
+
   const factory NetworkException.FetchDataException({
     @Default(ExceptionConstants.FetchDataException) String name,
   }) = _FetchDataException;
@@ -66,6 +70,11 @@ class NetworkException with _$NetworkException implements Exception {
     }
 
     if (error is DioError) {
+      if (error.response?.statusCode == 400 ||
+          (error.response?.data as Map<String, dynamic>)['statusCode'] as int ==
+              400) {
+        return const NetworkException.BadRequestException();
+      }
       switch (error.type) {
         case DioErrorType.cancel:
           return const NetworkException.CancelException();
@@ -76,6 +85,7 @@ class NetworkException with _$NetworkException implements Exception {
         case DioErrorType.receiveTimeout:
           return const NetworkException.ReceiveTimeoutException();
         case DioErrorType.response:
+
         case DioErrorType.other:
           if (error.message.contains(ExceptionConstants.SocketException)) {
             return const NetworkException.FetchDataException();

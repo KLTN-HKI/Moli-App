@@ -22,9 +22,7 @@ class AuthenticationService extends AuthenticationStorageService {
   @override
   bool checkErrorTokenExpired(Response<dynamic> response) {
     return response.statusCode == 401 &&
-        ((response.data as JSON)['errors'] as List<QueryParams>)
-                .first['message'] ==
-            tokenExpiredException;
+        (response.data as JSON)['message'] == tokenExpiredException;
   }
 
   @override

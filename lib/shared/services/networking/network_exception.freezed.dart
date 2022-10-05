@@ -20,6 +20,7 @@ mixin _$NetworkException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -34,6 +35,7 @@ mixin _$NetworkException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -48,6 +50,7 @@ mixin _$NetworkException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -63,6 +66,7 @@ mixin _$NetworkException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -81,6 +85,7 @@ mixin _$NetworkException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -95,6 +100,7 @@ mixin _$NetworkException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -213,6 +219,7 @@ class _$_FormatException extends _FormatException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -230,6 +237,7 @@ class _$_FormatException extends _FormatException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -247,6 +255,7 @@ class _$_FormatException extends _FormatException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -268,6 +277,7 @@ class _$_FormatException extends _FormatException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -289,6 +299,7 @@ class _$_FormatException extends _FormatException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -306,6 +317,7 @@ class _$_FormatException extends _FormatException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -333,6 +345,207 @@ abstract class _FormatException extends NetworkException {
   @override
   @JsonKey(ignore: true)
   _$$_FormatExceptionCopyWith<_$_FormatException> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_BadRequestExceptionCopyWith<$Res>
+    implements $NetworkExceptionCopyWith<$Res> {
+  factory _$$_BadRequestExceptionCopyWith(_$_BadRequestException value,
+          $Res Function(_$_BadRequestException) then) =
+      __$$_BadRequestExceptionCopyWithImpl<$Res>;
+  @override
+  $Res call({String name});
+}
+
+/// @nodoc
+class __$$_BadRequestExceptionCopyWithImpl<$Res>
+    extends _$NetworkExceptionCopyWithImpl<$Res>
+    implements _$$_BadRequestExceptionCopyWith<$Res> {
+  __$$_BadRequestExceptionCopyWithImpl(_$_BadRequestException _value,
+      $Res Function(_$_BadRequestException) _then)
+      : super(_value, (v) => _then(v as _$_BadRequestException));
+
+  @override
+  _$_BadRequestException get _value => super._value as _$_BadRequestException;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+  }) {
+    return _then(_$_BadRequestException(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_BadRequestException extends _BadRequestException {
+  const _$_BadRequestException({this.name = ExceptionConstants.BadRequest})
+      : super._();
+
+  @override
+  @JsonKey()
+  final String name;
+
+  @override
+  String toString() {
+    return 'NetworkException.BadRequestException(name: $name)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_BadRequestException &&
+            const DeepCollectionEquality().equals(other.name, name));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(name));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_BadRequestExceptionCopyWith<_$_BadRequestException> get copyWith =>
+      __$$_BadRequestExceptionCopyWithImpl<_$_BadRequestException>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
+    required TResult Function(String name) FetchDataException,
+    required TResult Function(String name) TokenExpiredException,
+    required TResult Function(String name) OtherException,
+    required TResult Function(String name) UnrecognizedException,
+    required TResult Function(String name) CancelException,
+    required TResult Function(String name) ConnectTimeoutException,
+    required TResult Function(String name) ReceiveTimeoutException,
+    required TResult Function(String name) SendTimeoutException,
+    required TResult Function(String name, String message) ApiException,
+  }) {
+    return BadRequestException(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
+    TResult Function(String name)? FetchDataException,
+    TResult Function(String name)? TokenExpiredException,
+    TResult Function(String name)? OtherException,
+    TResult Function(String name)? UnrecognizedException,
+    TResult Function(String name)? CancelException,
+    TResult Function(String name)? ConnectTimeoutException,
+    TResult Function(String name)? ReceiveTimeoutException,
+    TResult Function(String name)? SendTimeoutException,
+    TResult Function(String name, String message)? ApiException,
+  }) {
+    return BadRequestException?.call(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
+    TResult Function(String name)? FetchDataException,
+    TResult Function(String name)? TokenExpiredException,
+    TResult Function(String name)? OtherException,
+    TResult Function(String name)? UnrecognizedException,
+    TResult Function(String name)? CancelException,
+    TResult Function(String name)? ConnectTimeoutException,
+    TResult Function(String name)? ReceiveTimeoutException,
+    TResult Function(String name)? SendTimeoutException,
+    TResult Function(String name, String message)? ApiException,
+    required TResult orElse(),
+  }) {
+    if (BadRequestException != null) {
+      return BadRequestException(name);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
+    required TResult Function(_FetchDataException value) FetchDataException,
+    required TResult Function(_TokenExpiredException value)
+        TokenExpiredException,
+    required TResult Function(_OtherException value) OtherException,
+    required TResult Function(_UnrecognizedException value)
+        UnrecognizedException,
+    required TResult Function(_CancelException value) CancelException,
+    required TResult Function(_ConnectTimeoutException value)
+        ConnectTimeoutException,
+    required TResult Function(_ReceiveTimeoutException value)
+        ReceiveTimeoutException,
+    required TResult Function(_SendTimeoutException value) SendTimeoutException,
+    required TResult Function(_ApiException value) ApiException,
+  }) {
+    return BadRequestException(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
+    TResult Function(_FetchDataException value)? FetchDataException,
+    TResult Function(_TokenExpiredException value)? TokenExpiredException,
+    TResult Function(_OtherException value)? OtherException,
+    TResult Function(_UnrecognizedException value)? UnrecognizedException,
+    TResult Function(_CancelException value)? CancelException,
+    TResult Function(_ConnectTimeoutException value)? ConnectTimeoutException,
+    TResult Function(_ReceiveTimeoutException value)? ReceiveTimeoutException,
+    TResult Function(_SendTimeoutException value)? SendTimeoutException,
+    TResult Function(_ApiException value)? ApiException,
+  }) {
+    return BadRequestException?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
+    TResult Function(_FetchDataException value)? FetchDataException,
+    TResult Function(_TokenExpiredException value)? TokenExpiredException,
+    TResult Function(_OtherException value)? OtherException,
+    TResult Function(_UnrecognizedException value)? UnrecognizedException,
+    TResult Function(_CancelException value)? CancelException,
+    TResult Function(_ConnectTimeoutException value)? ConnectTimeoutException,
+    TResult Function(_ReceiveTimeoutException value)? ReceiveTimeoutException,
+    TResult Function(_SendTimeoutException value)? SendTimeoutException,
+    TResult Function(_ApiException value)? ApiException,
+    required TResult orElse(),
+  }) {
+    if (BadRequestException != null) {
+      return BadRequestException(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BadRequestException extends NetworkException {
+  const factory _BadRequestException({final String name}) =
+      _$_BadRequestException;
+  const _BadRequestException._() : super._();
+
+  @override
+  String get name;
+  @override
+  @JsonKey(ignore: true)
+  _$$_BadRequestExceptionCopyWith<_$_BadRequestException> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -408,6 +621,7 @@ class _$_FetchDataException extends _FetchDataException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -425,6 +639,7 @@ class _$_FetchDataException extends _FetchDataException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -442,6 +657,7 @@ class _$_FetchDataException extends _FetchDataException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -463,6 +679,7 @@ class _$_FetchDataException extends _FetchDataException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -484,6 +701,7 @@ class _$_FetchDataException extends _FetchDataException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -501,6 +719,7 @@ class _$_FetchDataException extends _FetchDataException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -605,6 +824,7 @@ class _$_TokenExpiredException extends _TokenExpiredException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -622,6 +842,7 @@ class _$_TokenExpiredException extends _TokenExpiredException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -639,6 +860,7 @@ class _$_TokenExpiredException extends _TokenExpiredException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -660,6 +882,7 @@ class _$_TokenExpiredException extends _TokenExpiredException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -681,6 +904,7 @@ class _$_TokenExpiredException extends _TokenExpiredException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -698,6 +922,7 @@ class _$_TokenExpiredException extends _TokenExpiredException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -799,6 +1024,7 @@ class _$_OtherException extends _OtherException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -816,6 +1042,7 @@ class _$_OtherException extends _OtherException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -833,6 +1060,7 @@ class _$_OtherException extends _OtherException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -854,6 +1082,7 @@ class _$_OtherException extends _OtherException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -875,6 +1104,7 @@ class _$_OtherException extends _OtherException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -892,6 +1122,7 @@ class _$_OtherException extends _OtherException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -995,6 +1226,7 @@ class _$_UnrecognizedException extends _UnrecognizedException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -1012,6 +1244,7 @@ class _$_UnrecognizedException extends _UnrecognizedException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -1029,6 +1262,7 @@ class _$_UnrecognizedException extends _UnrecognizedException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -1050,6 +1284,7 @@ class _$_UnrecognizedException extends _UnrecognizedException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -1071,6 +1306,7 @@ class _$_UnrecognizedException extends _UnrecognizedException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -1088,6 +1324,7 @@ class _$_UnrecognizedException extends _UnrecognizedException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -1189,6 +1426,7 @@ class _$_CancelException extends _CancelException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -1206,6 +1444,7 @@ class _$_CancelException extends _CancelException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -1223,6 +1462,7 @@ class _$_CancelException extends _CancelException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -1244,6 +1484,7 @@ class _$_CancelException extends _CancelException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -1265,6 +1506,7 @@ class _$_CancelException extends _CancelException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -1282,6 +1524,7 @@ class _$_CancelException extends _CancelException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -1386,6 +1629,7 @@ class _$_ConnectTimeoutException extends _ConnectTimeoutException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -1403,6 +1647,7 @@ class _$_ConnectTimeoutException extends _ConnectTimeoutException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -1420,6 +1665,7 @@ class _$_ConnectTimeoutException extends _ConnectTimeoutException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -1441,6 +1687,7 @@ class _$_ConnectTimeoutException extends _ConnectTimeoutException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -1462,6 +1709,7 @@ class _$_ConnectTimeoutException extends _ConnectTimeoutException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -1479,6 +1727,7 @@ class _$_ConnectTimeoutException extends _ConnectTimeoutException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -1584,6 +1833,7 @@ class _$_ReceiveTimeoutException extends _ReceiveTimeoutException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -1601,6 +1851,7 @@ class _$_ReceiveTimeoutException extends _ReceiveTimeoutException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -1618,6 +1869,7 @@ class _$_ReceiveTimeoutException extends _ReceiveTimeoutException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -1639,6 +1891,7 @@ class _$_ReceiveTimeoutException extends _ReceiveTimeoutException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -1660,6 +1913,7 @@ class _$_ReceiveTimeoutException extends _ReceiveTimeoutException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -1677,6 +1931,7 @@ class _$_ReceiveTimeoutException extends _ReceiveTimeoutException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -1780,6 +2035,7 @@ class _$_SendTimeoutException extends _SendTimeoutException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -1797,6 +2053,7 @@ class _$_SendTimeoutException extends _SendTimeoutException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -1814,6 +2071,7 @@ class _$_SendTimeoutException extends _SendTimeoutException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -1835,6 +2093,7 @@ class _$_SendTimeoutException extends _SendTimeoutException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -1856,6 +2115,7 @@ class _$_SendTimeoutException extends _SendTimeoutException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -1873,6 +2133,7 @@ class _$_SendTimeoutException extends _SendTimeoutException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -1985,6 +2246,7 @@ class _$_ApiException extends _ApiException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) FormatException,
+    required TResult Function(String name) BadRequestException,
     required TResult Function(String name) FetchDataException,
     required TResult Function(String name) TokenExpiredException,
     required TResult Function(String name) OtherException,
@@ -2002,6 +2264,7 @@ class _$_ApiException extends _ApiException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -2019,6 +2282,7 @@ class _$_ApiException extends _ApiException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? FormatException,
+    TResult Function(String name)? BadRequestException,
     TResult Function(String name)? FetchDataException,
     TResult Function(String name)? TokenExpiredException,
     TResult Function(String name)? OtherException,
@@ -2040,6 +2304,7 @@ class _$_ApiException extends _ApiException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormatException value) FormatException,
+    required TResult Function(_BadRequestException value) BadRequestException,
     required TResult Function(_FetchDataException value) FetchDataException,
     required TResult Function(_TokenExpiredException value)
         TokenExpiredException,
@@ -2061,6 +2326,7 @@ class _$_ApiException extends _ApiException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,
@@ -2078,6 +2344,7 @@ class _$_ApiException extends _ApiException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormatException value)? FormatException,
+    TResult Function(_BadRequestException value)? BadRequestException,
     TResult Function(_FetchDataException value)? FetchDataException,
     TResult Function(_TokenExpiredException value)? TokenExpiredException,
     TResult Function(_OtherException value)? OtherException,

@@ -10,6 +10,9 @@ class ExceptionConstants {
   /// The name of the exception for an expired bearer token.
   static const String TokenExpiredException = 'TokenExpiredException';
 
+  /// The name of the exception for a user's bad request.
+  static const String BadRequest = 'BadRequest';
+
   /// The name of the exception for a prematurely cancelled request.
   static const String CancelException = 'CancelException';
 

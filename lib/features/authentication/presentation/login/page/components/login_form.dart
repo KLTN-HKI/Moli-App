@@ -14,9 +14,23 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
+      listenWhen: (LoginState previous, LoginState current) =>
+          previous.status != current.status,
       listener: (BuildContext context, LoginState state) {
         if (state.status == FormzStatus.submissionFailure &&
-            state.exception is NetworkException) {
+            state.exception == const NetworkException.BadRequestException()) {
+          context.showDefaultDialog(
+              image: Image.asset(ImageAssets.errorResponse),
+              title: Text(context.l10n.login_failed),
+              content: Text(context.l10n.wrong_login_info),
+              actions: <Widget>[
+                AppElevatedButton(
+                  onPressed: () =>
+                      Navigator.of(context, rootNavigator: true).pop(),
+                  child: Text(context.l10n.ok),
+                ),
+              ]);
+        } else if (state.exception is NetworkException) {
           context.showNetworkExceptionDialog(state.exception!);
         }
       },
@@ -50,8 +64,6 @@ class _LoginSubmitted extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
-      buildWhen: (LoginState previous, LoginState current) =>
-          previous.status != current.status,
       builder: (BuildContext context, LoginState state) {
         return AppElevatedButton(
           key: const Key('login_form_submit_button'),
@@ -82,9 +94,9 @@ class _PhoneNumberInput extends StatelessWidget {
           labelText: context.l10n.phone_number,
           onChanged: (String phoneNumber) =>
               context.read<LoginCubit>().phoneNumberChanged(phoneNumber),
-          onSubmitted: (_) => context
-              .read<LoginCubit>()
-              .login(state.phoneNumber.value, state.password.value),
+          // onSubmitted: (_) => context
+          //     .read<LoginCubit>()
+          //     .login(state.phoneNumber.value, state.password.value),
           icon: IconAssets.icMobile,
           keyboardType: TextInputType.phone,
           inputFormatters: <TextInputFormatter>[
@@ -127,6 +139,9 @@ class _PasswordInputState extends State<_PasswordInput> {
           labelText: context.l10n.password,
           onChanged: (String password) =>
               context.read<LoginCubit>().passwordChanged(password),
+          onSubmitted: (_) => context
+              .read<LoginCubit>()
+              .login(state.phoneNumber.value, state.password.value),
           icon: IconAssets.icLock,
           showHiddenInput: _toggle,
           obscureText: _obscureText,
