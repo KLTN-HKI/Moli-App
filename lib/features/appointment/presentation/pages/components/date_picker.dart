@@ -54,8 +54,6 @@ class _AbsenceDatetimeStatePicker extends State<AppointmentDateTimePicker> {
                 child: CupertinoDatePicker(
                   mode: CupertinoDatePickerMode.date,
                   dateOrder: DatePickerDateOrder.dmy,
-                  // use24hFormat: true,
-                  minuteInterval: minuteInterval,
                   initialDateTime: initial,
                   minimumDate: minimum,
                   maximumDate: maximum,
@@ -134,9 +132,7 @@ class _AbsenceDatetimeStatePicker extends State<AppointmentDateTimePicker> {
       maximum = null;
     }
     // Initial datetime
-    initial = now.add(Duration(
-      minutes: minuteInterval - now.minute % minuteInterval,
-    ));
+    initial = now;
     if (widget.initialDate != null) {
       if (initial!.isBefore(widget.initialDate!)) {
         initial = widget.initialDate!.add(Duration(

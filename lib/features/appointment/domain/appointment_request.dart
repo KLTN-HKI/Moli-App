@@ -10,7 +10,7 @@ class AppointmentRequest with _$AppointmentRequest {
     @JsonKey() required int doctorId,
     @JsonKey() required int doctorScheduleId,
     @JsonKey() String? emailPatient,
-    @JsonKey() bool? forSelf,
+    @JsonKey() @Default(true) bool forSelf,
     @JsonKey() String? genderPatient,
     @JsonKey() int? hospitalId,
     @JsonKey() required int patientId,

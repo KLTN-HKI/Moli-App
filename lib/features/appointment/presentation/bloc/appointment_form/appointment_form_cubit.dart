@@ -32,10 +32,10 @@ class AppointmentFormCubit extends Cubit<AppointmentFormState> {
   bool validDateTime() {
     final DateTime? formDate = state.appointmentDate.value;
     if (formDate != null) {
-      if (formDate.isBefore(DateTime.now())) {
-        changeAppointmentDate(null);
-        return false;
-      }
+      // if (formDate.isBefore(DateTime.now())) {
+      //   changeAppointmentDate(null);
+      //   return false;
+      // }
     }
     return true;
   }
@@ -50,30 +50,35 @@ class AppointmentFormCubit extends Cubit<AppointmentFormState> {
     ));
   } */
 
-  Future<void> submit() async {
+  Future<void> submit(AppointmentRequest request) async {
     try {
       final FormzStatus status =
           Formz.validate(<FormzInput<dynamic, bool>>[state.appointmentDate]);
 
       if (validDateTime() && status.isValid) {
-        /* emit(state.copyWith(exception: null, isLoading: true, isSucess: false));
+        emit(state.copyWith(exception: null, isLoading: true, isSucess: false));
 
-        await _repository.createCourseAbsent(data: <String, dynamic>{
-          'from-date': DateTimeUtils.formatDateTime(state.formDate.value),
-          'to-date': DateTimeUtils.formatDateTime(state.toDate.value),
-          'absent-reason': state.reasonAbsence.value,
-          'course-ids': state.isSelectAll ? <int>[] : state.listAbsence.value,
-          'select-all': state.isSelectAll,
+        await _repository.bookDoctor(data: <String, dynamic>{
+          'describeSymptoms': request.describeSymptoms,
+          'doctorId': request.doctorId,
+          'doctorScheduleId': request.doctorScheduleId,
+          'emailPatient': request.emailPatient,
+          'forSelf': request.forSelf,
+          'genderPatient': request.genderPatient,
+          'hospitalId': request.hospitalId,
+          'patientId': request.patientId,
+          'patientName': request.patientName,
+          'patientRealPhoneNumber': request.patientRealPhoneNumber,
         });
 
         emit(state.copyWith(exception: null, isLoading: false, isSucess: true));
       } else {
-        emit(state.copyWith(
-          formDate: DateTimePicker.dirty(state.formDate.value),
-          toDate: DateTimePicker.dirty(state.toDate.value),
-          reasonAbsence: ReasonAbsenece.dirty(state.reasonAbsence.value),
-          listAbsence: ListAbsence.dirty(state.listAbsence.value),
-        )); */
+        // emit(state.copyWith(
+        //   formDate: DateTimePicker.dirty(state.formDate.value),
+        //   toDate: DateTimePicker.dirty(state.toDate.value),
+        //   reasonAbsence: ReasonAbsenece.dirty(state.reasonAbsence.value),
+        //   listAbsence: ListAbsence.dirty(state.listAbsence.value),
+        // ));
       }
     } on NetworkException catch (e) {
       emit(state.copyWith(
