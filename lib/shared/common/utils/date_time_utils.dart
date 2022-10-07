@@ -1,7 +1,63 @@
 import 'package:intl/intl.dart';
+import 'package:moli_app/localization/l10n.dart';
 
 class DateTimeUtils {
   const DateTimeUtils._();
+  static String day(int dayWeek) {
+    switch (dayWeek) {
+      case 1:
+        return AppLanguage.current.monday_s;
+
+      case 2:
+        return AppLanguage.current.tuesday_s;
+
+      case 3:
+        return AppLanguage.current.wednesday_s;
+
+      case 4:
+        return AppLanguage.current.thursday_s;
+
+      case 5:
+        return AppLanguage.current.friday_s;
+
+      case 6:
+        return AppLanguage.current.saturday_s;
+
+      case 7:
+        return AppLanguage.current.sunday_s;
+
+      default:
+        return AppLanguage.current.monday_s;
+    }
+  }
+
+  static String weekDay(int dayWeek) {
+    switch (dayWeek) {
+      case 1:
+        return AppLanguage.current.monday;
+
+      case 2:
+        return AppLanguage.current.tuesday;
+
+      case 3:
+        return AppLanguage.current.wednesday;
+
+      case 4:
+        return AppLanguage.current.thursday;
+
+      case 5:
+        return AppLanguage.current.friday;
+
+      case 6:
+        return AppLanguage.current.saturday;
+
+      case 7:
+        return AppLanguage.current.sunday;
+
+      default:
+        return AppLanguage.current.monday;
+    }
+  }
 
   static String? formatTime(DateTime? time, {bool hmOnly = false}) {
     try {

@@ -34,7 +34,7 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
     if (widget.extra != null && widget.extra is Hospital) {
       _hospital = widget.extra! as Hospital;
     }
-    fetchData();
+    // fetchData();
     super.initState();
   }
 
@@ -104,88 +104,19 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
                 ],
               ),
               _HospitalInfo(hospital: _hospital),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                sliver: AppText.t0('Bác sĩ').weight500.sliverBox,
-              ),
-              BlocProvider<DoctorBloc>.value(
-                value: _bloc,
-                child: const HospitalDoctors(),
-              )
             ],
           ),
         ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          child: AppElevatedButton(
+            onPressed: () => context.goRouter.go(
+                '${context.goRouter.location}/hospital-doctors',
+                extra: widget.hospitalId),
+            child: const Text('Đặt khám'),
+          ),
+        ),
       ),
-    );
-  }
-}
-
-class HospitalDoctors extends StatelessWidget {
-  const HospitalDoctors({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      sliver: BlocConsumer<DoctorBloc, DoctorState>(
-        listener: (BuildContext context, DoctorState state) {
-          state.whenOrNull(failed: context.showNetworkExceptionDialog);
-        },
-        builder: (BuildContext context, DoctorState state) {
-          return state.when(
-            initial: () => const LoadingIndicator().sliverBox,
-            success: (DoctorList doctors, bool isLoading) {
-              return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    final Doctor doctor = doctors.doctors[index];
-                    return _DoctorItem(doctor: doctor);
-                  },
-                  childCount: doctors.doctors.length,
-                ),
-              );
-            },
-            failed: (_) => const SizedBox().sliverBox,
-          );
-        },
-      ),
-    );
-  }
-}
-
-class _DoctorItem extends StatelessWidget {
-  const _DoctorItem({
-    required this.doctor,
-  });
-
-  final Doctor doctor;
-
-  @override
-  Widget build(BuildContext context) {
-    return BaseCard(
-      onTap: () => context.goRouter.go(
-          '${context.goRouter.location}/${Routes.doctorDetail}/${doctor.id}',
-          extra: doctor),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 12,
-      ),
-      crossAxisAlignment: CrossAxisAlignment.start,
-      leading: const RoundedRectImage(
-        width: 60,
-        height: 60,
-      ),
-      leadingGap: 12,
-      content: <Widget>[
-        AppText.b0(doctor.name ?? 'sdsd').bold,
-        const SizedBox(height: 4),
-        AppText.b0(doctor.specialists
-            .map((Specialist e) => e.specialistName)
-            .join('\n')),
-        const SizedBox(height: 4),
-      ],
     );
   }
 }

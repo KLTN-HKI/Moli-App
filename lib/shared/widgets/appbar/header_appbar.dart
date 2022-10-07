@@ -37,7 +37,9 @@ class HeaderAppBar extends StatelessWidget implements PreferredSizeWidget {
           : SystemUiOverlayStyle.dark,
       elevation: 0,
       // default 40 + padding 16
-      backgroundColor: transparentAppBar ? ColorPalettes.transparent : null,
+      backgroundColor: transparentAppBar
+          ? ColorPalettes.transparent
+          : context.colorScheme.primary,
       leadingWidth: router.canPop() || routeBack != null ? 56 : 0,
       leading: (router.canPop() || routeBack != null)
           ? Container(

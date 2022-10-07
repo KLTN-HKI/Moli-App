@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-import '../typedefs.dart';
+import '../other/typedefs.dart';
 
 extension RemoteMessageExt on RemoteMessage {
   String? getChannelId() {

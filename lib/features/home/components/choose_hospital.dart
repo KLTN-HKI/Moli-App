@@ -14,9 +14,7 @@ class ChooseHospitalBuilder extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        AppText.t0('Phòng khám gần đây')
-            .weight500
-            .paddingSymmetric(horizontal: 24.w),
+        AppText.t0(' Bệnh viện').weight500.paddingSymmetric(horizontal: 24.w),
         // SizedBox(height: 4.w),
         SizedBox(
           height: 210.w,

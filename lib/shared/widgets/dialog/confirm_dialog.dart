@@ -41,7 +41,7 @@ extension ConfirmDialog on BuildContext {
                     children: <Widget>[
                       Expanded(
                         child: AppTextButton(
-                            primary: colorScheme.onSecondaryContainer,
+                            primary: colorScheme.background,
                             child: negative ?? Text(l10n.cancel),
                             onPressed: () =>
                                 Navigator.of(context, rootNavigator: true)

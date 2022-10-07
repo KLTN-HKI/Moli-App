@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moli_app/app/bloc/bloc.dart';
+import 'package:moli_app/features/appointment/presentation/pages/create_appointment_hospital_page.dart';
 import 'package:moli_app/features/authentication/presentation/register/page/register_page.dart';
-import 'package:moli_app/features/doctor/presentation/pages/dotor_detail_page.dart';
+import 'package:moli_app/features/doctor/presentation/pages/doctor_detail_page.dart';
 import 'package:moli_app/features/error/error_page.dart';
 import 'package:moli_app/features/features.dart';
 import 'package:moli_app/features/home/page/menu_page.dart';
@@ -11,6 +12,7 @@ import 'package:moli_app/features/hospital/presentation/pages/hospital_page.dart
 import 'package:moli_app/shared/shared.dart';
 
 import '../features/authentication/presentation/check_user/page/check_phone_page.dart';
+import '../features/doctor/presentation/pages/components/hospital_doctors.dart';
 import 'go_router_refresh_stream.dart';
 import 'router.dart';
 import 'transition_page.dart';
@@ -101,15 +103,15 @@ GoRouter routing(BuildContext context, String? initialLocation) {
             name: Routes.appointment,
             pageBuilder: (_, __) =>
                 const FadeTransitionPage(child: AppointmentPage()),
-            //      routes: <GoRoute>[
-            //   GoRoute(
-            //     path: Routes.hospitals,
-            //     name: Routes.hospitals,
-            //     parentNavigatorKey: moliNavigatorKey,
-            //     pageBuilder: (_, state) =>
-            //         const FadeTransitionPage(child: AppointmentDetailPage(id: state.params['id']!,)),
-            //   ),
-            // ],
+            /* routes: <GoRoute>[
+              GoRoute(
+                path: 'create-appointment-by-doctor',
+                name: 'create-appointment-by-doctorl',
+                parentNavigatorKey: moliNavigatorKey,
+                pageBuilder: (_, __) => const FadeTransitionPage(
+                    child: CreateAppointmentByHospitalPage()),
+              ),
+            ], */
           ),
           GoRoute(
             path: Routes.notification,
@@ -157,14 +159,38 @@ GoRouter routing(BuildContext context, String? initialLocation) {
                   ),
               routes: <RouteBase>[
                 GoRoute(
-                  path: '${Routes.doctorDetail}/:doctorId',
+                  path: 'create-appointment-by-hospital',
+                  name: 'create-appointment-by-hospital',
                   // parentNavigatorKey: moliNavigatorKey,
                   pageBuilder: (_, GoRouterState state) => FadeTransitionPage(
-                      child: DoctorDetailPage(
-                    doctorId: int.tryParse(state.params['doctorId']!)!,
-                    extra: state.extra,
-                  )),
+                    child: CreateAppointmentByHospitalPage(
+                      hospitalId: int.tryParse(state.params['hospitalId']!)!,
+                      extra: state.extra,
+                    ),
+                  ),
                 ),
+                GoRoute(
+                    path: 'hospital-doctors',
+                    name: 'hospital-doctors',
+                    parentNavigatorKey: moliNavigatorKey,
+                    pageBuilder: (_, GoRouterState state) => FadeTransitionPage(
+                          child: HospitalDoctorsPage(
+                            hospitalId:
+                                int.tryParse(state.params['hospitalId']!)!,
+                          ),
+                        ),
+                    routes: [
+                      GoRoute(
+                        path: ':doctorId',
+                        // parentNavigatorKey: moliNavigatorKey,
+                        pageBuilder: (_, GoRouterState state) =>
+                            FadeTransitionPage(
+                                child: DoctorDetailPage(
+                          doctorId: int.tryParse(state.params['doctorId']!)!,
+                          extra: state.extra,
+                        )),
+                      ),
+                    ]),
               ]),
         ],
       ),

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../typedefs.dart';
+import '../other/typedefs.dart';
 
 part 'pagintion.freezed.dart';
 part 'pagintion.g.dart';

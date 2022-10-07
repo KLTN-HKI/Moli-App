@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
+import 'package:moli_app/constants/image_assets.dart';
 import 'package:moli_app/features/doctor/domain/doctor.dart';
 import 'package:moli_app/features/doctor/domain/schedule.dart';
 import 'package:moli_app/shared/shared.dart';
 import 'package:moli_app/shared/widgets/tag/toggleable_tag.dart';
+import 'package:time_machine/time_machine.dart';
 
 import '../bloc/bloc.dart';
 
@@ -29,7 +32,9 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
     if (widget.extra != null && widget.extra is Doctor) {
       _doctor = widget.extra! as Doctor;
     }
-    _bloc.add(ScheduleEvent.fetchSchedule(doctorId: _doctor.id));
+    _bloc.add(ScheduleEvent.fetchSchedule(
+        doctorId: _doctor.id,
+        dayOfYear: DateFormat('yyyy-MM-dd').format(DateTime.now())));
   }
 
   @override
@@ -37,7 +42,6 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
     return BlocProvider<ScheduleBloc>.value(
       value: _bloc,
       child: Scaffold(
-        extendBody: true,
         appBar: HeaderAppBar(
           transparentAppBar: true,
           titleText: _doctor.name,
@@ -114,7 +118,10 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                 },
                               );
                             },
-                            failed: (NetworkException e) => Text(e.toString()));
+                            failed: (NetworkException e) => CustomErrorWidget(
+                                  message: e.toString(),
+                                  child: Image.asset(ImageAssets.errorResponse),
+                                ));
                       },
                     )
                   ],

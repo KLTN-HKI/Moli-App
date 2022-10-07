@@ -41,7 +41,10 @@ class _NotificationPageState extends State<NotificationPage> {
     return BlocProvider<NotificationListCubit>.value(
       value: _cubit,
       child: Scaffold(
-        appBar: HeaderAppBar(titleText: context.l10n.notification),
+        appBar: HeaderAppBar(
+          titleText: context.l10n.notification,
+          transparentAppBar: true,
+        ),
         body: SafeArea(
             child: RefreshIndicator(
           onRefresh: () => _cubit.fetchData(),

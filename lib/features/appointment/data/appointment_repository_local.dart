@@ -1,5 +1,5 @@
 import 'package:moli_app/features/appointment/data/appointment_repository.dart';
-import 'package:moli_app/shared/common/typedefs.dart';
+import 'package:moli_app/shared/common/other/typedefs.dart';
 
 class AppointmentRepositoryLocal implements AppointmentRepository {
   @override

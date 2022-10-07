@@ -12,15 +12,22 @@ class CourseBanner extends StatefulWidget {
 }
 
 class _CourseBannerState extends State<CourseBanner> {
-  final CarouselController _controller = CarouselController();
+  late final CarouselController _controller;
 
-  int _currentPage = 0;
+  late int _currentPage;
 
   final List<ImageBanner> bannerImages = const <ImageBanner>[
     ImageBanner(imageUrl: ImageAssets.banner, url: ''),
     ImageBanner(imageUrl: ImageAssets.banner, url: ''),
     ImageBanner(imageUrl: ImageAssets.banner, url: ''),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _currentPage = 0;
+    _controller = CarouselController();
+  }
 
   @override
   Widget build(BuildContext context) {

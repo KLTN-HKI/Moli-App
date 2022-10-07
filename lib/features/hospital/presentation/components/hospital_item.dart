@@ -45,6 +45,8 @@ class HospitalItem extends StatelessWidget {
             AppText.l0(
               hospital.hospitalName ?? 'Phòng khám ...',
               textOverflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              textAlign: TextAlign.center,
             ),
             SizedBox(height: 4.w),
             AppText.l1(

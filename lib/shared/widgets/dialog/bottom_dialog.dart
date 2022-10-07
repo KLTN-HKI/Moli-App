@@ -60,6 +60,7 @@ extension BottomModal on BuildContext {
     MainAxisAlignment? mainAxisAlignment,
     double? dialogHeight,
     Widget? child,
+    bool barrierDismissible = true,
   }) {
     assert((title != null && content != null) || child != null,
         'Dialog must have title - context not null or child not null');
@@ -110,20 +111,24 @@ extension BottomModal on BuildContext {
 
     return showCupertinoModalPopup<T>(
         context: this,
-        builder: (BuildContext context) => Container(
-              height: dialogHeight ?? context.height * 0.35,
-              width: context.width,
-              padding: const EdgeInsets.all(8),
-              // The Bottom margin is provided to align the popup above the system navigation bar.
-              margin: context.mediaQueryViewInsets,
-              // Provide a background color for the popup.
-              decoration: BoxDecoration(
-                color: CupertinoColors.systemBackground.resolveFrom(context),
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
+        barrierDismissible: barrierDismissible,
+        builder: (BuildContext context) => GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Container(
+                height: dialogHeight ?? context.height * 0.35,
+                width: context.width,
+                padding: const EdgeInsets.all(8),
+                // The Bottom margin is provided to align the popup above the system navigation bar.
+                margin: context.mediaQueryViewInsets,
+                // Provide a background color for the popup.
+                decoration: BoxDecoration(
+                  color: CupertinoColors.systemBackground.resolveFrom(context),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(16)),
+                ),
+                // Use a SafeArea widget to avoid system overlaps.
+                child: SafeArea(top: false, child: child!),
               ),
-              // Use a SafeArea widget to avoid system overlaps.
-              child: SafeArea(top: false, child: child!),
             ));
   }
 }

@@ -101,7 +101,7 @@ class _HospitalBodyState extends State<HospitalBody> {
 
   void _loadMoreData() {
     if (_controller.position.extentAfter < 100) {
-      _cubit.state.whenOrNull(
+    _cubit.state.whenOrNull(
         success: (HospitalList hospitals, bool isLoading) {
           if (!isLoading && hospitals.pagination.hasMore) {
             _cubit.fetchAllHospital(page: hospitals.pagination.currentPage + 1);

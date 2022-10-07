@@ -93,17 +93,17 @@ class _MoliViewState extends State<MoliView> {
               builder: (BuildContext context, Widget? child) {
                 return BlocListener<AppConnectCubit, AppConnectState>(
                   listener: (BuildContext context, AppConnectState state) {
-                    state.when(connected: () {
-                      context.scaffoldMessenger.showSnackBar(const SnackBar(
-                        key: Key('Internet Connected'),
-                        content: Text('Internet Connected'),
-                      ));
-                    }, disconnected: () {
-                      context.scaffoldMessenger.showSnackBar(const SnackBar(
-                        key: Key('Internet Lost'),
-                        content: Text('Internet Lost'),
-                      ));
-                    });
+                    // state.when(connected: () {
+                    //   context.scaffoldMessenger.showSnackBar(const SnackBar(
+                    //     key: Key('Internet Connected'),
+                    //     content: Text('Internet Connected'),
+                    //   ));
+                    // }, disconnected: () {
+                    //   context.scaffoldMessenger.showSnackBar(const SnackBar(
+                    //     key: Key('Internet Lost'),
+                    //     content: Text('Internet Lost'),
+                    //   ));
+                    // });
                   },
                   child: child,
                 );

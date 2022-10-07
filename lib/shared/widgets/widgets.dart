@@ -6,6 +6,7 @@ export 'button/button.dart';
 export 'card/card.dart';
 export 'chip/chip.dart';
 export 'dialog/dialog.dart';
+export 'error/error.dart';
 export 'image/image.dart';
 export 'input/input.dart';
 export 'modal/modal.dart';

@@ -30,7 +30,8 @@ class ErrorPage extends StatelessWidget {
               AppTextButton(
                 child: Text(context.l10n.back_to_home),
                 onPressed: () => context.go(Routes.home),
-              )
+              ),
+              const SizedBox(height: 24),
             ],
           ),
         ),

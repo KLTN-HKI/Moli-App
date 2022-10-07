@@ -26,7 +26,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
       final DoctorList oldData = state.maybeWhen(
           success: (DoctorList doctors, bool isLoading) => doctors,
           orElse: () => const DoctorList());
-      DoctorState.success(doctors: oldData, isLoading: false);
+      emit(DoctorState.success(doctors: oldData, isLoading: false));
       final DoctorList newData = await _repository.fetchDoctorsByHospitalId(
         data: <String, dynamic>{
           'page': event.page ?? 0,
