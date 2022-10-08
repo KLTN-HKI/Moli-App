@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moli_app/constants/constants.dart';
 import 'package:moli_app/features/appointment/presentation/pages/appointment_detail/appointment_detail.dart';
+import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
 
 class AppointmentItem extends StatelessWidget {
@@ -20,13 +21,8 @@ class AppointmentItem extends StatelessWidget {
         AppText.b2('Vào lúc ...'),
       ],
       trailing: const AppIcon(IconAssets.icArrowRight),
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) => AppointmentDetailPage(
-              id: index,
-            ),
-          )),
+      onTap: () => context.goRouter.go(
+          '${context.goRouter.location}/${AppointmentDetailPage.routePath}/$index'),
     );
   }
 }
