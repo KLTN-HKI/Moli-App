@@ -28,4 +28,17 @@ class AppointmentRepositoryApi implements AppointmentRepository {
       converter: AppointmentList.fromJson,
     );
   }
+
+  @override
+  Future<void> cancelAppointment({required JSON data, String? appointmentId}) {
+    return _apiService.putData(
+      endpoint: ApiEndpoint.appointment(
+        AppointmentEndpoint.cancelAppointment,
+        id: appointmentId,
+      ),
+      requiresAuthToken: true,
+      data: data,
+      converter: (_) {},
+    );
+  }
 }

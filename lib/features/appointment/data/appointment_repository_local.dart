@@ -12,4 +12,9 @@ class AppointmentRepositoryLocal implements AppointmentRepository {
   Future<AppointmentList> getAppointments({required JSON data}) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> cancelAppointment({required JSON data, String? appointmentId}) {
+    throw UnimplementedError();
+  }
 }

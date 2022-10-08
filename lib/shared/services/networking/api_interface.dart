@@ -73,6 +73,26 @@ abstract class ApiInterface {
     required T Function(JSON response) converter,
   });
 
+  /// Base method for inserting [data] at the [endpoint].
+  ///
+  /// The [data] contains body for the request.
+  ///
+  /// The response is deserialized into an object of type [T],
+  /// using the [converter] callback.
+  ///
+  /// [cancelToken] is used to cancel the request pre-maturely. If null,
+  /// the **default** [cancelToken] inside [DioService] is used.
+  ///
+  /// [requiresAuthToken] is used to decide if a token will be inserted
+  /// in the **headers** of the request using an [ApiInterceptor]
+  Future<T> putData<T>({
+    required String endpoint,
+    required JSON data,
+    CancelToken? cancelToken,
+    bool requiresAuthToken = true,
+    required T Function(JSON response) converter,
+  });
+
   /// Base method for updating [data] at the [endpoint].
   ///
   /// The response is deserialized into an object of type [T],

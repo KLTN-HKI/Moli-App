@@ -29,4 +29,33 @@ class AppointmentCubit extends Cubit<AppointmentState> {
       ));
     }
   }
+
+  Future<void> cancelAppointment(String appointmentId) async {
+    try {
+      emit(
+        state.copyWith(
+          exception: null,
+          isLoading: true,
+          isSucess: false,
+        ),
+      );
+      await _repository.cancelAppointment(
+        data: <String, dynamic>{},
+        appointmentId: appointmentId,
+      );
+      emit(
+        state.copyWith(
+          exception: null,
+          isLoading: false,
+          isSucess: true,
+        ),
+      );
+    } on NetworkException catch (e) {
+      emit(state.copyWith(
+        exception: e,
+        isLoading: false,
+        isSucess: false,
+      ));
+    }
+  }
 }

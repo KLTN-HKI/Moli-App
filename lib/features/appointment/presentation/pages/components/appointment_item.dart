@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:moli_app/constants/constants.dart';
-import 'package:moli_app/features/appointment/presentation/pages/appointment_detail/appointment_detail.dart';
-import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
 
 import '../../../domain/appointment.dart';
+import '../appointment_detail/appointment_detail.dart';
 
 class AppointmentItem extends StatelessWidget {
-  const AppointmentItem({super.key, required this.appointment});
+  const AppointmentItem({
+    required this.appointment,
+    super.key,
+  });
 
   final Appointment appointment;
 
@@ -24,7 +26,9 @@ class AppointmentItem extends StatelessWidget {
       ],
       trailing: const AppIcon(IconAssets.icArrowRight),
       onTap: () => context.goRouter.go(
-          '${context.goRouter.location}/${AppointmentDetailPage.routePath}/${appointment.id}'),
+        '${context.goRouter.location}/${AppointmentDetailPage.routePath}/${appointment.id}',
+        extra: appointment,
+      ),
     );
   }
 }

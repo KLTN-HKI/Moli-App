@@ -94,6 +94,33 @@ class DioService {
     return response.data!;
   }
 
+  /// This method sends a `POST` request to the [endpoint] and returns the
+  /// **decoded** response.
+  ///
+  /// Any errors encountered during the request are caught and a custom
+  /// [NetworkException] is thrown.
+  ///
+  /// The [data] contains body for the request.
+  ///
+  /// [cancelToken] is used to cancel the request pre-maturely. If null,
+  /// the **default** [cancelToken] inside [DioService] is used.
+  ///
+  /// [options] are special instructions that can be merged with the request.
+  Future<T> put<T>({
+    required String endpoint,
+    JSON? data,
+    Options? options,
+    CancelToken? cancelToken,
+  }) async {
+    final Response<T> response = await _dio.put<T>(
+      endpoint,
+      data: data,
+      options: options,
+      cancelToken: cancelToken ?? _cancelToken,
+    );
+    return response.data!;
+  }
+
   /// This method sends a `PATCH` request to the [endpoint] and returns the
   /// **decoded** response.
   ///

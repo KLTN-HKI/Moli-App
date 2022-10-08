@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:moli_app/shared/shared.dart';
 
+import '../../../../domain/appointment.dart';
 import 'appointment_card.dart';
 
 class PatientInfo extends StatelessWidget {
-  const PatientInfo({super.key});
+  const PatientInfo({super.key, required this.appointment});
+  final Appointment appointment;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class PatientInfo extends StatelessWidget {
             children: [
               AppText.b0('Họ và tên'),
               AppText.b0(
-                'text',
+                '${appointment.patient?.name}',
               ).weight600,
             ],
           ),
@@ -27,7 +29,7 @@ class PatientInfo extends StatelessWidget {
             children: [
               AppText.b0('Điện thoại'),
               AppText.b0(
-                'text',
+                '${appointment.patient?.realPhoneNumber}',
               ).weight600,
             ],
           ),

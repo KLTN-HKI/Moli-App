@@ -111,6 +111,7 @@ GoRouter routing(BuildContext context, String? initialLocation) {
                 pageBuilder: (_, GoRouterState state) => FadeTransitionPage(
                     child: AppointmentDetailPage(
                   id: int.tryParse(state.params['appointmentId']!)!,
+                  extra: state.extra,
                 )),
               ),
             ],

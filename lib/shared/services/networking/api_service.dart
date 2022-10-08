@@ -137,6 +137,46 @@ class ApiService implements ApiInterface {
     }
   }
 
+  /// An implementation of the base method for inserting [data] at
+  /// the [endpoint].
+  /// The response body must be a [Map], else the [converter] fails.
+  ///
+  /// The [data] contains body for the request.
+  ///
+  /// The [converter] callback is used to **deserialize** the response body
+  /// into an object of type [T].
+  /// The callback is executed on the response `body`.
+  ///
+  /// [cancelToken] is used to cancel the request pre-maturely. If null,
+  /// the **default** [cancelToken] inside [DioService] is used.
+  ///
+  /// [requiresAuthToken] is used to decide if a token will be inserted
+  /// in the **headers** of the request using an [ApiInterceptor].
+  /// The default value is `true`.
+  @override
+  Future<T> putData<T>({
+    required String endpoint,
+    required JSON data,
+    CancelToken? cancelToken,
+    bool requiresAuthToken = true,
+    required T Function(JSON response) converter,
+  }) async {
+    try {
+      //Entire map of response
+      final JSON dataMap = await _dioService.put(
+        endpoint: endpoint,
+        data: data,
+        options: Options(
+            headers: <String, Object?>{'requiresAuthToken': requiresAuthToken}),
+        cancelToken: cancelToken,
+      );
+
+      return converter(dataMap);
+    } catch (ex) {
+      throw NetworkException.getDioException(ex);
+    }
+  }
+
   /// An implementation of the base method for updating [data]
   /// at the [endpoint].
   /// The response body must be a [Map], else the [converter] fails.
