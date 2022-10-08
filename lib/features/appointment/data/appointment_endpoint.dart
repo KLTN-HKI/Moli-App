@@ -7,10 +7,14 @@ class ApiEndpoint {
     switch (endpoint) {
       case AppointmentEndpoint.bookingAppointment:
         return '$path/appointment/booking-appointment';
+      case AppointmentEndpoint.manageAppointment:
+        return '$path/appointment/patient/manage-appointment';
     }
   }
 }
 
 enum AppointmentEndpoint {
   bookingAppointment,
+
+  manageAppointment
 }

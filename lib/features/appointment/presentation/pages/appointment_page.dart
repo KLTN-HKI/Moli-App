@@ -1,40 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:moli_app/constants/image_assets.dart';
+import 'package:moli_app/features/appointment/domain/appointment.dart';
 import 'package:moli_app/shared/shared.dart';
 
+import '../bloc/appointment_list/appointment_list_cubit.dart';
 import 'components/appointment_item.dart';
 
-class AppointmentPage extends StatelessWidget {
+class AppointmentPage extends StatefulWidget {
   const AppointmentPage({super.key});
 
   static const String routeName = 'appointment';
+
+  @override
+  State<AppointmentPage> createState() => _AppointmentPageState();
+}
+
+class _AppointmentPageState extends State<AppointmentPage> {
+  late AppointmentListCubit _cubit;
+  late final ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _cubit = AppointmentListCubit();
+    _controller = ScrollController();
+    _cubit.getAppoinments();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _cubit.close();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.l10n.appointment),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Iconsax.search_normal),
+    return BlocProvider<AppointmentListCubit>.value(
+      value: _cubit,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(context.l10n.appointment),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Iconsax.search_normal),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Iconsax.filter_add),
+            ),
+          ],
+        ),
+        body: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              BlocConsumer<AppointmentListCubit, AppointmentListState>(
+                listener: (BuildContext context, AppointmentListState state) {},
+                builder: (BuildContext context, AppointmentListState state) {
+                  return state.maybeWhen(
+                    initial: () => const LoadingIndicator(),
+                    success: _buildBody,
+                    failed: (NetworkException ex) => CustomErrorWidget(
+                      child: Image.asset(ImageAssets.otherError),
+                      message: ex.toString(),
+                    ),
+                    orElse: () => const SizedBox(),
+                  );
+                },
+              )
+            ],
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Iconsax.filter_add),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: ListView.separated(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          itemBuilder: (BuildContext context, int index) =>
-              AppointmentItem(index: index),
-          separatorBuilder: (BuildContext context, int index) =>
-              SizedBox(height: 12.w),
-          itemCount: 10,
         ),
       ),
     );
+  }
+
+  Widget _buildBody(AppointmentList list, bool isLoading) {
+    return Column(
+      children: [
+        if (list.appointments.isEmpty)
+          CustomErrorWidget(
+            message: 'Không có buổi học nào',
+            child: Image.asset(
+              ImageAssets.otherError,
+              width: 150,
+              height: 150,
+            ),
+          )
+        else
+          ...list.appointments.map((e) => AppointmentItem(
+                appointment: e,
+              )),
+        if (isLoading) const LoadingIndicator()
+      ].applySeparator(separator: const SizedBox(height: 16)),
+    );
+  }
+
+  void _loadMoreData() {
+    if (_controller.position.extentAfter < 100) {
+      final bool isloading = _cubit.state.maybeWhen(
+          success: (_, bool isLoading) => !isLoading, orElse: () => false);
+      if (isloading) {
+        _cubit.loadMore();
+      }
+    }
   }
 }

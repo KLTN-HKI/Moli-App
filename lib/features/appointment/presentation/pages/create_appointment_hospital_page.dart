@@ -167,7 +167,7 @@ class _CreateAppointmentByHospitalPageState
                                 return GridView.builder(
                                   gridDelegate:
                                       const SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 120,
+                                    maxCrossAxisExtent: 150,
                                     mainAxisSpacing: 10,
                                     crossAxisSpacing: 10,
                                   ),

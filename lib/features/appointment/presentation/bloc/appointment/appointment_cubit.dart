@@ -19,7 +19,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     try {
       emit(state.copyWith(exception: null, isLoading: true, isSucess: false));
       await _repository.bookDoctor(data: <String, dynamic>{
-        "":""
+        '': '',
       });
     } on NetworkException catch (e) {
       emit(state.copyWith(
