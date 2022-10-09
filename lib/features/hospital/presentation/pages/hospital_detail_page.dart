@@ -5,7 +5,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:moli_app/constants/color_palattes.dart';
 import 'package:moli_app/constants/image_assets.dart';
 import 'package:moli_app/features/doctor/domain/doctor.dart';
-import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
 
 import '../../../doctor/presentation/bloc/doctor/doctor_bloc.dart';

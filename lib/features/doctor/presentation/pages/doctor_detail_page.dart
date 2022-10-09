@@ -7,7 +7,6 @@ import 'package:moli_app/features/doctor/domain/doctor.dart';
 import 'package:moli_app/features/doctor/domain/schedule.dart';
 import 'package:moli_app/shared/shared.dart';
 import 'package:moli_app/shared/widgets/tag/toggleable_tag.dart';
-import 'package:time_machine/time_machine.dart';
 
 import '../bloc/bloc.dart';
 

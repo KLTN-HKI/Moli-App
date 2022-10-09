@@ -63,7 +63,7 @@ class _HospitalDoctorsPageState extends State<HospitalDoctorsPage> {
       value: _bloc,
       child: Scaffold(
         body: CustomScrollView(
-          slivers: [
+          slivers: <Widget>[
             AppBarSliver(
               canBack: true,
               title: AppText.t0(
@@ -143,7 +143,7 @@ class _DoctorItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             BaseCard(
               padding: EdgeInsets.zero,
               decoration: const BoxDecoration(),

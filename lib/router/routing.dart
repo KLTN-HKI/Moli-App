@@ -192,7 +192,7 @@ GoRouter routing(BuildContext context, String? initialLocation) {
                                 int.tryParse(state.params['hospitalId']!)!,
                           ),
                         ),
-                    routes: [
+                    routes: <RouteBase>[
                       GoRoute(
                         path: ':doctorId',
                         pageBuilder: (_, GoRouterState state) =>

@@ -18,7 +18,7 @@ class _DaySelectorState extends State<DaySelector> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         _buildPreviousDateButton(),
         _buildCurrentDate(),
         _buildNextDateButton(),
@@ -36,7 +36,7 @@ class _DaySelectorState extends State<DaySelector> {
         width: 32.w,
         child: IconButton(
           padding: EdgeInsets.zero,
-          onPressed: () => onDateChange(selectedDate.add(Duration(days: 1))),
+          onPressed: () => onDateChange(selectedDate.add(const Duration(days: 1))),
           icon: SvgPicture.asset(
             IconAssets.icArrowRight,
             width: 9.w,
@@ -51,7 +51,7 @@ class _DaySelectorState extends State<DaySelector> {
     return Container(
       padding: EdgeInsets.all(8.w),
       child: Column(
-        children: [
+        children: <Widget>[
           Text(
             DateTimeUtils.weekDay(selectedDate.weekday),
             style: context.textTheme.titleSmall,
@@ -86,7 +86,7 @@ class _DaySelectorState extends State<DaySelector> {
         width: 32.w,
         child: IconButton(
           onPressed: selectedDate.isAfter(DateTime.now())
-              ? () => onDateChange(selectedDate.subtract(Duration(days: 1)))
+              ? () => onDateChange(selectedDate.subtract(const Duration(days: 1)))
               : null,
           splashRadius: 32.w,
           icon: SvgPicture.asset(

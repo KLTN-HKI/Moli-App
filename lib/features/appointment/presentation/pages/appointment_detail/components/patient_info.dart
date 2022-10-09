@@ -24,7 +24,7 @@ class PatientInfo extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          if (appointment.patient?.name == null) ...[
+          if (appointment.patient?.name == null) ...<Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[

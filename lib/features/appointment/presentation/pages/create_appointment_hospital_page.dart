@@ -68,12 +68,8 @@ class _CreateAppointmentByHospitalPageState
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: <BlocProvider<dynamic>>[
-        BlocProvider<ScheduleBloc>.value(
-          value: _bloc,
-        ),
-        BlocProvider<AppointmentFormCubit>.value(
-          value: _formCubit,
-        ),
+        BlocProvider<ScheduleBloc>.value(value: _bloc),
+        BlocProvider<AppointmentFormCubit>.value(value: _formCubit),
       ],
       child: BlocConsumer<AppointmentFormCubit, AppointmentFormState>(
         listener: (BuildContext context, AppointmentFormState state) {
@@ -132,7 +128,7 @@ class _CreateAppointmentByHospitalPageState
                             value: true,
                           ),
                           AppText.b1('Cho tôi'),
-                          const SizedBox(width: 16),
+                          /* const SizedBox(width: 16),
                           AppRadio<bool>(
                             groupValue: forSelf,
                             onChanged: (bool? value) {
@@ -148,28 +144,30 @@ class _CreateAppointmentByHospitalPageState
                             },
                             value: false,
                           ),
-                          AppText.b1('Cho người khác'),
+                          AppText.b1('Cho người khác'), */
                         ],
                       ),
-                      if (forSelf) ...[
-                        const SizedBox(height: 4),
-                        AppText.b1('Tên bệnh nhân: //${patient?.name ?? ''}'),
-                        const SizedBox(height: 4),
-                        AppText.b1('Giới tính: ${patient?.gender ?? ''}'),
-                        const SizedBox(height: 4),
-                        AppText.b1('Email: ${patient?.email ?? ''}'),
+                      if (forSelf) ...<Widget>[
                         const SizedBox(height: 4),
                         AppText.b1(
-                            'Số điện thoại: ${patient?.realPhoneNumber ?? ''}'),
+                            'Tên bệnh nhân: ${patient?.name ?? '(Chưa cập nhật thông tin)'}'),
                         const SizedBox(height: 4),
-                      ] else ...[
+                        AppText.b1(
+                            'Giới tính: ${patient?.gender ?? '(Chưa cập nhật thông tin)'}'),
+                        const SizedBox(height: 4),
+                        AppText.b1(
+                            'Email: ${patient?.email ?? '(Chưa cập nhật thông tin)'}'),
+                        const SizedBox(height: 4),
+                        AppText.b1(
+                            'Số điện thoại: ${patient?.realPhoneNumber ?? '(Chưa cập nhật thông tin)'}'),
+                        const SizedBox(height: 4),
+                      ] else ...<Widget>[
                         AppText.b1('Tên bệnh nhân:'),
                         TextFormField(
                           style: context.textTheme.bodyMedium,
                           onFieldSubmitted: (String value) {
                             setState(() {
-                              patient?.copyWith(name: value);
-                              print(patient?.name);
+                              patient?.copyWith;
                             });
                           },
                         ),
@@ -244,6 +242,7 @@ class _CreateAppointmentByHospitalPageState
                                 (DoctorAvailableTime schedule, bool isLoading) {
                               if (schedule.doctorSchedules.isNotEmpty) {
                                 return GridView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithMaxCrossAxisExtent(
                                     maxCrossAxisExtent: 150,
