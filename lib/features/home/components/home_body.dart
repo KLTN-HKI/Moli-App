@@ -22,7 +22,6 @@ class _HomeBodyState extends State<HomeBody>
     super.build(context);
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
-      // padding: EdgeInsets.symmetric(vertical: 12.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

@@ -34,7 +34,6 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
     if (widget.extra != null && widget.extra is Hospital) {
       _hospital = widget.extra! as Hospital;
     }
-    // fetchData();
     super.initState();
   }
 
@@ -71,7 +70,7 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: RefreshIndicator(
-          onRefresh: () => fetchData(),
+          onRefresh: fetchData,
           child: CustomScrollView(
             slivers: <Widget>[
               AppBarSliver(
@@ -89,7 +88,7 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
                   centerTitle: true,
                   // titlePadding: ,
                   title: AppText.t0(
-                    _hospital.hospitalName ?? 'Bệnh viện gì đó..',
+                    _hospital.hospitalName ?? 'Bệnh viện ...',
                     // color: ColorPalettes.white,
                   ).weight600,
                 ),
@@ -108,7 +107,7 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: AppElevatedButton(
             onPressed: () => context.goRouter.go(
                 '${context.goRouter.location}/hospital-doctors',
@@ -143,6 +142,25 @@ class _HospitalInfo extends StatelessWidget {
             AppText.t1(
               '${context.l10n.address}: ${_hospital.hospitalAddress?.addressDetail}',
               // color: ColorPalettes.white,
+            ),
+            const SizedBox(height: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                AppText.t0('About hospital ').bold,
+                const SizedBox(height: 4),
+                AppText.b0('')
+              ],
+            ),
+            const SizedBox(height: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                AppText.t0('Work time:').bold,
+                const SizedBox(height: 4),
+                AppText.b0(
+                    '${DateTimeUtils.fromTimeToStringType2(_hospital.workTimeStart)} - ${DateTimeUtils.fromTimeToStringType2(_hospital.workTimeEnd)}')
+              ],
             ),
           ],
         ),

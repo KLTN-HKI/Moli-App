@@ -20,10 +20,10 @@ class ProfilePage extends StatelessWidget {
           title: Text(context.l10n.my_profile),
         ),
         body: const SafeArea(child: ProfileBody()),
-        bottomNavigationBar: AppElevatedButton(
-          onPressed: null,
-          child: Text(context.l10n.confirm),
-        ).paddingAll(16),
+        // bottomNavigationBar: AppElevatedButton(
+        //   onPressed: null,
+        //   child: Text(context.l10n.save),
+        // ).paddingSymmetric(horizontal: 16, vertical: 24),
       ),
     );
   }

@@ -17,7 +17,8 @@ class AppointmentDetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.w),
+      physics: const ClampingScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.w),
       children: <Widget>[
         AppointmentInfo(appointment: appointment),
         const SizedBox(height: 16),
@@ -29,7 +30,7 @@ class AppointmentDetailBody extends StatelessWidget {
         const SizedBox(height: 16),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             AppText.b0('CSKH'),
             AppText.b0('1900').weight600,
           ],

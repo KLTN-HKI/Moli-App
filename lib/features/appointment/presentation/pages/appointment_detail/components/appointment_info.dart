@@ -15,30 +15,30 @@ class AppointmentInfo extends StatelessWidget {
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           AppText.t0('${appointment.hospital?.hospitalName}').bold,
-          SizedBox(height: 12.w),
+          SizedBox(height: 4.w),
           AppText.t0('${appointment.appointmentStatus}'),
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               AppText.b0('Mã lịch hẹn'),
               AppText.b0('${appointment.appointmentCode}').weight600,
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               AppText.b0('Ngày khám'),
               AppText.b0(
                       '${DateTimeUtils.formatDateTimeDateOnly(appointment.appointmentBookingDate)}')
                   .weight600,
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               AppText.b0('Giờ khám'),
               AppText.b0(
                 '${DateTimeUtils.fromTimeToStringType2(appointment.appointmentStartTime)} - ${DateTimeUtils.fromTimeToStringType2(appointment.appointmentEndTime)}',

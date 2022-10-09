@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moli_app/features/doctor/domain/doctor.dart';
 import 'package:moli_app/shared/shared.dart';
 
 import '../../../../domain/appointment.dart';
@@ -15,7 +16,7 @@ class HospitalInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
-            children: [
+            children: <Widget>[
               const RoundedImage(size: 40),
               SizedBox(width: 12.w),
               Expanded(
@@ -23,25 +24,25 @@ class HospitalInfo extends StatelessWidget {
                       .weight600),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           AppText.t1('Địa chỉ'),
-          const SizedBox(height: 12),
+          const SizedBox(height: 4),
           AppText.t1('${appointment.hospital?.hospitalAddress?.addressDetail}')
               .weight500,
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               AppText.b0('Chuyên khoa'),
               AppText.b0(
-                '${appointment.doctor?.specialists.map((e) => e.specialistName).join('\n')}',
+                '${appointment.doctor?.specialists.map((Specialist specialist) => specialist.specialistName).join('\n')}',
               ).weight600,
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               AppText.b0('Bác sĩ'),
               AppText.b0(
                 '${appointment.doctor?.name}',

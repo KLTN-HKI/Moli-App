@@ -16,17 +16,29 @@ class PatientInfo extends StatelessWidget {
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               AppText.b0('Họ và tên'),
               AppText.b0(
-                '${appointment.patient?.name}',
+                appointment.patient?.name ?? 'Chưa cập nhật thông tin',
               ).weight600,
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
+          if (appointment.patient?.name == null) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                AppText.b0('Email'),
+                AppText.b0(
+                  appointment.patient?.email ?? 'Chưa cập nhật thông tin',
+                ).weight600,
+              ],
+            ),
+            const SizedBox(height: 8),
+          ],
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               AppText.b0('Điện thoại'),
               AppText.b0(
                 '${appointment.patient?.realPhoneNumber}',

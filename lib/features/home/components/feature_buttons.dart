@@ -32,7 +32,7 @@ class FeatureButtons extends StatelessWidget {
       title: 'Đặt khám\nbác sĩ',
       icon: IconAssets.icProfileBold,
       color: ColorPalettes.primary40,
-      routeName: '/home/doctors',
+      routeName: Routes.doctors,
     ),
     FeatureModel(
       title: 'Đặt khám\nbệnh viện',

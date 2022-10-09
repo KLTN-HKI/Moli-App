@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
 
 import '../bloc/bloc.dart';
@@ -14,8 +15,9 @@ class DoctorPage extends StatelessWidget {
       child: const Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: HeaderAppBar(
-          transparentAppBar: true,
-          titleText: 'Doctors',
+          // transparentAppBar: true,
+          titleText: 'Tìm bác sĩ',
+          routeBack: Routes.home,
         ),
         body: SafeArea(child: DoctorBody()),
       ),

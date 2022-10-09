@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moli_app/constants/image_assets.dart';
 import 'package:moli_app/features/appointment/domain/appointment.dart';
 import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
@@ -45,23 +46,41 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
           titleText: 'Lịch hẹn khám',
           routeBack: Routes.appointment,
         ),
-        body: SafeArea(
-          child: AppointmentDetailBody(appointment: _appointment),
+        body: BlocListener<AppointmentCubit, AppointmentState>(
+          listener: (BuildContext context, AppointmentState state) {
+            if (state.isSucess) {
+              SmoothDialog(
+                context: context,
+                path: ImageAssets.send,
+                title: 'Thành công',
+                content: 'Bạn đã hủy lịch khám thành công',
+                mode: SmoothMode.asset,
+                onDismiss: () => context.goRouter.go(Routes.appointment),
+              );
+            } else if (state.exception != null) {
+              context.showNetworkExceptionDialog(state.exception!);
+            }
+          },
+          child: SafeArea(
+            child: AppointmentDetailBody(appointment: _appointment),
+          ),
         ),
-        bottomNavigationBar: _appointment.appointmentStatus != 'CANCEL'
-            ? AppOutlinedButton(
-                onPressed: () async {
-                  final bool result = await context.showConfirmDialog(
-                    title: Text('Lưu ý'),
-                    content: Text('Bạn có chắc muốn hủy lịch khám không?'),
-                  );
-                  if (result && _appointment.appointmentUuid != null) {
-                    _cubit.cancelAppointment(_appointment.appointmentUuid!);
-                  }
-                },
-                child: const Text('Hủy lịch'),
-              ).marginAll(16)
-            : null,
+        bottomNavigationBar:
+            _appointment.appointmentStatus != AppointmentStatus.cancel
+                ? AppOutlinedButton(
+                    onPressed: () async {
+                      final bool result = await context.showConfirmDialog(
+                        title: const Text('Lưu ý'),
+                        content:
+                            const Text('Bạn có chắc muốn hủy lịch khám không?'),
+                      );
+                      if (result && _appointment.appointmentUuid != null) {
+                        _cubit.cancelAppointment(_appointment.appointmentUuid!);
+                      }
+                    },
+                    child: const Text('Hủy lịch'),
+                  ).marginAll(16)
+                : null,
       ),
     );
   }

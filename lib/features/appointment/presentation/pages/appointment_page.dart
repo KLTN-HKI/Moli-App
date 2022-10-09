@@ -56,24 +56,30 @@ class _AppointmentPageState extends State<AppointmentPage> {
           ],
         ),
         body: SafeArea(
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              BlocConsumer<AppointmentListCubit, AppointmentListState>(
-                listener: (BuildContext context, AppointmentListState state) {},
-                builder: (BuildContext context, AppointmentListState state) {
-                  return state.maybeWhen(
-                    initial: () => const LoadingIndicator(),
-                    success: _buildBody,
-                    failed: (NetworkException ex) => CustomErrorWidget(
-                      child: Image.asset(ImageAssets.otherError),
-                      message: ex.toString(),
-                    ),
-                    orElse: () => const SizedBox(),
-                  );
-                },
-              )
-            ],
+          child: RefreshIndicator(
+            onRefresh: () async => _loadMoreData(),
+            child: ListView(
+              controller: _controller,
+              padding: const EdgeInsets.all(16),
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: <Widget>[
+                BlocConsumer<AppointmentListCubit, AppointmentListState>(
+                  listener:
+                      (BuildContext context, AppointmentListState state) {},
+                  builder: (BuildContext context, AppointmentListState state) {
+                    return state.maybeWhen(
+                      initial: () => const LoadingIndicator(),
+                      success: _buildBody,
+                      failed: (NetworkException ex) => CustomErrorWidget(
+                        message: ex.toString(),
+                        child: Image.asset(ImageAssets.otherError),
+                      ),
+                      orElse: () => const SizedBox(),
+                    );
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -82,20 +88,21 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
   Widget _buildBody(AppointmentList list, bool isLoading) {
     return Column(
-      children: [
+      children: <Widget>[
         if (list.appointments.isEmpty)
           CustomErrorWidget(
-            message: 'Không có buổi học nào',
+            message: 'Không có lịch khám nào',
             child: Image.asset(
-              ImageAssets.otherError,
+              ImageAssets.notFound,
               width: 150,
               height: 150,
             ),
           )
         else
-          ...list.appointments.map((e) => AppointmentItem(
-                appointment: e,
-              )),
+          ...list.appointments.map(
+            (Appointment appointment) =>
+                AppointmentItem(appointment: appointment),
+          ),
         if (isLoading) const LoadingIndicator()
       ].applySeparator(separator: const SizedBox(height: 16)),
     );

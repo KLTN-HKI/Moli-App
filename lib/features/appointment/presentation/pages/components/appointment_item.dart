@@ -22,7 +22,8 @@ class AppointmentItem extends StatelessWidget {
         SizedBox(height: 4.w),
         AppText.b2('${appointment.hospital?.hospitalAddress?.addressDetail}'),
         SizedBox(height: 4.w),
-        AppText.b2('${appointment.appointmentBookingDate}'),
+        AppText.b2(
+            '${DateTimeUtils.formatDateTimeDateOnly(appointment.appointmentBookingDate)} (${DateTimeUtils.fromTimeToStringType2(appointment.appointmentStartTime)} - ${DateTimeUtils.fromTimeToStringType2(appointment.appointmentStartTime)})'),
       ],
       trailing: const AppIcon(IconAssets.icArrowRight),
       onTap: () => context.goRouter.go(

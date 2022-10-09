@@ -7,6 +7,36 @@ import 'package:moli_app/shared/shared.dart';
 part 'appointment.freezed.dart';
 part 'appointment.g.dart';
 
+enum AppointmentStatus {
+  @JsonValue('PENDING')
+  pending('PENDING'),
+  @JsonValue('CONFIRM')
+  confirm('CONFIRM'),
+  @JsonValue('CHANGE')
+  change('CHANGE'),
+  @JsonValue('CANCEL')
+  cancel('CANCEL');
+
+  const AppointmentStatus(this.status);
+  final String status;
+
+  @override
+  String toString() {
+    switch (status) {
+      case 'PENDING':
+        return 'Chờ xác nhận';
+      case 'CONFIRM':
+        return 'Đã xác nhận';
+      case 'CHANGE':
+        return 'Đổi';
+      case 'CANCEL':
+        return 'Đã hủy';
+      default:
+        return '';
+    }
+  }
+}
+
 @freezed
 class AppointmentList with _$AppointmentList {
   const factory AppointmentList({
@@ -56,7 +86,7 @@ class Appointment with _$Appointment {
     @JsonKey()
         String? describeSymptoms,
     @JsonKey()
-        String? appointmentStatus,
+        AppointmentStatus? appointmentStatus,
     @JsonKey()
         String? reason,
     @JsonKey()

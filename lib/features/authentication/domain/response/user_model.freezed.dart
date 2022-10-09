@@ -31,7 +31,7 @@ mixin _$UserModel {
   @JsonKey(name: 'address')
   String? get address => throw _privateConstructorUsedError;
   @JsonKey(name: 'gender')
-  String? get gender => throw _privateConstructorUsedError;
+  Gender? get gender => throw _privateConstructorUsedError;
   @JsonKey(name: 'dateOfBirth')
   String? get dateOfBirth => throw _privateConstructorUsedError;
   @JsonKey(name: 'citizenIdentification')
@@ -55,7 +55,7 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: 'phoneNumber') String? phoneNumber,
       @JsonKey(name: 'realPhoneNumber') String? realPhoneNumber,
       @JsonKey(name: 'address') String? address,
-      @JsonKey(name: 'gender') String? gender,
+      @JsonKey(name: 'gender') Gender? gender,
       @JsonKey(name: 'dateOfBirth') String? dateOfBirth,
       @JsonKey(name: 'citizenIdentification') String? citizenIdentification,
       @JsonKey(name: 'email') String? email});
@@ -105,7 +105,7 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
       gender: gender == freezed
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Gender?,
       dateOfBirth: dateOfBirth == freezed
           ? _value.dateOfBirth
           : dateOfBirth // ignore: cast_nullable_to_non_nullable
@@ -134,7 +134,7 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       @JsonKey(name: 'phoneNumber') String? phoneNumber,
       @JsonKey(name: 'realPhoneNumber') String? realPhoneNumber,
       @JsonKey(name: 'address') String? address,
-      @JsonKey(name: 'gender') String? gender,
+      @JsonKey(name: 'gender') Gender? gender,
       @JsonKey(name: 'dateOfBirth') String? dateOfBirth,
       @JsonKey(name: 'citizenIdentification') String? citizenIdentification,
       @JsonKey(name: 'email') String? email});
@@ -186,7 +186,7 @@ class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
       gender: gender == freezed
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Gender?,
       dateOfBirth: dateOfBirth == freezed
           ? _value.dateOfBirth
           : dateOfBirth // ignore: cast_nullable_to_non_nullable
@@ -237,7 +237,7 @@ class _$_UserModel implements _UserModel {
   final String? address;
   @override
   @JsonKey(name: 'gender')
-  final String? gender;
+  final Gender? gender;
   @override
   @JsonKey(name: 'dateOfBirth')
   final String? dateOfBirth;
@@ -313,7 +313,7 @@ abstract class _UserModel implements UserModel {
       @JsonKey(name: 'address')
           final String? address,
       @JsonKey(name: 'gender')
-          final String? gender,
+          final Gender? gender,
       @JsonKey(name: 'dateOfBirth')
           final String? dateOfBirth,
       @JsonKey(name: 'citizenIdentification')
@@ -341,7 +341,7 @@ abstract class _UserModel implements UserModel {
   String? get address;
   @override
   @JsonKey(name: 'gender')
-  String? get gender;
+  Gender? get gender;
   @override
   @JsonKey(name: 'dateOfBirth')
   String? get dateOfBirth;

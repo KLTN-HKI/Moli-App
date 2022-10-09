@@ -12,7 +12,7 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       phoneNumber: json['phoneNumber'] as String?,
       realPhoneNumber: json['realPhoneNumber'] as String?,
       address: json['address'] as String?,
-      gender: json['gender'] as String?,
+      gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
       dateOfBirth: json['dateOfBirth'] as String?,
       citizenIdentification: json['citizenIdentification'] as String?,
       email: json['email'] as String?,
@@ -25,8 +25,14 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
       'phoneNumber': instance.phoneNumber,
       'realPhoneNumber': instance.realPhoneNumber,
       'address': instance.address,
-      'gender': instance.gender,
+      'gender': _$GenderEnumMap[instance.gender],
       'dateOfBirth': instance.dateOfBirth,
       'citizenIdentification': instance.citizenIdentification,
       'email': instance.email,
     };
+
+const _$GenderEnumMap = {
+  Gender.male: 'MALE',
+  Gender.female: 'FEMALE',
+  Gender.other: 'OTHER',
+};

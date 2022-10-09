@@ -26,6 +26,7 @@ class ImageAssets {
   static const String rocket = '$path/rocket.png';
   static const String noSchedule = '$path/no_schedule.png';
   static const String login = '$path/login.png';
+  static const String send = '$path/send.png';
 
   static const String banner = '$path/banner.jpeg';
   static const String hospital1 = '$path/hospital.png';
