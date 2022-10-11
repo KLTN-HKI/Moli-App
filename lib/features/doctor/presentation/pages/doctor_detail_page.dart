@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:moli_app/constants/image_assets.dart';
 import 'package:moli_app/features/doctor/domain/doctor.dart';
-import 'package:moli_app/features/doctor/domain/schedule.dart';
+import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
-import 'package:moli_app/shared/widgets/tag/toggleable_tag.dart';
 
 import '../bloc/bloc.dart';
 
@@ -74,64 +72,67 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    AppText.t0('About me ').bold,
-                    AppText.b0(_doctor.toString())
+                    AppText.t0('Về bác sĩ').bold,
+                    AppText.b0(_doctor.detail ?? ' (Chưa có thông tin)')
                   ],
                 ),
                 const SizedBox(height: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    AppText.t0('Working time ').bold,
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    AppText.t0('Schedule:').bold,
-                    const SizedBox(height: 16),
-                    BlocBuilder<ScheduleBloc, ScheduleState>(
-                      builder: (BuildContext context, ScheduleState state) {
-                        return state.when(
-                            initial: () => const LoadingIndicator(),
-                            success:
-                                (DoctorAvailableTime schedule, bool isLoading) {
-                              return GridView.builder(
-                                gridDelegate:
-                                    const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 80,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10,
-                                ),
-                                shrinkWrap: true,
-                                itemCount: schedule.doctorSchedules.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final DoctorSchedule slot =
-                                      schedule.doctorSchedules[index];
-                                  return ToggleableTag<DoctorSchedule>(
-                                    onTap: () {},
-                                    text:
-                                        '${DateTimeUtils.fromTimeToStringType2(slot.workTimeStart)}',
-                                  );
-                                },
-                              );
-                            },
-                            failed: (NetworkException e) => CustomErrorWidget(
-                                  message: e.toString(),
-                                  child: Image.asset(ImageAssets.errorResponse),
-                                ));
-                      },
-                    )
-                  ],
-                ),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: <Widget>[
+                //     AppText.t0('Thời gian làm việc').bold,
+                //     // AppText.b0('${}')
+                //   ],
+                // ),
+                // const SizedBox(height: 16),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: <Widget>[
+                //     AppText.t0('Lịch rảnh').bold,
+                //     const SizedBox(height: 16),
+                //     BlocBuilder<ScheduleBloc, ScheduleState>(
+                //       builder: (BuildContext context, ScheduleState state) {
+                //         return state.when(
+                //             initial: () => const LoadingIndicator(),
+                //             success:
+                //                 (DoctorAvailableTime schedule, bool isLoading) {
+                //               return GridView.builder(
+                //                 gridDelegate:
+                //                     const SliverGridDelegateWithMaxCrossAxisExtent(
+                //                   maxCrossAxisExtent: 80,
+                //                   mainAxisSpacing: 10,
+                //                   crossAxisSpacing: 10,
+                //                 ),
+                //                 shrinkWrap: true,
+                //                 itemCount: schedule.doctorSchedules.length,
+                //                 itemBuilder: (BuildContext context, int index) {
+                //                   final DoctorSchedule slot =
+                //                       schedule.doctorSchedules[index];
+                //                   return ToggleableTag<DoctorSchedule>(
+                //                     onTap: () {},
+                //                     text:
+                //                         '${DateTimeUtils.fromTimeToStringType2(slot.workTimeStart)}',
+                //                   );
+                //                 },
+                //               );
+                //             },
+                //             failed: (NetworkException e) => CustomErrorWidget(
+                //                   message: e.toString(),
+                //                   child: Image.asset(ImageAssets.errorResponse),
+                //                 ));
+                //       },
+                //     )
+                //   ],
+                // ),
               ],
             )),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: AppElevatedButton(
-            onPressed: () {},
-            child: const Text('Book doctor'),
+            onPressed: () => context.goRouter.go(
+                '${Routes.hospitals}/${_doctor.hospital?.id}/create-appointment-by-hospital',
+                extra: _doctor),
+            child: const Text('Đặt khám'),
           ),
         ),
       ),

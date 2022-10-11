@@ -75,7 +75,7 @@ class _HostpitalListViewState extends State<HostpitalListView> {
           return const Center(child: Text('Khong co benh vien nao'));
         } else {
           return ListView.separated(
-            scrollDirection: Axis.horizontal,
+            scrollDirection: Axis.horizontal, controller: _controller,
             padding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 24.w),
             // shrinkWrap: true,
             physics: const AlwaysScrollableScrollPhysics(),

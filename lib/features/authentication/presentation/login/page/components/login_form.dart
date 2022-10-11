@@ -105,7 +105,8 @@ class _PhoneNumberInput extends StatelessWidget {
           border: const UnderlineInputBorder(
             borderSide: BorderSide(color: ColorPalettes.neutral80),
           ),
-          errorText: state.phoneNumber.invalid ? 'sdt khong hop le' : null,
+          errorText:
+              state.phoneNumber.invalid ? 'Số điện thoại không hợp lệ' : '',
         );
       },
     );
@@ -148,7 +149,7 @@ class _PasswordInputState extends State<_PasswordInput> {
           border: const UnderlineInputBorder(
             borderSide: BorderSide(color: ColorPalettes.neutral80),
           ),
-          errorText: state.password.invalid ? 'mat khau khong hop le!' : null,
+          errorText: state.password.invalid ? 'Mật khẩu không hợp lệ!' : '',
         );
       },
     );

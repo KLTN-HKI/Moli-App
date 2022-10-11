@@ -17,7 +17,7 @@ class NotificationBody extends StatelessWidget {
         }
       },
       builder: (BuildContext context, NotificationListState state) {
-        final Iterable<Widget> items = state.notificationlist.notifications
+        final Iterable<Widget> items = state.notificationlist.notificationDataList
             .map(NotificationBody.buildNotificationItem)
             .whereType<Widget>();
 

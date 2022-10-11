@@ -33,6 +33,7 @@ class HospitalCubit extends Cubit<HospitalState> {
       final HospitalList data =
           await _repository.fetchHospitalList(data: <String, dynamic>{
         'page': page,
+        // 'size': 100,
       });
       final List<Hospital> hospitalsNew = data.hospitals;
       emit(

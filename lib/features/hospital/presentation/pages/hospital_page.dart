@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moli_app/constants/image_assets.dart';
 import 'package:moli_app/features/hospital/presentation/cubit/hospital_cubit.dart';
 import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
@@ -19,7 +20,7 @@ class HospitalPage extends StatelessWidget {
         appBar: HeaderAppBar(
           transparentAppBar: true,
           routeBack: Routes.home,
-          titleText: 'Hospitals',
+          titleText: 'Tìm bệnh viện',
         ),
         body: SafeArea(child: HospitalBody()),
       ),
@@ -73,35 +74,32 @@ class _HospitalBodyState extends State<HospitalBody> {
 
   Widget _buildBody(HospitalList list, bool isloading) =>
       Builder(builder: (BuildContext context) {
-        if (list.hospitals.isEmpty) {
-          return const Center(child: Text('Khong co benh vien nao'));
+        final List<Hospital> temp = list.hospitals;
+        if (temp.isEmpty) {
+          return CustomErrorWidget(
+            message: 'Không có bệnh viện nào',
+            child: Image.asset(ImageAssets.notFound),
+          );
         } else {
-          return Column(children: <Widget>[
-            GridView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-              shrinkWrap: true,
-              controller: _controller,
-              itemCount: list.hospitals.length,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200.w,
-                childAspectRatio: 130 / 140,
-                mainAxisSpacing: 14.w,
-                crossAxisSpacing: 14.w,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                final Hospital hospital = list.hospitals[index];
-                return HospitalItem(hospital: hospital);
-              },
-            ),
-            if (isloading) const LoadingIndicator()
-          ]);
+          return RefreshIndicator(
+            onRefresh: _cubit.fetchAllHospital,
+            child: ListView(
+                controller: _controller,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: <Widget>[
+                  ...temp.map((Hospital hospital) =>
+                      HospitalListItem(hospital: hospital)),
+                  if (isloading) const LoadingIndicator()
+                ].applySeparator(separator: const SizedBox(height: 12))),
+          );
         }
       });
 
   void _loadMoreData() {
     if (_controller.position.extentAfter < 100) {
-    _cubit.state.whenOrNull(
+      _cubit.state.whenOrNull(
         success: (HospitalList hospitals, bool isLoading) {
           if (!isLoading && hospitals.pagination.hasMore) {
             _cubit.fetchAllHospital(page: hospitals.pagination.currentPage + 1);

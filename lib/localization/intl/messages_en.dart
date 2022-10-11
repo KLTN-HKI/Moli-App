@@ -57,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_version": MessageLookupByLibrary.simpleMessage("App Version"),
         "apply": MessageLookupByLibrary.simpleMessage("Apply"),
         "appointment": MessageLookupByLibrary.simpleMessage("Appointment"),
+        "appointment_doctor": MessageLookupByLibrary.simpleMessage("Lịch khám"),
         "april": MessageLookupByLibrary.simpleMessage("April"),
         "april_s": MessageLookupByLibrary.simpleMessage("Apr"),
         "august": MessageLookupByLibrary.simpleMessage("August"),

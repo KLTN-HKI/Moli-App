@@ -59,11 +59,11 @@ class ToggleableTag<T> extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Material(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8.r),
             shadowColor: _backgroundColor(context),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8.r),
                 border: border ??
                     Border.all(
                         color: enable
@@ -95,7 +95,7 @@ class ToggleableTag<T> extends StatelessWidget {
                           ? textColor ?? context.colorScheme.primary
                           : context.colorScheme.onSurfaceVariant
                               .withOpacity(disabled ? .35 : 1),
-                      fontSize: fontSize ?? 14,
+                      fontSize: fontSize ?? 14.w,
                     ),
                     textAlign: TextAlign.center,
                   ),

@@ -85,10 +85,12 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
                     ),
                   ),
                   centerTitle: true,
-                  // titlePadding: ,
+                  titlePadding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                   title: AppText.t0(
                     _hospital.hospitalName ?? 'Bệnh viện ...',
-                    // color: ColorPalettes.white,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
                   ).weight600,
                 ),
                 actions: <Widget>[

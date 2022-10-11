@@ -59,3 +59,34 @@ class HospitalItem extends StatelessWidget {
     );
   }
 }
+
+class HospitalListItem extends StatelessWidget {
+  const HospitalListItem({super.key, required this.hospital});
+
+  final Hospital hospital;
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseCard(
+      onTap: () => context.goRouter
+          .go('${Routes.hospitals}/${hospital.id}', extra: hospital),
+      leading: const RoundedRectImage(
+        height: 90,
+        width: 90,
+      ),
+      content: <Widget>[
+        AppText.l0(
+          hospital.hospitalName ?? 'Phòng khám ...',
+          textOverflow: TextOverflow.ellipsis,
+          maxLines: 3,
+        ).weight600,
+        SizedBox(height: 4.w),
+        AppText.l1(
+          hospital.hospitalAddress?.addressDetail ?? 'Địa chỉ ...',
+          maxLines: 2,
+          textOverflow: TextOverflow.ellipsis,
+        ),
+      ],
+    );
+  }
+}

@@ -6,7 +6,7 @@ class ApiEndpoint {
     const String path = '/api';
     switch (endpoint) {
       case NotificationEndpoint.all:
-        return '$path/notifications';
+        return '$path/notification/patient';
     }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:moli_app/features/hospital/domain/hospital.dart';
 import 'package:moli_app/shared/shared.dart';
-
 
 part 'doctor.freezed.dart';
 part 'doctor.g.dart';
@@ -18,7 +18,6 @@ class DoctorList with _$DoctorList {
   factory DoctorList.fromJson(JSON json) => _$DoctorListFromJson(json);
 }
 
-
 @freezed
 class Doctor with _$Doctor {
   const factory Doctor({
@@ -31,7 +30,9 @@ class Doctor with _$Doctor {
     @JsonKey(name: 'dateOfBirth') String? dateOfBirth,
     @JsonKey(name: 'citizenIdentification') String? citizenIdentification,
     @JsonKey(name: 'email') String? email,
+    @JsonKey(name: 'detail') String? detail,
     @JsonKey() Degree? degree,
+    @JsonKey() Hospital? hospital,
     @JsonKey() @Default(<Specialist>[]) List<Specialist> specialists,
   }) = _Doctor;
   factory Doctor.fromJson(JSON json) => _$DoctorFromJson(json);

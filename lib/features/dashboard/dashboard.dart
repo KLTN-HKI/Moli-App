@@ -58,7 +58,7 @@ class DashBoard extends StatelessWidget {
         BottomNavigationBarItem(
           icon: AppIcon(IconAssets.icCalendar, color: defaultColor),
           activeIcon: AppIcon(IconAssets.icCalendarBold, color: activeColor),
-          label: context.l10n.appointment,
+          label: context.l10n.appointment_doctor,
         ),
         BottomNavigationBarItem(
           icon: AppIcon(IconAssets.icNotify, color: defaultColor),

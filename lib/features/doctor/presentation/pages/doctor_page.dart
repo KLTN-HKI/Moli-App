@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moli_app/constants/image_assets.dart';
 import 'package:moli_app/router/router.dart';
 import 'package:moli_app/shared/shared.dart';
 
@@ -35,6 +36,18 @@ class DoctorBody extends StatefulWidget {
 class _DoctorBodyState extends State<DoctorBody> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        CustomErrorWidget(
+          message: 'Không có gì ở đây cả',
+          child: Image.asset(
+            ImageAssets.notFound,
+            height: 250,
+            width: 250,
+          ),
+        ),
+      ],
+    );
   }
 }

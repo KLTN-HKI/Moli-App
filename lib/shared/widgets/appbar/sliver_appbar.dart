@@ -53,7 +53,9 @@ class AppBarSliver extends StatelessWidget implements PreferredSizeWidget {
           ? Padding(
               padding: EdgeInsets.symmetric(vertical: 8.w),
               child: CustomBackButton(
-                color: ColorPalettes.black,
+                color: transparentAppBar
+                    ? ColorPalettes.primary10
+                    : ColorPalettes.white,
                 onPressed: onBackClicked ??
                     () =>
                         router.canPop() ? router.pop() : router.go(Routes.home),
@@ -64,7 +66,9 @@ class AppBarSliver extends StatelessWidget implements PreferredSizeWidget {
       title: title ??
           AppText.t0(
             titleText ?? '',
-            color: transparentAppBar ? null : ColorPalettes.white,
+            color: transparentAppBar
+                ? ColorPalettes.primary10
+                : ColorPalettes.white,
           ).weight600,
       toolbarHeight: 60,
       actions: actions,

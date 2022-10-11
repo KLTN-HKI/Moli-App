@@ -58,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Phiên bản ứng dụng"),
         "apply": MessageLookupByLibrary.simpleMessage("Áp dụng"),
         "appointment": MessageLookupByLibrary.simpleMessage("Lịch hẹn"),
+        "appointment_doctor": MessageLookupByLibrary.simpleMessage("Lịch khám"),
         "april": MessageLookupByLibrary.simpleMessage("Tháng 4"),
         "april_s": MessageLookupByLibrary.simpleMessage("Apr"),
         "august": MessageLookupByLibrary.simpleMessage("Tháng 8"),
@@ -275,7 +276,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "password_security":
             MessageLookupByLibrary.simpleMessage("Mật khẩu & Bảo mật"),
-        "pending": MessageLookupByLibrary.simpleMessage("Trì hoãn"),
+        "pending": MessageLookupByLibrary.simpleMessage("Chờ xác nhận"),
         "personal_infomation":
             MessageLookupByLibrary.simpleMessage("Thông tin cá nhân"),
         "personal_preference":

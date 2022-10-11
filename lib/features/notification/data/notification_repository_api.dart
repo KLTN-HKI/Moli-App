@@ -16,7 +16,7 @@ class NotificationRepositoryApi implements NotificationRepository {
     return _apiService.getDocumentData<UserNotificationList>(
       endpoint: ApiEndpoint.notification(NotificationEndpoint.all),
       queryParams: <String, dynamic>{
-        'page-size': 10,
+        'size': 10,
         ...data,
       },
       converter: UserNotificationList.fromJson,

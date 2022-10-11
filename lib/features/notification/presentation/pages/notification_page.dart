@@ -23,7 +23,7 @@ class _NotificationPageState extends State<NotificationPage> {
   void initState() {
     super.initState();
     _cubit = NotificationListCubit();
-    // _cubit.fetchData();
+    _cubit.fetchData();
 
     _controller = ScrollController();
     _controller.addListener(_loadMoreData);

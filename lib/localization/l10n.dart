@@ -190,6 +190,16 @@ class AppLanguage {
     );
   }
 
+  /// `Lịch khám`
+  String get appointment_doctor {
+    return Intl.message(
+      'Lịch khám',
+      name: 'appointment_doctor',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tháng 4`
   String get april {
     return Intl.message(
@@ -1910,10 +1920,10 @@ class AppLanguage {
     );
   }
 
-  /// `Trì hoãn`
+  /// `Chờ xác nhận`
   String get pending {
     return Intl.message(
-      'Trì hoãn',
+      'Chờ xác nhận',
       name: 'pending',
       desc: '',
       args: [],

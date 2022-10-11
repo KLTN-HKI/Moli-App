@@ -7,7 +7,7 @@ class MoliTheme {
 
   /// Light
   static ThemeData lighTheme = ThemeData(
-    useMaterial3: true,
+    // useMaterial3: true,
     fontFamily: AppTypography.montserrat,
     colorScheme: lightColorScheme,
     textTheme: AppTypography.lightText,
@@ -37,7 +37,7 @@ class MoliTheme {
 
   /// Dark
   static ThemeData darkTheme = ThemeData(
-    useMaterial3: true,
+    // useMaterial3: true,
     fontFamily: AppTypography.montserrat,
     colorScheme: darkColorScheme,
     textTheme: AppTypography.darkText,

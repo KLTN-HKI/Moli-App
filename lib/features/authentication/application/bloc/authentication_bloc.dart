@@ -64,7 +64,6 @@ class AuthenticationBloc
       _LoggedIn event, Emitter<AuthenticationState> emit) async {
     emit(const AuthenticationState.authenticating());
     await _authService.saveCurrentUser(jsonEncode(event.user.toJson()));
-    initFirebase();
     emit(AuthenticationState.authenticated(event.user));
   }
 
@@ -78,12 +77,5 @@ class AuthenticationBloc
   FutureOr<void> _onSaveToken(
       _SaveToken event, Emitter<AuthenticationState> emit) async {
     await _authService.saveAuthToken(event.token);
-  }
-
-  Future<void> initFirebase() async {
-    final String? firebaseToken = await MoliMessaging.instance.getToken();
-    await _authRepo.registerNotification(data: <String, dynamic>{
-      'registrationToken': firebaseToken ?? '',
-    });
   }
 }

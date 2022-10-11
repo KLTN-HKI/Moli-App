@@ -94,41 +94,28 @@ class _CreateAppointmentByHospitalPageState
             body: BlocConsumer<AppointmentFormCubit, AppointmentFormState>(
               listener: (BuildContext context, AppointmentFormState state) {},
               builder: (BuildContext context, AppointmentFormState state) {
-                return SingleChildScrollView(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      BaseCard(
-                        padding: const EdgeInsets.all(16),
-                        leading: const RoundedRectImage(
-                          width: 90,
-                          height: 90,
-                        ),
-                        leadingGap: 12,
-                        content: <Widget>[
-                          AppText.b0(_doctor.name ?? 'sdsd').bold,
-                          const SizedBox(height: 4),
-                          AppText.b0(_doctor.specialists
-                              .map((Specialist e) => e.specialistName)
-                              .join('\n')),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
-                      AppText.t0('Đặt khám cho:').bold,
-                      Row(
-                        children: <Widget>[
-                          AppRadio<bool>(
-                            groupValue: forSelf,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                forSelf = value!;
-                              });
-                            },
-                            value: true,
-                          ),
-                          AppText.b1('Cho tôi'),
-                          /* const SizedBox(width: 16),
+                return ListView(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  children: <Widget>[
+                    _DoctorInfo(doctor: _doctor),
+                    const SizedBox(height: 24),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        AppText.t0('Đặt khám cho:').bold,
+                        Row(
+                          children: <Widget>[
+                            AppRadio<bool>(
+                              groupValue: forSelf,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  forSelf = value!;
+                                });
+                              },
+                              value: true,
+                            ),
+                            AppText.b1('Cho tôi'),
+                            /* const SizedBox(width: 16),
                           AppRadio<bool>(
                             groupValue: forSelf,
                             onChanged: (bool? value) {
@@ -145,151 +132,154 @@ class _CreateAppointmentByHospitalPageState
                             value: false,
                           ),
                           AppText.b1('Cho người khác'), */
-                        ],
-                      ),
-                      if (forSelf) ...<Widget>[
-                        const SizedBox(height: 4),
-                        AppText.b1(
-                            'Tên bệnh nhân: ${patient?.name ?? '(Chưa cập nhật thông tin)'}'),
-                        const SizedBox(height: 4),
-                        AppText.b1(
-                            'Giới tính: ${patient?.gender ?? '(Chưa cập nhật thông tin)'}'),
-                        const SizedBox(height: 4),
-                        AppText.b1(
-                            'Email: ${patient?.email ?? '(Chưa cập nhật thông tin)'}'),
-                        const SizedBox(height: 4),
-                        AppText.b1(
-                            'Số điện thoại: ${patient?.realPhoneNumber ?? '(Chưa cập nhật thông tin)'}'),
-                        const SizedBox(height: 4),
-                      ] else ...<Widget>[
-                        AppText.b1('Tên bệnh nhân:'),
-                        TextFormField(
-                          style: context.textTheme.bodyMedium,
-                          onFieldSubmitted: (String value) {
-                            setState(() {
-                              patient?.copyWith;
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 4),
-                        AppText.b1('Giới tính:'),
-                        Row(
-                          children: <Widget>[
-                            AppRadio<Gender>(
-                              groupValue: gender,
-                              onChanged: (Gender? value) {
-                                setState(() {
-                                  patient?.copyWith(gender: value);
-                                  gender = value!;
-                                });
-                              },
-                              value: Gender.male,
-                            ),
-                            AppText.b1('Nam'),
-                            const SizedBox(width: 16),
-                            AppRadio<Gender>(
-                              groupValue: gender,
-                              onChanged: (Gender? value) {
-                                setState(() {
-                                  patient?.copyWith(gender: value);
-                                  gender = value!;
-                                });
-                              },
-                              value: Gender.female,
-                            ),
-                            AppText.b1('Nữ'),
                           ],
                         ),
-                        const SizedBox(height: 4),
-                        AppText.b1('Email:'),
-                        TextFormField(
-                          style: context.textTheme.bodyMedium,
-                          onFieldSubmitted: (String value) =>
-                              patient?.copyWith(email: value),
-                        ),
-                        const SizedBox(height: 4),
-                        AppText.b1('Số điện thoại:'),
-                        TextFormField(
-                          style: context.textTheme.bodyMedium,
-                          keyboardType: TextInputType.phone,
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          onFieldSubmitted: (String value) =>
-                              patient?.copyWith(realPhoneNumber: value),
-                        ),
-                      ],
-                      const SizedBox(height: 12),
-                      AppText.t0('Ngày khám:').bold,
-                      const SizedBox(height: 4),
-                      AppointmentDateTimePicker(
-                        label: 'Ngày khám',
-                        initialDate: state.appointmentDate.value,
-                        invalid: state.appointmentDate.invalid,
-                        onChange: (DateTime? value) {
-                          // selectedDate = value!;
-                          _formCubit.changeAppointmentDate(value);
-                          _fetchSchduleByDate(value);
-                        },
-                      ),
-                      const SizedBox(height: 12),
-                      BlocBuilder<ScheduleBloc, ScheduleState>(
-                        builder: (BuildContext context, ScheduleState state) {
-                          return state.when(
-                            initial: () =>
-                                AppText.b0('Vui lòng chọn ngày khám'),
-                            success:
-                                (DoctorAvailableTime schedule, bool isLoading) {
-                              if (schedule.doctorSchedules.isNotEmpty) {
-                                return GridView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  gridDelegate:
-                                      const SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 150,
-                                    mainAxisSpacing: 10,
-                                    crossAxisSpacing: 10,
-                                  ),
-                                  shrinkWrap: true,
-                                  itemCount: schedule.doctorSchedules.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    final DoctorSchedule slot =
-                                        schedule.doctorSchedules[index];
-                                    return ToggleableTag<DoctorSchedule>(
-                                      enable: selectedShedule == slot.id,
-                                      onTap: () => setState(() {
-                                        selectedShedule = slot.id;
-                                      }),
-                                      text:
-                                          '${DateTimeUtils.fromTimeToStringType2(slot.workTimeStart)} - ${DateTimeUtils.fromTimeToStringType2(slot.workTimeEnd)}',
-                                    );
-                                  },
-                                );
-                              } else {
-                                return CustomErrorWidget(
-                                  message: 'Chưa có lịch',
-                                  child: Image.asset(
-                                    ImageAssets.notFound,
-                                    height: 150,
-                                    width: 150,
-                                  ),
-                                );
-                              }
+                        if (forSelf) ...<Widget>[
+                          const SizedBox(height: 4),
+                          AppText.b1(
+                              'Tên bệnh nhân: ${patient?.name ?? '(Chưa cập nhật thông tin)'}'),
+                          const SizedBox(height: 4),
+                          AppText.b1(
+                              'Giới tính: ${patient?.gender ?? '(Chưa cập nhật thông tin)'}'),
+                          const SizedBox(height: 4),
+                          AppText.b1(
+                              'Email: ${patient?.email ?? '(Chưa cập nhật thông tin)'}'),
+                          const SizedBox(height: 4),
+                          AppText.b1(
+                              'Số điện thoại: ${patient?.realPhoneNumber ?? '(Chưa cập nhật thông tin)'}'),
+                          const SizedBox(height: 4),
+                        ] else ...<Widget>[
+                          AppText.b1('Tên bệnh nhân:'),
+                          TextFormField(
+                            style: context.textTheme.bodyMedium,
+                            onFieldSubmitted: (String value) {
+                              setState(() {
+                                patient?.copyWith;
+                              });
                             },
-                            failed: (NetworkException e) => CustomErrorWidget(
-                              message: e.toString(),
-                              child: Image.asset(ImageAssets.errorResponse),
-                            ),
-                          );
-                        },
-                      )
-                    ],
-                  ),
+                          ),
+                          const SizedBox(height: 4),
+                          AppText.b1('Giới tính:'),
+                          Row(
+                            children: <Widget>[
+                              AppRadio<Gender>(
+                                groupValue: gender,
+                                onChanged: (Gender? value) {
+                                  setState(() {
+                                    patient?.copyWith(gender: value);
+                                    gender = value!;
+                                  });
+                                },
+                                value: Gender.male,
+                              ),
+                              AppText.b1('Nam'),
+                              const SizedBox(width: 16),
+                              AppRadio<Gender>(
+                                groupValue: gender,
+                                onChanged: (Gender? value) {
+                                  setState(() {
+                                    patient?.copyWith(gender: value);
+                                    gender = value!;
+                                  });
+                                },
+                                value: Gender.female,
+                              ),
+                              AppText.b1('Nữ'),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          AppText.b1('Email:'),
+                          TextFormField(
+                            style: context.textTheme.bodyMedium,
+                            onFieldSubmitted: (String value) =>
+                                patient?.copyWith(email: value),
+                          ),
+                          const SizedBox(height: 4),
+                          AppText.b1('Số điện thoại:'),
+                          TextFormField(
+                            style: context.textTheme.bodyMedium,
+                            keyboardType: TextInputType.phone,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            onFieldSubmitted: (String value) =>
+                                patient?.copyWith(realPhoneNumber: value),
+                          ),
+                        ],
+                      ],
+                    ).paddingSymmetric(horizontal: 16),
+                    const SizedBox(height: 12),
+                    AppText.t0('Ngày khám:')
+                        .bold
+                        .paddingSymmetric(horizontal: 16),
+                    const SizedBox(height: 12),
+                    AppointmentDateTimePicker(
+                      label: 'Ngày khám',
+                      initialDate: state.appointmentDate.value,
+                      invalid: state.appointmentDate.invalid,
+                      onChange: (DateTime? value) {
+                        // selectedDate = value!;
+                        _formCubit.changeAppointmentDate(value);
+                        _fetchSchduleByDate(value);
+                      },
+                    ).paddingSymmetric(horizontal: 16),
+                    const SizedBox(height: 12),
+                    BlocBuilder<ScheduleBloc, ScheduleState>(
+                      builder: (BuildContext context, ScheduleState state) {
+                        return state.when(
+                          initial: () => Center(
+                              child: AppText.b0('Vui lòng chọn ngày khám')),
+                          success:
+                              (DoctorAvailableTime schedule, bool isLoading) {
+                            if (schedule.doctorSchedules.isNotEmpty) {
+                              return GridView.builder(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 80,
+                                  crossAxisSpacing: 4.w,
+                                ),
+                                shrinkWrap: true,
+                                itemCount: schedule.doctorSchedules.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final DoctorSchedule slot =
+                                      schedule.doctorSchedules[index];
+                                  return ToggleableTag<DoctorSchedule>(
+                                    enable: selectedShedule == slot.id,
+                                    // isDense: true,
+                                    onTap: () => setState(
+                                        () => selectedShedule = slot.id),
+                                    text:
+                                        '${DateTimeUtils.fromTimeToStringType2(slot.workTimeStart)}',
+                                  );
+                                },
+                              );
+                            } else {
+                              return CustomErrorWidget(
+                                message: 'Chưa có lịch',
+                                child: Image.asset(
+                                  ImageAssets.notFound,
+                                  height: 150,
+                                  width: 150,
+                                ),
+                              );
+                            }
+                          },
+                          failed: (NetworkException e) => CustomErrorWidget(
+                            message: e.toString(),
+                            child: Image.asset(ImageAssets.errorResponse),
+                          ),
+                        );
+                      },
+                    )
+                  ],
                 );
               },
             ),
             bottomNavigationBar: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: AppElevatedButton(
                 onPressed: () async {
                   final bool result = await context.showConfirmDialog(
@@ -320,6 +310,36 @@ class _CreateAppointmentByHospitalPageState
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _DoctorInfo extends StatelessWidget {
+  const _DoctorInfo({
+    required Doctor doctor,
+  }) : _doctor = doctor;
+
+  final Doctor _doctor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: BaseCard(
+        padding: const EdgeInsets.all(16),
+        leading: const RoundedRectImage(
+          width: 90,
+          height: 90,
+        ),
+        leadingGap: 12,
+        content: <Widget>[
+          AppText.b0(_doctor.name ?? 'sdsd').bold,
+          const SizedBox(height: 4),
+          AppText.b0(_doctor.specialists
+              .map((Specialist e) => e.specialistName)
+              .join('\n')),
+        ],
       ),
     );
   }

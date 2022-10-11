@@ -45,7 +45,7 @@
         "--target",
         "lib/main_production.dart",
         "--dart-define",
-        "BASE_URL=http://192.168.1.112:8080", //On android if can't run use  use ip address to run
+        "BASE_URL=http://192.168.1.113:8080", //On android if can't run use  use ip address to run
       ],
       "flutterMode": "debug",
     }

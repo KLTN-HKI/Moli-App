@@ -64,13 +64,7 @@ class _HospitalDoctorsPageState extends State<HospitalDoctorsPage> {
       child: Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
-            AppBarSliver(
-              canBack: true,
-              title: AppText.t0(
-                'Chọn bác sĩ',
-                // color: ColorPalettes.white,
-              ).weight600,
-            ),
+            const AppBarSliver(canBack: true, titleText: 'Chọn bác sĩ'),
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               sliver: BlocConsumer<DoctorBloc, DoctorState>(

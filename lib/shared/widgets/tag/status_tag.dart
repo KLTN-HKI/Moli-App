@@ -29,7 +29,7 @@ class StatusTag extends StatelessWidget {
             shape: BoxShape.circle,
           ),
         ).paddingAll(4),
-        const SizedBox(width: 16),
+        const SizedBox(width: 4),
         Flexible(
           child: AppText.b1(
             text,
