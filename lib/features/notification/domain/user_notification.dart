@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../shared/common/common.dart';
+import '../../appointment/domain/appointment.dart';
 
 part 'user_notification.freezed.dart';
 part 'user_notification.g.dart';
@@ -68,24 +69,10 @@ class UserNotification with _$UserNotification {
   const factory UserNotification({
     @JsonKey() required int id,
     @JsonKey() AppointmentChannel? channelId,
-    @JsonKey() @Default(0) int type,
-    @JsonKey() @Default(0) int status,
-    @JsonKey() @Default(0) int isRead,
-    @JsonKey() String? image,
-    @JsonKey() int? contentId,
-    @JsonKey() String? content,
-    @JsonKey() @Default(<String>[]) List<String> contentBold,
+    @JsonKey() Appointment? appointment,
+    @JsonKey() String? notificationDetail,
     @JsonKey(fromJson: DateTimeUtils.parseDateTime, toJson: DateTimeUtils.formatDateTime)
         DateTime? createdAt,
-    // orther
-    @JsonKey() String? occurredAt,
-    @JsonKey() String? reason,
-    @JsonKey() String? absentFrom,
-    @JsonKey() String? absentTo,
-    @JsonKey() String? confirmUrl,
-    @JsonKey() String? unconfirmUrl,
-    @JsonKey() String? reviewUrl,
-    @JsonKey() String? inviteUrl,
   }) = _UserNotification;
 
   // To JSON

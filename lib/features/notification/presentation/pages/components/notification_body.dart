@@ -17,7 +17,8 @@ class NotificationBody extends StatelessWidget {
         }
       },
       builder: (BuildContext context, NotificationListState state) {
-        final Iterable<Widget> items = state.notificationlist.notificationDataList
+        final Iterable<Widget> items = state
+            .notificationlist.notificationDataList
             .map(NotificationBody.buildNotificationItem)
             .whereType<Widget>();
 
@@ -34,9 +35,8 @@ class NotificationBody extends StatelessWidget {
   }
 
   static Widget? buildNotificationItem(UserNotification item) {
-    if (item.type == 2) {
-      // return NotificationAbsence.buildNotificationAbsence(item);
-    }
+    // return NotificationAbsence.buildNotificationAbsence(item);
+    return AppText.t0(item.notificationDetail ?? '');
 
     return null;
   }
