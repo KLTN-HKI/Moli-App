@@ -157,4 +157,37 @@ class DateTimeUtils {
       return null;
     }
   }
+
+  static String? relative(
+    DateTime? dateTime, {
+    Duration? formatAfter,
+    Duration? timeShowNow,
+  }) {
+    // After now
+    final DateTime now = DateTime.now();
+    if (dateTime!.isAfter(now)) {
+      return formatDateTime(dateTime);
+    }
+    // Before formatAfter
+    final Duration difference = dateTime.difference(now).abs();
+    if (formatAfter != null && difference >= formatAfter) {
+      return formatDateTime(dateTime);
+    }
+    // Less timeShowNow
+    if (timeShowNow != null && difference < timeShowNow) {
+      return AppLanguage.current.now;
+    }
+    // Defaut
+    if (difference < const Duration(minutes: 1)) {
+      return AppLanguage.current.few_seconds_ago;
+    } else if (difference < const Duration(hours: 1)) {
+      return AppLanguage.current.minutes_relative(difference.inMinutes);
+    } else if (difference < const Duration(days: 1)) {
+      return AppLanguage.current.hours_relative(difference.inHours);
+    } else if (difference < const Duration(days: 30)) {
+      return AppLanguage.current.days_relative(difference.inDays);
+    } else {
+      return formatDateTimeDateOnly(dateTime);
+    }
+  }
 }

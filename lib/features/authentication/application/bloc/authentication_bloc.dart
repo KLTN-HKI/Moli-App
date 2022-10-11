@@ -20,7 +20,6 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc(AuthenticationService authenticationService)
       : _authService = authenticationService,
-        _authRepo = getIt(),
         super(const AuthenticationState.unauthenticated()) {
     on<_Initial>(_onInitial, transformer: sequential());
     on<_LoggedIn>(_onLoggedIn, transformer: sequential());
@@ -29,7 +28,6 @@ class AuthenticationBloc
   }
 
   final AuthenticationService _authService;
-  final AuthenticationRepository _authRepo;
 
   FutureOr<void> _onInitial(
       _Initial event, Emitter<AuthenticationState> emit) async {

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_app/features/notification/domain/user_notification.dart';
 import 'package:moli_app/shared/shared.dart';
 
+import '../../../appointment/notification_appointment.dart';
 import '../../cubit/notification_list_cubit.dart';
 
 class NotificationBody extends StatelessWidget {
@@ -17,8 +18,7 @@ class NotificationBody extends StatelessWidget {
         }
       },
       builder: (BuildContext context, NotificationListState state) {
-        final Iterable<Widget> items = state
-            .notificationlist.notificationDataList
+        final Iterable<Widget> items = state.notificationlist.notifications
             .map(NotificationBody.buildNotificationItem)
             .whereType<Widget>();
 
@@ -35,9 +35,6 @@ class NotificationBody extends StatelessWidget {
   }
 
   static Widget? buildNotificationItem(UserNotification item) {
-    // return NotificationAbsence.buildNotificationAbsence(item);
-    return AppText.t0(item.notificationDetail ?? '');
-
-    return null;
+    return NotificationAppointment.buildNotificationAppointment(item);
   }
 }

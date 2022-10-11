@@ -14,13 +14,13 @@ class UserNotificationHive extends HiveBox {
   static const String boxKey = 'UserNotificationHive';
 
   @HiveField(1)
-  late AppointmentChannel? channelId;
+  late AppointmentChannel? channel;
 
   @HiveField(2)
   late Appointment? appointment;
 
   @HiveField(3)
-  late String? notificationDetail;
+  late String? detail;
 
   @HiveField(4)
   late DateTime? createdAt;
@@ -29,9 +29,9 @@ class UserNotificationHive extends HiveBox {
 extension ToUserNotification on UserNotificationHive {
   UserNotification toUserNotification() => UserNotification(
         id: int.tryParse(id) ?? 0,
-        channelId: channelId,
+        channel: channel,
         appointment: appointment,
-        notificationDetail: notificationDetail,
+        detail: detail,
         createdAt: createdAt,
       );
 }
@@ -39,8 +39,8 @@ extension ToUserNotification on UserNotificationHive {
 extension ToUserNotificationHive on UserNotification {
   UserNotificationHive toUserNotificationHive() => UserNotificationHive()
     ..id = id.toString()
-    ..channelId = channelId
+    ..channel = channel
     ..appointment = appointment
-    ..notificationDetail = notificationDetail
+    ..detail = detail
     ..createdAt = createdAt;
 }

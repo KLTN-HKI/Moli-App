@@ -33,7 +33,7 @@ class NotificationRepositoryLocal implements NotificationRepository {
           return 0;
         });
 
-      return UserNotificationList(notificationDataList: list);
+      return UserNotificationList(notifications: list);
     }
 
     return const UserNotificationList();

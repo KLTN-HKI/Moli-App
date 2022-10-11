@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_app/shared/shared.dart';
-import '../../../application/bloc/notification_bloc.dart';
+import '../../../../application/bloc/notification_bloc.dart';
 import 'notification_body.dart';
 
 class NotificationLaster extends StatelessWidget {

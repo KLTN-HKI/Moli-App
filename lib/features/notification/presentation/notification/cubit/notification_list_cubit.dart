@@ -54,8 +54,8 @@ class NotificationListCubit extends Cubit<NotificationListState> {
 
         emit(state.copyWith(
           notificationlist: data.copyWith(
-            notificationDataList:
-                state.notificationlist.notificationDataList + data.notificationDataList,
+            notifications:
+                state.notificationlist.notifications + data.notifications,
           ),
           isLoading: false,
           exception: null,
@@ -73,13 +73,13 @@ class NotificationListCubit extends Cubit<NotificationListState> {
   Future<void> saveDataLocal() async {
     if (state.exception == null) {
       _repositoryLocal
-          .saveUserNotificationList(state.notificationlist.notificationDataList);
+          .saveUserNotificationList(state.notificationlist.notifications);
     }
   }
 
   Future<void> loadDataLocal() async {
     if (state.exception != null &&
-        state.notificationlist.notificationDataList.isEmpty) {
+        state.notificationlist.notifications.isEmpty) {
       emit(state.copyWith(exception: null, isLoading: true));
 
       final UserNotificationList data = await _repositoryLocal

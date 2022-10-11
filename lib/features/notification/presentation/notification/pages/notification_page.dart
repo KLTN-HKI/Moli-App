@@ -48,12 +48,15 @@ class _NotificationPageState extends State<NotificationPage> {
         body: SafeArea(
             child: RefreshIndicator(
           onRefresh: () => _cubit.fetchData(),
-          child: ListView(
-            controller: _controller,
-            children: const <Widget>[
-              NotificationLaster(),
-              NotificationBody(),
-            ],
+          child: RefreshIndicator(
+            onRefresh: _cubit.fetchData,
+            child: ListView(
+              controller: _controller,
+              children: const <Widget>[
+                NotificationLaster(),
+                NotificationBody(),
+              ],
+            ),
           ),
         )),
       ),

@@ -6,7 +6,7 @@ import '../other/typedefs.dart';
 
 extension RemoteMessageExt on RemoteMessage {
   String? getChannelId() {
-    return data['channelId'] as String;
+    return data['channel'] as String;
   }
 
   Map<String, dynamic> getContent() {
