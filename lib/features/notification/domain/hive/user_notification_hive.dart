@@ -14,7 +14,7 @@ class UserNotificationHive extends HiveBox {
   static const String boxKey = 'UserNotificationHive';
 
   @HiveField(1)
-  late AppointmentChannel? channel;
+  late NotificationChannel? channel;
 
   @HiveField(2)
   late Appointment? appointment;

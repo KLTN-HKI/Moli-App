@@ -31,7 +31,7 @@ class AppointmentRepositoryApi implements AppointmentRepository {
 
   @override
   Future<void> cancelAppointment({required JSON data, String? appointmentId}) {
-    return _apiService.putData(
+    return _apiService.updateData(
       endpoint: ApiEndpoint.appointment(
         AppointmentEndpoint.cancelAppointment,
         id: appointmentId,

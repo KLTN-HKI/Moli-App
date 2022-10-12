@@ -137,8 +137,8 @@ class ApiService implements ApiInterface {
     }
   }
 
-  /// An implementation of the base method for inserting [data] at
-  /// the [endpoint].
+  /// An implementation of the base method for updating partial [data]
+  /// at the [endpoint].
   /// The response body must be a [Map], else the [converter] fails.
   ///
   /// The [data] contains body for the request.
@@ -154,7 +154,7 @@ class ApiService implements ApiInterface {
   /// in the **headers** of the request using an [ApiInterceptor].
   /// The default value is `true`.
   @override
-  Future<T> putData<T>({
+  Future<T> updatePartialData<T>({
     required String endpoint,
     required JSON data,
     CancelToken? cancelToken,
@@ -163,7 +163,7 @@ class ApiService implements ApiInterface {
   }) async {
     try {
       //Entire map of response
-      final JSON dataMap = await _dioService.put(
+      final JSON dataMap = await _dioService.patch(
         endpoint: endpoint,
         data: data,
         options: Options(
@@ -203,7 +203,7 @@ class ApiService implements ApiInterface {
   }) async {
     try {
       //Entire map of response
-      final JSON dataMap = await _dioService.patch(
+      final JSON dataMap = await _dioService.put(
         endpoint: endpoint,
         data: data,
         options: Options(

@@ -94,7 +94,7 @@ class DioService {
     return response.data!;
   }
 
-  /// This method sends a `POST` request to the [endpoint] and returns the
+  /// This method sends a `PUT` request to the [endpoint] and returns the
   /// **decoded** response.
   ///
   /// Any errors encountered during the request are caught and a custom
@@ -121,7 +121,7 @@ class DioService {
     return response.data!;
   }
 
-  /// This method sends a `PATCH` request to the [endpoint] and returns the
+  // This method sends a `PATCH` request to the [endpoint] and returns the
   /// **decoded** response.
   ///
   /// Any errors encountered during the request are caught and a custom
@@ -139,7 +139,7 @@ class DioService {
     Options? options,
     CancelToken? cancelToken,
   }) async {
-    final Response<T> response = await _dio.put<T>(
+    final Response<T> response = await _dio.patch<T>(
       endpoint,
       data: data,
       options: options,

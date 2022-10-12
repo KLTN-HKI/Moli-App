@@ -36,7 +36,7 @@ enum AppointmentStatus {
   }
 }
 
-enum AppointmentChannel {
+enum NotificationChannel {
   @JsonValue('APPOINTMENT_REQUEST')
   request('APPOINTMENT_REQUEST'),
 
@@ -46,7 +46,7 @@ enum AppointmentChannel {
   @JsonValue('APPOINTMENT_REMIND')
   remind('APPOINTMENT_REMIND');
 
-  const AppointmentChannel(this.type);
+  const NotificationChannel(this.type);
   final String type;
 
   @override
@@ -68,7 +68,7 @@ enum AppointmentChannel {
 class UserNotification with _$UserNotification {
   const factory UserNotification({
     @JsonKey() required int id,
-    @JsonKey(name: 'appointmentChannel') AppointmentChannel? channel,
+    @JsonKey(name: 'notificationChannel') NotificationChannel? channel,
     @JsonKey(name: 'appointment') Appointment? appointment,
     @JsonKey(name: 'notificationDetail') String? detail,
     @JsonKey(fromJson: DateTimeUtils.parseDateTime, toJson: DateTimeUtils.formatDateTime)
