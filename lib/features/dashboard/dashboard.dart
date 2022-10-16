@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/constants.dart';
+
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 class DashBoard extends StatelessWidget {
   /// Constructs an [DashBoard].

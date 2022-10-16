@@ -10,8 +10,7 @@ import 'package:moli_app/features/authentication/presentation/register/cubit/reg
 import 'package:moli_app/features/features.dart';
 import 'package:moli_app/features/notification/application/bloc/notification_bloc.dart';
 import 'package:moli_app/features/notification/application/notification_service.dart';
-import 'package:moli_app/localization/l10n.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../router/routing.dart';
 
@@ -70,68 +69,42 @@ class _MoliViewState extends State<MoliView> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      builder: (BuildContext context, Widget? child) {
-        return BlocBuilder<AppSettingsCubit, AppSettingsState>(
-          builder: (BuildContext context, AppSettingsState state) {
-            return MaterialApp.router(
-              routerConfig: _appRouter,
-              debugShowCheckedModeBanner: false,
-              themeMode: state.themeMode,
-              theme: AppSettingsCubit.lightTheme,
-              darkTheme: AppSettingsCubit.darkTheme,
-              locale: state.locale,
-              supportedLocales: AppLanguage.delegate.supportedLocales,
-              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-                AppLanguage.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              builder: (BuildContext context, Widget? child) {
-                return BlocListener<AppConnectCubit, AppConnectState>(
-                  listener: (BuildContext context, AppConnectState state) {
-                    // state.when(connected: () {
-                    //   context.scaffoldMessenger.showSnackBar(const SnackBar(
-                    //     key: Key('Internet Connected'),
-                    //     content: Text('Internet Connected'),
-                    //   ));
-                    // }, disconnected: () {
-                    //   context.scaffoldMessenger.showSnackBar(const SnackBar(
-                    //     key: Key('Internet Lost'),
-                    //     content: Text('Internet Lost'),
-                    //   ));
-                    // });
-                  },
-                  child: child,
-                );
+    return BlocBuilder<AppSettingsCubit, AppSettingsState>(
+      builder: (BuildContext context, AppSettingsState state) {
+        return MaterialApp.router(
+          routerConfig: _appRouter,
+          debugShowCheckedModeBanner: false,
+          themeMode: state.themeMode,
+          theme: AppSettingsCubit.lightTheme,
+          darkTheme: AppSettingsCubit.darkTheme,
+          locale: state.locale,
+          supportedLocales: AppLanguage.delegate.supportedLocales,
+          localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+            AppLanguage.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          builder: (BuildContext context, Widget? child) {
+            return BlocListener<AppConnectCubit, AppConnectState>(
+              listener: (BuildContext context, AppConnectState state) {
+                // state.when(connected: () {
+                //   context.scaffoldMessenger.showSnackBar(const SnackBar(
+                //     key: Key('Internet Connected'),
+                //     content: Text('Internet Connected'),
+                //   ));
+                // }, disconnected: () {
+                //   context.scaffoldMessenger.showSnackBar(const SnackBar(
+                //     key: Key('Internet Lost'),
+                //     content: Text('Internet Lost'),
+                //   ));
+                // });
               },
+              child: child,
             );
           },
         );
       },
     );
   }
-
-  /* void _handleMessage(RemoteMessage message) {
-    final String? channel = message.getChannelId();
-    if (channel != null) {
-      final Map<String, dynamic> data = message.getNotification();
-
-      if (kDebugMode) {
-        log(
-            name: 'AntoreeFirebaseMessaging',
-            '\x1B[35mHandling a message opened app: $data}');
-      }
-
-      switch (channel) {
-        case 'appoinment':
-        case 'remind':
-          break;
-        default:
-      }
-    }
-  } */
 }

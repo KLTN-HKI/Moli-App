@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:introduction_screen/introduction_screen.dart';
-import 'package:moli_app/constants/constants.dart';
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 class IntroductionPage extends StatefulWidget {
   const IntroductionPage({super.key});

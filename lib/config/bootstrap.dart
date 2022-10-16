@@ -5,8 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:moli_app/shared/services/firebase/firebase_authentication.dart';
-import 'package:moli_app/shared/services/service.dart';
+import 'package:moli_shared/moli_shared.dart';
 import 'dependency_container.dart';
 
 class AppBlocObserver extends BlocObserver {

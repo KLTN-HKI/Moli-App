@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moli_app/constants/color_palattes.dart';
+
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../domain/doctor.dart';
 import '../../bloc/bloc.dart';

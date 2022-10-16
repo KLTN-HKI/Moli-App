@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:moli_app/constants/constants.dart';
+
 import 'package:moli_app/features/appointment/domain/appointment.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../bloc/appointment_list/appointment_list_cubit.dart';
 import 'components/appointment_item.dart';
@@ -25,7 +24,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   void initState() {
     super.initState();
     _cubit = AppointmentListCubit();
-    _controller = ScrollController();
+    _controller = ScrollController()..addListener(_loadMoreData);
     _cubit.getAppoinments();
   }
 
@@ -44,26 +43,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
         appBar: HeaderAppBar(
           titleText: context.l10n.appointment_doctor,
           transparentAppBar: true,
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Iconsax.search_normal,
-                color: ColorPalettes.neutral10,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Iconsax.filter_add,
-                color: ColorPalettes.neutral10,
-              ),
-            ),
-          ],
         ),
         body: SafeArea(
           child: RefreshIndicator(
-            onRefresh: () async => _loadMoreData(),
+            onRefresh: () async => _cubit.getAppoinments(),
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 return SingleChildScrollView(

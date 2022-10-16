@@ -1,4 +1,4 @@
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../domain/user_notification.dart';
 

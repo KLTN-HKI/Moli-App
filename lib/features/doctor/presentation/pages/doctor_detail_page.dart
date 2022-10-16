@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:moli_app/features/doctor/domain/doctor.dart';
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../bloc/bloc.dart';
 
@@ -43,10 +42,6 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
           transparentAppBar: true,
           titleText: _doctor.name,
           centerTitle: false,
-          actions: <Widget>[
-            IconButton(onPressed: () {}, icon: const Icon(Iconsax.heart)),
-            IconButton(onPressed: () {}, icon: const Icon(Iconsax.more)),
-          ],
         ),
         body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),

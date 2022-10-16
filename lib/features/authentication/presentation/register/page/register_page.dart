@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:moli_app/constants/color_palattes.dart';
 import 'package:moli_app/features/features.dart';
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../cubit/register_cubit.dart';
 import 'components/register_body.dart';
@@ -51,7 +50,7 @@ class _RegisterSubmitted extends StatelessWidget {
           previous.status != current.status,
       builder: (BuildContext context, RegisterState state) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.w),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           child: AppElevatedButton(
             key: const Key('Register_form_submit_button'),
             onPressed: () => context.read<RegisterCubit>().register(),

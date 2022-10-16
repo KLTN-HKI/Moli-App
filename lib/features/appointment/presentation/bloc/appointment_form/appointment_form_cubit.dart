@@ -3,7 +3,7 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moli_app/config/config.dart';
 import 'package:moli_app/features/appointment/domain/appointment_request.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../data/appointment_repository.dart';
 import '../../../data/appointment_repository_api.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../../domain/appointment.dart';
 import 'appointment_card.dart';
@@ -15,7 +15,7 @@ class AppointmentInfo extends StatelessWidget {
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           AppText.t0('${appointment.hospital?.hospitalName}').bold,
-          SizedBox(height: 4.w),
+          const SizedBox(height: 4),
           AppText.t0('${appointment.appointmentStatus}'),
           const Divider(),
           Row(

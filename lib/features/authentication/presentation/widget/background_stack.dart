@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/constants.dart';
-import 'package:moli_app/shared/shared.dart';
+
+import 'package:moli_shared/moli_shared.dart';
 
 class BackgroundStack extends StatelessWidget {
   const BackgroundStack({super.key, required this.child});
@@ -11,8 +11,8 @@ class BackgroundStack extends StatelessWidget {
       alignment: Alignment.center,
       children: <Widget>[
         SizedBox(
-          width: 1.sw,
-          height: 1.sh,
+          width: context.width,
+          height: context.height,
           child: Image.asset(
             ImageAssets.backgroundAuth,
             fit: BoxFit.cover,

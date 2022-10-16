@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/color_palattes.dart';
-import 'package:moli_app/constants/icon_assets.dart';
-import 'package:moli_app/shared/shared.dart';
+
+import 'package:moli_shared/moli_shared.dart';
 
 class AppointmentDateTimePicker extends StatefulWidget {
   const AppointmentDateTimePicker({

@@ -1,6 +1,6 @@
 import 'package:moli_app/features/doctor/domain/doctor.dart';
 import 'package:moli_app/features/doctor/domain/schedule.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import 'doctor_repository.dart';
 

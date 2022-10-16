@@ -1,11 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:moli_app/constants/color_palattes.dart';
-import 'package:moli_app/constants/image_assets.dart';
+
 import 'package:moli_app/features/doctor/domain/doctor.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../doctor/presentation/bloc/doctor/doctor_bloc.dart';
 import '../../domain/hospital.dart';
@@ -93,15 +90,6 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
                     maxLines: 2,
                   ).weight600,
                 ),
-                actions: <Widget>[
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Iconsax.archive_1,
-                      color: ColorPalettes.black,
-                    ),
-                  ),
-                ],
               ),
               _HospitalInfo(hospital: _hospital),
             ],
@@ -131,11 +119,11 @@ class _HospitalInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.w),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       sliver: Container(
         decoration: BoxDecoration(
           color: context.colorScheme.background,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -14,37 +14,39 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   collection: ^1.16.0
-  url_launcher: ^6.1.6
+  get_it: ^7.2.0
+  dio: ^4.0.6
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
+  bloc_concurrency: ^0.2.0
+  formz: ^0.4.1
+  hive_flutter: ^1.1.0
   json_annotation: ^4.7.0
   freezed_annotation: ^2.1.0
-  get_it: ^7.2.0
-  flutter_screenutil: ^5.5.4
-  dio: ^4.0.6
-  connectivity_plus: ^2.3.7
-  hive_flutter: ^1.1.0
-  flutter_secure_storage: ^6.0.0
-  flutter_svg: ^1.1.5
-  introduction_screen: ^3.0.2
-  lottie: ^1.4.3
-  cached_network_image: ^3.2.2
-  formz: ^0.4.1
-  path_provider: ^2.0.11
-  package_info_plus: ^1.4.3+1
-  iconsax: ^0.0.8
-  carousel_slider: ^4.1.1
-  bloc_concurrency: ^0.2.0
-  flutter_ringtone_player: ^3.2.0
-  go_router: ^5.0.5
-  pinput: ^2.2.12
-  firebase_analytics: ^9.3.7
-  firebase_crashlytics: ^2.8.12
+  firebase_analytics: ^9.3.8
+  firebase_crashlytics: ^2.9.0
   firebase_dynamic_links: ^4.3.11
-  firebase_messaging: ^13.0.4
-  firebase_remote_config: ^2.0.19
+  firebase_messaging: ^13.1.0
+  firebase_remote_config: ^2.0.20
   firebase_core: ^1.24.0
-  firebase_auth: ^3.11.1
+  firebase_auth: ^3.11.2
+  flutter_secure_storage: ^6.0.0
+  go_router: ^5.1.0
+  connectivity_plus: ^2.3.9
+  flutter_ringtone_player: ^3.2.0
+  url_launcher: ^6.1.6
+  path_provider: ^2.0.11
+  package_info_plus: ^2.0.0
+  carousel_slider: ^4.1.1
+  pinput: ^2.2.16
+
+  moli_shared:
+    git:
+      url: https://github.com/KLTN-HKI/Moli-Shared.git
+
+dependency_overrides:
+  moli_shared:
+    path: ../moli_shared
 
 dev_dependencies:
   bloc_test: ^9.1.0
@@ -57,13 +59,6 @@ dev_dependencies:
   intl_utils: ^2.7.0
   build_runner: ^2.2.1
   flutter_lints: ^2.0.1
-
-flutter_intl:
-  enabled: true
-  class_name: AppLanguage
-  main_locale: vi
-  arb_dir: lib/localization/l10n
-  output_dir: lib/localization
 
 flutter:
   uses-material-design: true

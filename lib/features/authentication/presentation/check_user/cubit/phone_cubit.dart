@@ -5,7 +5,7 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moli_app/config/config.dart';
 import 'package:moli_app/features/features.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../domain/formz/phone_number.dart';
 

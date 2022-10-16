@@ -4,7 +4,7 @@ import 'package:moli_app/config/dependency_container.dart';
 import 'package:moli_app/features/appointment/data/appointment_repository.dart';
 import 'package:moli_app/features/appointment/data/appointment_repository_api.dart';
 import 'package:moli_app/features/appointment/domain/appointment.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 part 'appointment_list_state.dart';
 part 'appointment_list_cubit.freezed.dart';

@@ -1,8 +1,8 @@
 /* import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:moli_app/constants/constants.dart';
-import 'package:moli_app/shared/shared.dart';
+
+import 'package:moli_shared/moli_shared.dart';
 
 class DaySelector extends StatefulWidget {
   const DaySelector({super.key, DateTime? initDate, required this.onDateChanged});
@@ -23,7 +23,7 @@ class _DaySelectorState extends State<DaySelector> {
         _buildCurrentDate(),
         _buildNextDateButton(),
       ].applySeparator(
-        separator: SizedBox(width: 16.w),
+        separator: SizedBox(width: 16),
       ),
     );
   }
@@ -32,14 +32,14 @@ class _DaySelectorState extends State<DaySelector> {
     return ClipOval(
       child: Container(
         color: context.colorScheme.primary.withOpacity(.15),
-        height: 32.w,
-        width: 32.w,
+        height: 32,
+        width: 32,
         child: IconButton(
           padding: EdgeInsets.zero,
           onPressed: () => onDateChange(selectedDate.add(const Duration(days: 1))),
           icon: SvgPicture.asset(
             IconAssets.icArrowRight,
-            width: 9.w,
+            width: 9,
             color: context.colorScheme.primary,
           ),
         ),
@@ -49,7 +49,7 @@ class _DaySelectorState extends State<DaySelector> {
 
   Container _buildCurrentDate() {
     return Container(
-      padding: EdgeInsets.all(8.w),
+      padding: EdgeInsets.all(8),
       child: Column(
         children: <Widget>[
           Text(
@@ -60,15 +60,15 @@ class _DaySelectorState extends State<DaySelector> {
             DateFormat('dd/MM/yyyy').format(selectedDate),
             style: context.textTheme.titleSmall,
           ),
-          SizedBox(height: 4.w),
+          SizedBox(height: 4),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 4.w),
+            padding: EdgeInsets.symmetric(vertical: 4),
             child: Container(
-              width: 25.w,
+              width: 25,
               decoration: BoxDecoration(
                   color: ColorPalettes.black,
-                  border: Border.all(width: 1.w),
-                  borderRadius: BorderRadius.circular(2.r)),
+                  border: Border.all(width: 1),
+                  borderRadius: BorderRadius.circular(2)),
             ),
           )
         ],
@@ -82,16 +82,16 @@ class _DaySelectorState extends State<DaySelector> {
         color: selectedDate.isAfter(DateTime.now())
             ? context.colorScheme.primary.withOpacity(.15)
             : context.colorScheme.onSurface.withOpacity(.1),
-        height: 32.w,
-        width: 32.w,
+        height: 32,
+        width: 32,
         child: IconButton(
           onPressed: selectedDate.isAfter(DateTime.now())
               ? () => onDateChange(selectedDate.subtract(const Duration(days: 1)))
               : null,
-          splashRadius: 32.w,
+          splashRadius: 32,
           icon: SvgPicture.asset(
             IconAssets.icArrowLeft,
-            width: 9.w,
+            width: 9,
             color: selectedDate.isAfter(DateTime.now())
                 ? context.colorScheme.primary
                 : context.colorScheme.onSurface,

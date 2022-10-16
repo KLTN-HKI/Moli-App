@@ -1,6 +1,6 @@
 import 'package:moli_app/features/appointment/data/appointment_repository.dart';
 import 'package:moli_app/features/appointment/domain/appointment.dart';
-import 'package:moli_app/shared/common/other/typedefs.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 class AppointmentRepositoryLocal implements AppointmentRepository {
   @override
@@ -14,7 +14,13 @@ class AppointmentRepositoryLocal implements AppointmentRepository {
   }
 
   @override
-  Future<void> cancelAppointment({required JSON data, String? appointmentId}) {
+  Future<Appointment> updateAppointmentStatus(
+      {required JSON data, String? appointmentId}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Appointment> getAppointment({required JSON data, required String id}) {
     throw UnimplementedError();
   }
 }

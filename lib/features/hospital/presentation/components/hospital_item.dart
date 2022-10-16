@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/constants.dart';
-import 'package:moli_app/shared/shared.dart';
+
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../../router/router.dart';
 import '../../domain/hospital.dart';
@@ -13,15 +13,15 @@ class HospitalItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(12),
       onTap: () => context.goRouter
           .go('${Routes.hospitals}/${hospital.id}', extra: hospital),
       child: Ink(
-        width: 140.w,
-        padding: EdgeInsets.all(12.r),
+        width: 140,
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: ColorPalettes.white,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(12),
           // border: Border.all(color: ColorPalettes.neutral90),
           boxShadow: <BoxShadow>[
             BoxShadow(
@@ -41,14 +41,14 @@ class HospitalItem extends StatelessWidget {
               height: 90,
               width: 90,
             ),
-            SizedBox(height: 4.w),
+            const SizedBox(height: 4),
             AppText.l0(
               hospital.hospitalName ?? 'Phòng khám ...',
               textOverflow: TextOverflow.ellipsis,
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 4.w),
+            const SizedBox(height: 4),
             AppText.l1(
               hospital.hospitalAddress?.addressDetail ?? 'Địa chỉ ...',
               textOverflow: TextOverflow.ellipsis,
@@ -80,7 +80,7 @@ class HospitalListItem extends StatelessWidget {
           textOverflow: TextOverflow.ellipsis,
           maxLines: 3,
         ).weight600,
-        SizedBox(height: 4.w),
+        const SizedBox(height: 4),
         AppText.l1(
           hospital.hospitalAddress?.addressDetail ?? 'Địa chỉ ...',
           maxLines: 2,

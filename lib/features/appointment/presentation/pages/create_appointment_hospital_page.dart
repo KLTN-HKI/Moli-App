@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:moli_app/constants/constants.dart';
+
 import 'package:moli_app/features/appointment/domain/appointment_request.dart';
 import 'package:moli_app/features/authentication/authentication.dart';
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
-import '../../../../shared/widgets/tag/toggleable_tag.dart';
 import '../../../authentication/domain/response/response.dart';
 import '../../../doctor/domain/doctor.dart';
 import '../../../doctor/domain/schedule.dart';
@@ -237,9 +236,9 @@ class _CreateAppointmentByHospitalPageState
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
-                                    SliverGridDelegateWithMaxCrossAxisExtent(
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
                                   maxCrossAxisExtent: 80,
-                                  crossAxisSpacing: 4.w,
+                                  crossAxisSpacing: 4,
                                 ),
                                 shrinkWrap: true,
                                 itemCount: schedule.doctorSchedules.length,

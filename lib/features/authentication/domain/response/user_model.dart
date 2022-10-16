@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:moli_app/localization/l10n.dart';
-import 'package:moli_app/shared/common/common.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';

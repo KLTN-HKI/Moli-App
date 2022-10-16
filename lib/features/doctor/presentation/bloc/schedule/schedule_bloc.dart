@@ -4,7 +4,7 @@ import 'package:moli_app/config/dependency_container.dart';
 import 'package:moli_app/features/doctor/data/doctor_repository.dart';
 import 'package:moli_app/features/doctor/data/doctor_repository_api.dart';
 import 'package:moli_app/features/doctor/domain/schedule.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 part 'schedule_event.dart';
 part 'schedule_state.dart';

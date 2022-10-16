@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_app/features/home/components/banner.dart';
 import 'package:moli_app/features/hospital/presentation/cubit/hospital_cubit.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../page/components/menu_body.dart';
 import 'choose_hospital.dart';
@@ -28,25 +28,23 @@ class _HomeBodyState extends State<HomeBody>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const BaseProfileCard(),
-          SizedBox(height: 12.w),
-          SizedBox(
-            height: 110.w,
-            child: const FeatureButtons(),
+          const SizedBox(height: 12),
+          const SizedBox(
+            height: 110,
+            child: FeatureButtons(),
           ),
-          SizedBox(height: 12.w),
+          const SizedBox(height: 12),
           BlocProvider<HospitalCubit>(
             create: (BuildContext context) => HospitalCubit(),
             child: const ChooseHospitalBuilder(),
           ),
-          SizedBox(height: 12.w),
+          const SizedBox(height: 12),
           const CourseBanner(),
-          SizedBox(height: 12.w),
+          const SizedBox(height: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              AppText.t0('Tin y tế')
-                  .weight500
-                  .paddingSymmetric(horizontal: 24.w),
+              AppText.t0('Tin y tế').weight500.paddingSymmetric(horizontal: 24),
             ],
           )
         ],

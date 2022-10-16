@@ -1,7 +1,7 @@
-import '../../../shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
+
 import '../domain/response/response.dart';
 import 'authentication_endpoint.dart';
-
 class AuthenticationRepository {
   AuthenticationRepository({required ApiService apiService})
       : _apiService = apiService;

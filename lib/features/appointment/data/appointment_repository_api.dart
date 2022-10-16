@@ -1,6 +1,6 @@
 import 'package:moli_app/config/dependency_container.dart';
 import 'package:moli_app/features/appointment/domain/appointment.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import 'appointment_endpoint.dart';
 import 'appointment_repository.dart';
@@ -23,22 +23,35 @@ class AppointmentRepositoryApi implements AppointmentRepository {
   Future<AppointmentList> getAppointments({required JSON data}) {
     return _apiService.getDocumentData(
       endpoint: ApiEndpoint.appointment(AppointmentEndpoint.manageAppointment),
-      requiresAuthToken: true,
       queryParams: data,
       converter: AppointmentList.fromJson,
     );
   }
 
   @override
-  Future<void> cancelAppointment({required JSON data, String? appointmentId}) {
+  Future<Appointment> updateAppointmentStatus(
+      {required JSON data, String? appointmentId}) {
     return _apiService.updateData(
       endpoint: ApiEndpoint.appointment(
-        AppointmentEndpoint.cancelAppointment,
+        AppointmentEndpoint.updateAppointmentStatus,
         id: appointmentId,
       ),
-      requiresAuthToken: true,
       data: data,
-      converter: (_) {},
+      converter: (JSON responseBody) =>
+          Appointment.fromJson(responseBody['data'] as JSON),
+    );
+  }
+
+  @override
+  Future<Appointment> getAppointment({required JSON data, required String id}) {
+    return _apiService.getDocumentData(
+      endpoint: ApiEndpoint.appointment(
+        AppointmentEndpoint.detailAppointment,
+        id: id,
+      ),
+      queryParams: data,
+      converter: (JSON responseBody) =>
+          Appointment.fromJson(responseBody['data'] as JSON),
     );
   }
 }

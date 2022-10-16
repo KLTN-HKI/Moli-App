@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moli_app/constants/icon_assets.dart';
 import 'package:moli_app/features/authentication/domain/response/response.dart';
 import 'package:moli_app/features/features.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

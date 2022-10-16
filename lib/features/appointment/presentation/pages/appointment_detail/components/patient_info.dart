@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../../domain/appointment.dart';
 import 'appointment_card.dart';

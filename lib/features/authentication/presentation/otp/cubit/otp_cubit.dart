@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:moli_app/shared/services/firebase/firebase_authentication.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 part 'otp_state.dart';
 part 'otp_cubit.freezed.dart';

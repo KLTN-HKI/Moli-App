@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:moli_app/config/config.dart';
-import 'package:moli_app/constants/constants.dart';
+
 import 'package:moli_app/features/notification/application/bloc/notification_bloc.dart';
 import 'package:moli_app/router/router.dart';
 import 'package:moli_app/router/routing.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../domain/user_notification.dart';
 
@@ -59,7 +59,7 @@ Future<void> showSnackbar(
     content: InkWell(
       onTap: () => ScaffoldMessenger.of(context).removeCurrentSnackBar(),
       child: DefaultTextStyle(
-        style: TextStyle(fontSize: 12.w, color: ColorPalettes.neutral10),
+        style: const TextStyle(fontSize: 12, color: ColorPalettes.neutral10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -75,10 +75,10 @@ Future<void> showSnackbar(
     elevation: 10,
     duration: const Duration(seconds: 5),
     backgroundColor: ColorPalettes.white,
-    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     behavior: SnackBarBehavior.floating,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(12),
     ),
     dismissDirection: DismissDirection.horizontal,
     action: SnackBarAction(

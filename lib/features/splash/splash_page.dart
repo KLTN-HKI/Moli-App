@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-import 'package:moli_app/constants/constants.dart';
 import 'package:moli_app/features/features.dart';
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   static const String routeName = '/';
-
 
   @override
   Widget build(BuildContext context) {
@@ -28,20 +25,17 @@ class SplashPage extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // SvgPicture.asset(IconAssets.appIcon),
             Lottie.asset(
               JsonAssets.medical,
-              width: 1.sw,
-              height: 1.sw,
+              width: context.width,
+              height: context.width,
               fit: BoxFit.fill,
             ),
-            // SizedBox(height: 12.r),
-            Text(
+            const SizedBox(height: 12),
+            AppText.d1(
               AppConstant.appName,
-              style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w700,
-                  color: ColorPalettes.primary40),
+              fontWeight: FontWeight.w700,
+              color: ColorPalettes.primary40,
             )
           ],
         ),

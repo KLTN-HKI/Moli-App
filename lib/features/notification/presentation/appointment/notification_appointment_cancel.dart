@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../domain/user_notification.dart';
 import 'notification_appointment.dart';
@@ -39,17 +39,6 @@ class NotificationAppointmentCancel extends StatelessWidget {
             ],
           ),
         ),
-        /* const SizedBox(width: 8),
-        Container(
-          alignment: Alignment.center,
-          height: 8,
-          width: 8,
-          decoration: BoxDecoration(
-            color:
-                notification.isRead == 0 ? context.colorScheme.primary : null,
-            shape: BoxShape.circle,
-          ),
-        ) */
       ],
     ).paddingSymmetric(horizontal: 24);
   }

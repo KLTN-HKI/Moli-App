@@ -1,6 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:moli_app/constants/app_constant.dart';
-import 'package:moli_app/shared/services/service.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../appointment/domain/appointment.dart';
 import '../user_notification.dart';

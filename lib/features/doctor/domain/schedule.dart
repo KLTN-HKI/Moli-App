@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 part 'schedule.freezed.dart';
 part 'schedule.g.dart';
 
 @freezed
- class DoctorAvailableTime with _$DoctorAvailableTime {
+class DoctorAvailableTime with _$DoctorAvailableTime {
   const factory DoctorAvailableTime({
     @JsonKey()
     @Default(<DoctorSchedule>[])
@@ -18,7 +18,7 @@ part 'schedule.g.dart';
 }
 
 @freezed
- class DoctorSchedule with _$DoctorSchedule {
+class DoctorSchedule with _$DoctorSchedule {
   const factory DoctorSchedule({
     @JsonKey() required int id,
     @JsonKey(fromJson: DateTimeUtils.parseDateTimeDateOnly, toJson: DateTimeUtils.formatDateTimeDateOnly)

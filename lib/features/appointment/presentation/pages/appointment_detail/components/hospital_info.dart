@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moli_app/features/doctor/domain/doctor.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../../domain/appointment.dart';
 import 'appointment_card.dart';
@@ -18,7 +18,7 @@ class HospitalInfo extends StatelessWidget {
           Row(
             children: <Widget>[
               const RoundedImage(size: 40),
-              SizedBox(width: 12.w),
+              const SizedBox(width: 12),
               Expanded(
                   child: AppText.t0('${appointment.hospital?.hospitalName}')
                       .weight600),

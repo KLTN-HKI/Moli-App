@@ -1,5 +1,5 @@
 import 'package:formz/formz.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 enum ConfirmPasswordValidationError {
   invalid,

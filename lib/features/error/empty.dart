@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/image_assets.dart';
 
-import '../../shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 class EmptyWidget extends StatelessWidget {
   const EmptyWidget({

@@ -3,34 +3,38 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moli_app/config/dependency_container.dart';
 import 'package:moli_app/features/appointment/data/appointment_repository.dart';
 import 'package:moli_app/features/appointment/data/appointment_repository_api.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_app/features/appointment/domain/appointment_update.dart';
+import 'package:moli_shared/moli_shared.dart';
+
+import '../../../domain/appointment.dart';
 
 part 'appointment_state.dart';
 part 'appointment_cubit.freezed.dart';
 
 class AppointmentCubit extends Cubit<AppointmentState> {
-  AppointmentCubit()
+  AppointmentCubit(this.appointmentUuId)
       : _repository = getIt<AppointmentRepositoryApi>(),
         super(const AppointmentState.initial());
 
   final AppointmentRepository _repository;
+  final String appointmentUuId;
 
-  Future<void> bookDoctor() async {
+  Future<void> fetchAppointmentByUuid() async {
+    emit(const AppointmentState.initial(isLoading: true));
     try {
-      emit(state.copyWith(exception: null, isLoading: true, isSucess: false));
-      await _repository.bookDoctor(data: <String, dynamic>{
-        '': '',
-      });
+      final Appointment result = await _repository.getAppointment(
+        id: appointmentUuId,
+        data: <String, dynamic>{},
+      );
+
+      emit(AppointmentState.initial(appointment: result, isLoading: false));
     } on NetworkException catch (e) {
-      emit(state.copyWith(
-        exception: e,
-        isLoading: false,
-        isSucess: false,
-      ));
+      emit(AppointmentState.initial(exception: e));
     }
   }
 
-  Future<void> cancelAppointment(String appointmentId) async {
+  Future<void> updateAppointment(
+      String appointmentUuid, AppointmentUpdateRequest request) async {
     try {
       emit(
         state.copyWith(
@@ -39,12 +43,16 @@ class AppointmentCubit extends Cubit<AppointmentState> {
           isSucess: false,
         ),
       );
-      await _repository.cancelAppointment(
-        data: <String, dynamic>{},
-        appointmentId: appointmentId,
+      final Appointment result = await _repository.updateAppointmentStatus(
+        data: <String, dynamic>{
+          'appointmentStatus': request.appointmentStatus.status,
+          'reason': request.reason,
+        },
+        appointmentId: appointmentUuid,
       );
       emit(
         state.copyWith(
+          appointment: result,
           exception: null,
           isLoading: false,
           isSucess: true,

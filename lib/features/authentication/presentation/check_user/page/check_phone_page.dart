@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:moli_app/constants/constants.dart';
 import 'package:moli_app/features/authentication/authentication.dart';
 import 'package:moli_app/features/authentication/presentation/register/cubit/register_cubit.dart';
 import 'package:moli_app/features/authentication/presentation/widget/background_stack.dart';
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../otp/cubit/otp_cubit.dart';
 import '../cubit/phone_cubit.dart';
@@ -86,13 +85,13 @@ class PhoneBody extends StatelessWidget {
         },
         child: BackgroundStack(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 AppText.t0('Nhập số điện thoại để tiếp tục'),
                 const _PhoneNumberInput(),
-                SizedBox(height: 40.w),
+                const SizedBox(height: 40),
                 const _CheckPhoneNumberExistButton(),
               ],
             ),

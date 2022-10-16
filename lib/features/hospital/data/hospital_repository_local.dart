@@ -1,4 +1,4 @@
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../domain/hospital.dart';
 import 'hospital_repository.dart';

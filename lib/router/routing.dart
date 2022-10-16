@@ -10,7 +10,7 @@ import 'package:moli_app/features/error/error_page.dart';
 import 'package:moli_app/features/features.dart';
 import 'package:moli_app/features/home/page/menu_page.dart';
 import 'package:moli_app/features/hospital/presentation/pages/hospital_page.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../features/authentication/presentation/check_user/page/check_phone_page.dart';
 import '../features/doctor/presentation/pages/components/hospital_doctors.dart';
@@ -115,7 +115,7 @@ GoRouter routing(BuildContext context, String? initialLocation) {
                 pageBuilder: (_, GoRouterState state) =>
                     CupertinoTransitionPage(
                         child: AppointmentDetailPage(
-                  id: int.tryParse(state.params['appointmentId']!)!,
+                  id: state.params['appointmentId']!,
                   extra: state.extra,
                 )),
               ),

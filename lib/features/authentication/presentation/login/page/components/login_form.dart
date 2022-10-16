@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:moli_app/constants/constants.dart';
 import 'package:moli_app/features/features.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../cubit/login_cubit.dart';
 
@@ -35,15 +34,15 @@ class LoginForm extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: <Widget>[
             const _PhoneNumberInput(),
-            SizedBox(height: 12.w),
+            const SizedBox(height: 12),
             const _PasswordInput(),
-            SizedBox(height: 60.w),
+            const SizedBox(height: 60),
             const _LoginSubmitted(),
-            SizedBox(height: 16.w),
+            const SizedBox(height: 16),
             InkWell(
               onTap: () {},
               child: AppText.l0(

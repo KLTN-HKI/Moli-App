@@ -1,11 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moli_app/constants/constants.dart';
+
 import 'package:moli_app/features/authentication/domain/response/response.dart';
 import 'package:moli_app/features/features.dart';
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'menu_item.dart';
@@ -23,7 +22,7 @@ class MenuBody extends StatelessWidget {
             <Widget>[
               Column(children: <Widget>[
                 const BaseProfileCard(),
-                SizedBox(height: 32.w),
+                const SizedBox(height: 32),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
@@ -34,25 +33,25 @@ class MenuBody extends StatelessWidget {
                         icon: IconAssets.icProfileBold,
                         label: context.l10n.personal_infomation,
                       ),
-                      SizedBox(height: 12.w),
+                      const SizedBox(height: 12),
                       AppMenuItem(
                         onPressed: () {},
                         icon: IconAssets.icShieldTick,
                         label: context.l10n.password_security,
                       ),
-                      SizedBox(height: 12.w),
+                      const SizedBox(height: 12),
                       AppMenuItem(
                         onPressed: () {},
                         icon: IconAssets.icInfo,
                         label: context.l10n.policy,
                       ),
-                      SizedBox(height: 12.w),
+                      const SizedBox(height: 12),
                       AppMenuItem(
                         onPressed: () {},
                         icon: IconAssets.icBook,
                         label: context.l10n.terms_conditions,
                       ),
-                      SizedBox(height: 12.w),
+                      const SizedBox(height: 12),
                       AppMenuItem(
                         icon: IconAssets.icLogout,
                         label: context.l10n.log_out,
@@ -65,13 +64,13 @@ class MenuBody extends StatelessWidget {
               onPressed: () {},
               withArrow: false,
             ), */
-                      SizedBox(height: 56.w),
+                      const SizedBox(height: 56),
                       AppElevatedButtonIcon(
                         label: const Text('Hotline - 1900 xxxx'),
                         icon: IconAssets.icSupport,
                         onPressed: () {},
                       ),
-                      SizedBox(height: 12.w),
+                      const SizedBox(height: 12),
                       Align(
                         child: FutureBuilder<PackageInfo>(
                           future: PackageInfo.fromPlatform(),

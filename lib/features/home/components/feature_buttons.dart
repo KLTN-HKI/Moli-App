@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/constants.dart';
+
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 class FeatureModel {
   FeatureModel({
@@ -67,11 +67,11 @@ class FeatureButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 120.w,
-        crossAxisSpacing: 4.w,
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 120,
+        crossAxisSpacing: 4,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 3,
       itemBuilder: (BuildContext context, int index) {
@@ -81,26 +81,26 @@ class FeatureButtons extends StatelessWidget {
           onTap: feature.routeName != null
               ? () => context.goRouter.go(feature.routeName!)
               : null,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(12),
           child: Container(
             // width: 80,
-            padding: EdgeInsets.symmetric(vertical: 4.w),
+            padding: const EdgeInsets.symmetric(vertical: 4),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r),
+                    borderRadius: BorderRadius.circular(12),
                     color: feature.color.withOpacity(.15),
                   ),
-                  padding: EdgeInsets.all(14.w),
+                  padding: const EdgeInsets.all(14),
                   child: AppIcon(
                     feature.icon,
                     color: feature.color,
                   ),
                 ),
-                SizedBox(height: 4.w),
+                const SizedBox(height: 4),
                 Expanded(
                   child: AppText.l0(
                     feature.title,

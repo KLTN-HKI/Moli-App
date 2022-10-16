@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moli_app/features/appointment/domain/appointment.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import 'appointment_info.dart';
 import 'hospital_info.dart';
@@ -18,7 +18,7 @@ class AppointmentDetailBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       physics: const ClampingScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.w),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       children: <Widget>[
         AppointmentInfo(appointment: appointment),
         const SizedBox(height: 16),

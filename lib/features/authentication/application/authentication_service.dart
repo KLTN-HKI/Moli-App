@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:moli_shared/moli_shared.dart';
 
-import '../../../shared/shared.dart';
 import '../data/authentication_endpoint.dart';
 
 class AuthenticationService extends AuthenticationStorageService {

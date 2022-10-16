@@ -3,7 +3,7 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moli_app/config/config.dart';
 import 'package:moli_app/features/authentication/domain/response/register_model.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../authentication.dart';
 import '../../../domain/formz/email.dart';

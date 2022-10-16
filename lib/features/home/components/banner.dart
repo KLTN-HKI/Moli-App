@@ -1,8 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/color_palattes.dart';
-import 'package:moli_app/constants/image_assets.dart';
-import 'package:moli_app/shared/shared.dart';
+
+import 'package:moli_shared/moli_shared.dart';
 
 class CourseBanner extends StatefulWidget {
   const CourseBanner({super.key});
@@ -41,7 +40,7 @@ class _CourseBannerState extends State<CourseBanner> {
               enlargeCenterPage: true,
               initialPage: _currentPage,
               disableCenter: true,
-              height: 180.w,
+              height: 180,
               onPageChanged: (int index, CarouselPageChangedReason reason) =>
                   setState(() => _currentPage = index)),
         ),

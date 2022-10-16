@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/constants.dart';
-import 'package:moli_app/shared/shared.dart';
+
+import 'package:moli_shared/moli_shared.dart';
 
 class AppointmentCard extends StatelessWidget {
   const AppointmentCard({super.key, required this.child});
@@ -10,11 +10,11 @@ class AppointmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: const EdgeInsets.all(16),
       width: double.infinity,
       decoration: BoxDecoration(
         color: context.colorScheme.background,
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: <BoxShadow>[
           BoxShadow(
               blurRadius: 17, color: ColorPalettes.black.withOpacity(.03)),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../widget/background_stack.dart';
 import 'register_form.dart';
@@ -17,7 +17,7 @@ class RegisterBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             AppText.d2(context.l10n.register).weight500,
-            SizedBox(height: 4.w),
+            const SizedBox(height: 4),
             AppText.b1('Vui lòng điền đầy đủ thông tin để đăng ký'),
             const RegisterForm()
           ],

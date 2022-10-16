@@ -1,40 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:moli_shared/moli_shared.dart';
 
-import '../../../../shared/common/common.dart';
 import '../../appointment/domain/appointment.dart';
 
 part 'user_notification.freezed.dart';
 part 'user_notification.g.dart';
-
-enum AppointmentStatus {
-  @JsonValue('PENDING')
-  pending('PENDING'),
-  @JsonValue('CONFIRM')
-  confirm('CONFIRM'),
-  @JsonValue('CHANGE')
-  change('CHANGE'),
-  @JsonValue('CANCEL')
-  cancel('CANCEL');
-
-  const AppointmentStatus(this.status);
-  final String status;
-
-  @override
-  String toString() {
-    switch (status) {
-      case 'PENDING':
-        return 'Chờ xác nhận';
-      case 'CONFIRM':
-        return 'Đã xác nhận';
-      case 'CHANGE':
-        return 'Đổi';
-      case 'CANCEL':
-        return 'Đã hủy';
-      default:
-        return '';
-    }
-  }
-}
 
 enum NotificationChannel {
   @JsonValue('APPOINTMENT_REQUEST')

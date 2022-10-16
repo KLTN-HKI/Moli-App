@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:moli_app/constants/constants.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 import '../../cubit/register_cubit.dart';
 
 class RegisterForm extends StatelessWidget {
@@ -22,17 +21,17 @@ class RegisterForm extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const _PhoneNumberInput(),
-            SizedBox(height: 12.w),
-            const _EmailInput(),
-            SizedBox(height: 12.w),
-            const _PasswordInput(),
-            SizedBox(height: 12.w),
-            const _ConfirmPasswordInput(),
+          children: const <Widget>[
+            _PhoneNumberInput(),
+            SizedBox(height: 12),
+            _EmailInput(),
+            SizedBox(height: 12),
+            _PasswordInput(),
+            SizedBox(height: 12),
+            _ConfirmPasswordInput(),
           ],
         ),
       ),

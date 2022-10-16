@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moli_app/constants/image_assets.dart';
+
 import 'package:moli_app/features/hospital/presentation/cubit/hospital_cubit.dart';
 import 'package:moli_app/router/router.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../domain/hospital.dart';
 import '../components/hospital_item.dart';

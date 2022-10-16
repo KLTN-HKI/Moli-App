@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/constants.dart';
+
 import 'package:moli_app/features/appointment/domain/appointment.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 class AppointmentStatusTag extends StatelessWidget {
   const AppointmentStatusTag({super.key, required this.status});

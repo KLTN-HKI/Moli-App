@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_app/features/hospital/presentation/components/hospital_item.dart';
 import 'package:moli_app/features/hospital/presentation/cubit/hospital_cubit.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../hospital/domain/hospital.dart';
 
@@ -14,11 +14,11 @@ class ChooseHospitalBuilder extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        AppText.t0(' Bệnh viện').weight500.paddingSymmetric(horizontal: 24.w),
-        // SizedBox(height: 4.w),
-        SizedBox(
-          height: 210.w,
-          child: const HostpitalListView(),
+        AppText.t0(' Bệnh viện').weight500.paddingSymmetric(horizontal: 24),
+        // SizedBox(height: 4),
+        const SizedBox(
+          height: 210,
+          child: HostpitalListView(),
         ),
       ],
     );
@@ -76,16 +76,16 @@ class _HostpitalListViewState extends State<HostpitalListView> {
         } else {
           return ListView.separated(
             scrollDirection: Axis.horizontal, controller: _controller,
-            padding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 24.w),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
             // shrinkWrap: true,
-            physics: const AlwaysScrollableScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
               final Hospital hospital = list.hospitals[index];
 
               return HospitalItem(hospital: hospital);
             },
             separatorBuilder: (BuildContext context, int index) =>
-                SizedBox(width: 16.w),
+                const SizedBox(width: 16),
             itemCount: list.hospitals.length,
           );
         }

@@ -2,7 +2,7 @@ import 'package:moli_app/config/config.dart';
 import 'package:moli_app/features/doctor/data/doctor_endpoint.dart';
 import 'package:moli_app/features/doctor/domain/doctor.dart';
 import 'package:moli_app/features/doctor/domain/schedule.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import 'doctor_repository.dart';
 
@@ -24,8 +24,7 @@ class DoctorRepositoryApi implements DoctorRepository {
   }
 
   @override
-  Future<DoctorAvailableTime> fetchDoctorsSchedule(
-      {required JSON data}) {
+  Future<DoctorAvailableTime> fetchDoctorsSchedule({required JSON data}) {
     return _apiService.getDocumentData<DoctorAvailableTime>(
       endpoint: ApiEndpoint.doctor(
         DoctorEndpoint.doctorAvailableTime,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/constants/constants.dart';
-import 'package:moli_app/shared/shared.dart';
+
+import 'package:moli_shared/moli_shared.dart';
 
 class AppMenuItem extends StatelessWidget {
   const AppMenuItem({
@@ -19,22 +19,22 @@ class AppMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      // borderRadius: BorderRadius.circular(12.r),
+      // borderRadius: BorderRadius.circular(12),
       child: Ink(
         decoration: BoxDecoration(
           color: context.colorScheme.background,
           border: Border(
               bottom: BorderSide(color: context.colorScheme.surfaceVariant)),
         ),
-        padding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 4.w),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
         child: Row(
           children: <Widget>[
-            AppIcon(icon, size: 24.w),
-            SizedBox(width: 8.w),
+            AppIcon(icon, size: 24),
+            const SizedBox(width: 8),
             Expanded(
               child: AppText.b0(label),
             ),
-            SizedBox(width: 8.w),
+            const SizedBox(width: 8),
             if (withArrow) const AppIcon(IconAssets.icArrowRight)
           ],
         ),

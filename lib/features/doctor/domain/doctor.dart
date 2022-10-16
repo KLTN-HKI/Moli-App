@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moli_app/features/hospital/domain/hospital.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 part 'doctor.freezed.dart';
 part 'doctor.g.dart';

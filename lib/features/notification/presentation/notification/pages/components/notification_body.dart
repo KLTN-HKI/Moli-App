@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_app/features/notification/domain/user_notification.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 import '../../../appointment/notification_appointment.dart';
 import '../../cubit/notification_list_cubit.dart';

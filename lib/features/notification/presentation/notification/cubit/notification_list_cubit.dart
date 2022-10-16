@@ -6,7 +6,7 @@ import 'package:moli_app/features/notification/data/notification_repository.dart
 import 'package:moli_app/features/notification/data/notification_repository_api.dart';
 import 'package:moli_app/features/notification/data/notification_repository_local.dart';
 import 'package:moli_app/features/notification/domain/user_notification.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 part 'notification_list_cubit.freezed.dart';
 part 'notification_list_state.dart';

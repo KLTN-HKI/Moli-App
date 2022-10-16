@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../shared/common/common.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 part 'register_model.freezed.dart';
 part 'register_model.g.dart';

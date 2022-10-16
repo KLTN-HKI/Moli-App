@@ -1,5 +1,3 @@
-library constants;
-
 export 'app_constant.dart';
 export 'color_palattes.dart';
 export 'icon_assets.dart';

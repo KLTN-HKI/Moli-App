@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moli_app/features/authentication/domain/response/response.dart';
 import 'package:moli_app/features/doctor/domain/doctor.dart';
 import 'package:moli_app/features/hospital/domain/hospital.dart';
-import 'package:moli_app/shared/shared.dart';
+import 'package:moli_shared/moli_shared.dart';
 
 part 'appointment.freezed.dart';
 part 'appointment.g.dart';

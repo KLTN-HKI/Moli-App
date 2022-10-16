@@ -3,12 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:moli_app/features/appointment/data/appointment_repository_api.dart';
 import 'package:moli_app/features/doctor/data/doctor_repository_api.dart';
+import 'package:moli_shared/moli_shared.dart';
+
 import '../features/authentication/authentication.dart';
 import '../features/hospital/data/hospital_repository_api.dart';
 import '../features/notification/application/bloc/notification_bloc.dart';
 import '../features/notification/data/notification_repository_api.dart';
 import '../features/notification/data/notification_repository_local.dart';
-import '../shared/shared.dart';
 
 final GetIt getIt = GetIt.instance;
 
