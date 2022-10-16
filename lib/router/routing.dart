@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moli_app/app/bloc/bloc.dart';
-import 'package:moli_app/features/appointment/presentation/pages/appointment_detail/appointment_detail.dart';
+import 'package:moli_app/features/appointment/presentation/pages/appointment_detail/appointment_detail_page.dart';
 import 'package:moli_app/features/appointment/presentation/pages/create_appointment_hospital_page.dart';
 import 'package:moli_app/features/authentication/presentation/register/page/register_page.dart';
 import 'package:moli_app/features/doctor/presentation/pages/doctor_detail_page.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:moli_shared/moli_shared.dart';
 
 import '../../../domain/appointment.dart';
-import '../appointment_detail/appointment_detail.dart';
+import '../appointment_detail/appointment_detail_page.dart';
 import 'appointment_status.dart';
 
 class AppointmentItem extends StatelessWidget {

@@ -70,7 +70,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                 path: ImageAssets.send,
                 title: 'Thành công',
                 content:
-                    'Bạn đã ${state.appointment.appointmentStatus.toString()} khám thành công',
+                    'Bạn đã ${state.appointment.appointmentStatus.toString()} lịch khám thành công',
                 mode: SmoothMode.asset,
                 // onDismiss: () => context.goRouter.go(Routes.appointment),
               );

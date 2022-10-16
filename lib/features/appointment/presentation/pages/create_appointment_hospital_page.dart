@@ -237,8 +237,8 @@ class _CreateAppointmentByHospitalPageState
                                 physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
                                     const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 80,
-                                  crossAxisSpacing: 4,
+                                  maxCrossAxisExtent: 68,
+                                  crossAxisSpacing: 10,
                                 ),
                                 shrinkWrap: true,
                                 itemCount: schedule.doctorSchedules.length,

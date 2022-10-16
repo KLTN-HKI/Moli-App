@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_app/config/config.dart';
 
 import 'package:moli_app/features/notification/application/bloc/notification_bloc.dart';
@@ -9,6 +10,8 @@ import 'package:moli_app/router/router.dart';
 import 'package:moli_app/router/routing.dart';
 import 'package:moli_shared/moli_shared.dart';
 
+import '../../appointment/presentation/bloc/appointment_list/appointment_list_cubit.dart';
+import '../../appointment/presentation/pages/appointment_detail/appointment_detail_page.dart';
 import '../domain/user_notification.dart';
 
 class NotificationService {
@@ -26,7 +29,11 @@ class NotificationService {
     final Map<String, dynamic> json = message.data;
     final BuildContext? context = moliNavigatorKey.currentContext;
 
-    if (json['channel'] == 'APPOINTMENT_REMIND' && context != null) {
+    if ((json['channel'] == 'APPOINTMENT_REMIND' ||
+            json['channel'] == 'APPOINTMENT_REQUEST' ||
+            json['channel'] == 'APPOINTMENT_CANCEL') &&
+        context != null) {
+      context.read<AppointmentListCubit>().getAppoinments();
       showSnackbar(context, json);
     }
     if (message.data['notification'] is String) {
@@ -57,7 +64,11 @@ Future<void> showSnackbar(
     BuildContext context, Map<String, dynamic> json) async {
   final SnackBar snackBar = SnackBar(
     content: InkWell(
-      onTap: () => ScaffoldMessenger.of(context).removeCurrentSnackBar(),
+      onTap: () {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        context.goRouter.go(
+            '${Routes.appointment}/${AppointmentDetailPage.routePath}/${json['appointmentUuid']}');
+      },
       child: DefaultTextStyle(
         style: const TextStyle(fontSize: 12, color: ColorPalettes.neutral10),
         child: Column(
@@ -66,7 +77,7 @@ Future<void> showSnackbar(
           children: <Widget>[
             Text(
               '${json['details']}',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
           ],
         ),

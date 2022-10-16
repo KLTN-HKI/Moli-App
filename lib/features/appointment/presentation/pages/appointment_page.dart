@@ -23,7 +23,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   @override
   void initState() {
     super.initState();
-    _cubit = AppointmentListCubit();
+    _cubit = context.read<AppointmentListCubit>();
     _controller = ScrollController()..addListener(_loadMoreData);
     _cubit.getAppoinments();
   }
@@ -31,52 +31,48 @@ class _AppointmentPageState extends State<AppointmentPage> {
   @override
   void dispose() {
     super.dispose();
-    _cubit.close();
+    // _cubit.close();
     _controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AppointmentListCubit>.value(
-      value: _cubit,
-      child: Scaffold(
-        appBar: HeaderAppBar(
-          titleText: context.l10n.appointment_doctor,
-          transparentAppBar: true,
-        ),
-        body: SafeArea(
-          child: RefreshIndicator(
-            onRefresh: () async => _cubit.getAppoinments(),
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                return SingleChildScrollView(
-                  controller: _controller,
-                  padding: const EdgeInsets.all(16),
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraints.maxHeight),
-                    child: BlocConsumer<AppointmentListCubit,
-                        AppointmentListState>(
-                      listener:
-                          (BuildContext context, AppointmentListState state) {},
-                      builder:
-                          (BuildContext context, AppointmentListState state) {
-                        return state.maybeWhen(
-                          initial: () => const LoadingIndicator(),
-                          success: _buildBody,
-                          failed: (NetworkException ex) => CustomErrorWidget(
-                            message: ex.toString(),
-                            child: Image.asset(ImageAssets.otherError),
-                          ),
-                          orElse: () => const SizedBox(),
-                        );
-                      },
-                    ),
+    return Scaffold(
+      appBar: HeaderAppBar(
+        titleText: context.l10n.appointment_doctor,
+        transparentAppBar: true,
+      ),
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async => _cubit.getAppoinments(),
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return SingleChildScrollView(
+                controller: _controller,
+                padding: const EdgeInsets.all(16),
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child:
+                      BlocConsumer<AppointmentListCubit, AppointmentListState>(
+                    listener:
+                        (BuildContext context, AppointmentListState state) {},
+                    builder:
+                        (BuildContext context, AppointmentListState state) {
+                      return state.maybeWhen(
+                        initial: () => const LoadingIndicator(),
+                        success: _buildBody,
+                        failed: (NetworkException ex) => CustomErrorWidget(
+                          message: ex.toString(),
+                          child: Image.asset(ImageAssets.otherError),
+                        ),
+                        orElse: () => const SizedBox(),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),
