@@ -33,10 +33,10 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
   @override
   void initState() {
     super.initState();
-    _cubit = AppointmentCubit(widget.id);
+    _cubit = context.read<AppointmentCubit>();
     _detailCubit = AppointmentDetailCubit(widget.id);
     // _detailCubit.fetchAppointmentByUuid();
-    _cubit.fetchAppointmentByUuid();
+    _cubit.fetchAppointmentByUuid(widget.id);
   }
 
   @override

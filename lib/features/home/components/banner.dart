@@ -40,7 +40,7 @@ class _CourseBannerState extends State<CourseBanner> {
               enlargeCenterPage: true,
               initialPage: _currentPage,
               disableCenter: true,
-              height: 180,
+              // height: 180,
               onPageChanged: (int index, CarouselPageChangedReason reason) =>
                   setState(() => _currentPage = index)),
         ),

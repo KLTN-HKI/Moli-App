@@ -19,6 +19,8 @@ class AppointmentStatusTag extends StatelessWidget {
         return StatusTag(context.l10n.cancelled, ColorPalettes.error40);
       case AppointmentStatus.change:
         return const StatusTag('', ColorPalettes.yellow);
+      case AppointmentStatus.all:
+        return const SizedBox();
     }
   }
 }

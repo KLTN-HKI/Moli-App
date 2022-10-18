@@ -12,7 +12,7 @@ class ApiEndpoint {
       case AppointmentEndpoint.manageAppointment:
         return '$path/appointment/patient/manage-appointment';
       case AppointmentEndpoint.updateAppointmentStatus:
-        return '$path/appointment/$id/update-status';
+        return '$path/appointment/$id/update-status?forRole=ROLE_PATIENT';
     }
   }
 }

@@ -27,7 +27,7 @@ class UserNotificationHive extends HiveBox {
 
 extension ToUserNotification on UserNotificationHive {
   UserNotification toUserNotification() => UserNotification(
-        id: int.tryParse(id) ?? 0,
+        // id: int.tryParse(id) ?? 0,
         channel: channel,
         appointment: appointment,
         detail: detail,
@@ -37,7 +37,7 @@ extension ToUserNotification on UserNotificationHive {
 
 extension ToUserNotificationHive on UserNotification {
   UserNotificationHive toUserNotificationHive() => UserNotificationHive()
-    ..id = id.toString()
+    ..id = channel.toString()
     ..channel = channel
     ..appointment = appointment
     ..detail = detail

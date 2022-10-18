@@ -19,7 +19,9 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   FutureOr<void> _onAdd(_Add event, Emitter<NotificationState> emit) {
     final Set<UserNotification> data = state.notificationsLastest;
     emit(NotificationState.initial(
-        notificationsLastest: <UserNotification>{...data, event.notification}));
+      notificationsLastest: <UserNotification>{...data, event.notification},
+      newEst: true,
+    ));
   }
 
   FutureOr<void> _onClear(_Clear event, Emitter<NotificationState> emit) {

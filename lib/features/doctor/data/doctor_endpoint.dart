@@ -10,7 +10,7 @@ class ApiEndpoint {
             hospitalId != null, 'hospitalId is required for doctor endpoint');
         return '$path/patient/hospitals/$hospitalId/doctors';
       case DoctorEndpoint.doctorAvailableTime:
-        return '$path/patient/availability-schedule';
+        return '$path/appointment/availability-schedule';
     }
   }
 }

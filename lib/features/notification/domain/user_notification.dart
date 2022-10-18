@@ -37,10 +37,11 @@ enum NotificationChannel {
 @freezed
 class UserNotification with _$UserNotification {
   const factory UserNotification({
-    @JsonKey() required int id,
+    // @JsonKey() required int id,
     @JsonKey(name: 'notificationChannel') NotificationChannel? channel,
     @JsonKey(name: 'appointment') Appointment? appointment,
     @JsonKey(name: 'notificationDetail') String? detail,
+    @JsonKey(name: 'appointmentUuid') String? appointmentUuid,
     @JsonKey(fromJson: DateTimeUtils.parseDateTime, toJson: DateTimeUtils.formatDateTime)
         DateTime? createdAt,
   }) = _UserNotification;

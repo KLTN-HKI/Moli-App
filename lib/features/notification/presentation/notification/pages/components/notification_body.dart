@@ -25,7 +25,7 @@ class NotificationBody extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            AppText.t0('Trước đó').weight500.paddingSymmetric(horizontal: 16),
+            // AppText.t0('Trước đó').weight500.paddingSymmetric(horizontal: 16),
             ...items,
             if (state.isLoading) const LoadingIndicator()
           ].applySeparator(separator: const SizedBox(height: 16)),

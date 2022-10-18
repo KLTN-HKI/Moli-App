@@ -8,6 +8,7 @@ part 'appointment.freezed.dart';
 part 'appointment.g.dart';
 
 enum AppointmentStatus {
+  all(''),
   @JsonValue('PENDING')
   pending('PENDING'),
   @JsonValue('CONFIRM')
@@ -19,6 +20,11 @@ enum AppointmentStatus {
 
   const AppointmentStatus(this.status);
   final String status;
+
+  bool get isPending => this == pending;
+  bool get isConfirm => this == confirm;
+  bool get isChange => this == change;
+  bool get isCancel => this == cancel;
 
   @override
   String toString() {

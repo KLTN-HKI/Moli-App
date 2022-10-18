@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:moli_app/router/router.dart';
 import 'package:moli_shared/moli_shared.dart';
+
+import '../notification/application/bloc/notification_bloc.dart';
 
 class DashBoard extends StatelessWidget {
   /// Constructs an [DashBoard].
@@ -61,8 +64,10 @@ class DashBoard extends StatelessWidget {
           label: context.l10n.appointment_doctor,
         ),
         BottomNavigationBarItem(
-          icon: AppIcon(IconAssets.icNotify, color: defaultColor),
-          activeIcon: AppIcon(IconAssets.icNotifyBold, color: activeColor),
+          icon: NotificationBottomIconBadge(
+              icon: IconAssets.icNotify, color: defaultColor),
+          activeIcon: NotificationBottomIconBadge(
+              icon: IconAssets.icNotifyBold, color: activeColor),
           label: context.l10n.notification,
         ),
         BottomNavigationBarItem(
@@ -98,5 +103,39 @@ class DashBoard extends StatelessWidget {
       default:
         return Routes.home;
     }
+  }
+}
+
+class NotificationBottomIconBadge extends StatelessWidget {
+  const NotificationBottomIconBadge(
+      {super.key, required this.icon, required this.color});
+
+  final String icon;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NotificationBloc, NotificationState>(
+      builder: (BuildContext context, NotificationState state) {
+        return Stack(
+          children: <Widget>[
+            AppIcon(icon, color: color),
+            Positioned(
+              right: 2,
+              top: 1,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 200),
+                opacity: (state.newEst) ? 1 : 0,
+                child: const Material(
+                  shape: CircleBorder(),
+                  color: Colors.red,
+                  child: Padding(padding: EdgeInsets.all(5.0)),
+                ),
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 }

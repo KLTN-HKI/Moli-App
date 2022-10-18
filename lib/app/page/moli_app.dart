@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moli_app/app/bloc/bloc.dart';
 import 'package:moli_app/config/config.dart';
+import 'package:moli_app/features/appointment/presentation/bloc/appointment/appointment_cubit.dart';
 import 'package:moli_app/features/authentication/presentation/check_user/cubit/phone_cubit.dart';
 import 'package:moli_app/features/authentication/presentation/otp/cubit/otp_cubit.dart';
 import 'package:moli_app/features/authentication/presentation/register/cubit/register_cubit.dart';
@@ -33,7 +34,8 @@ class MoliApp extends StatelessWidget {
         BlocProvider<OtpCubit>(create: (_) => OtpCubit()),
         BlocProvider<RegisterCubit>(create: (_) => RegisterCubit(LoginCubit())),
         BlocProvider<AppointmentListCubit>(
-            create: (_) => AppointmentListCubit())
+            create: (_) => AppointmentListCubit()),
+        BlocProvider<AppointmentCubit>(create: (_) => AppointmentCubit()),
       ],
       child: const MoliView(),
     );

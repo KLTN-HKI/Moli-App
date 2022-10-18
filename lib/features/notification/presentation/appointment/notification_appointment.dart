@@ -10,12 +10,12 @@ class NotificationAppointment {
   const NotificationAppointment._();
 
   static Widget? buildNotificationAppointment(UserNotification item) {
-    if (item.channel == NotificationChannel.remind) {
-      return NotificationAppointmentRemind(notification: item);
-    } else if (item.channel == NotificationChannel.cancel) {
+    // if (item.channel == NotificationChannel.remind) {
+    //   return NotificationAppointmentRemind(notification: item);
+    // } else if (item.channel == NotificationChannel.cancel) {
       return NotificationAppointmentCancel(notification: item);
-    }
-    return null;
+    // }
+    // return null;
   }
 }
 

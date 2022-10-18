@@ -12,14 +12,13 @@ part 'appointment_state.dart';
 part 'appointment_cubit.freezed.dart';
 
 class AppointmentCubit extends Cubit<AppointmentState> {
-  AppointmentCubit(this.appointmentUuId)
+  AppointmentCubit()
       : _repository = getIt<AppointmentRepositoryApi>(),
         super(const AppointmentState.initial());
 
   final AppointmentRepository _repository;
-  final String appointmentUuId;
 
-  Future<void> fetchAppointmentByUuid() async {
+  Future<void> fetchAppointmentByUuid(String appointmentUuId) async {
     emit(const AppointmentState.initial(isLoading: true));
     try {
       final Appointment result = await _repository.getAppointment(

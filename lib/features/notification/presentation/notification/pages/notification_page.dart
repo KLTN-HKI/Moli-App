@@ -53,7 +53,7 @@ class _NotificationPageState extends State<NotificationPage> {
             child: ListView(
               controller: _controller,
               children: const <Widget>[
-                NotificationLaster(),
+                // NotificationLaster(),
                 NotificationBody(),
               ],
             ),
