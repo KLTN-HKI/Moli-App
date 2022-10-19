@@ -114,10 +114,11 @@ GoRouter routing(BuildContext context, String? initialLocation) {
                 parentNavigatorKey: moliNavigatorKey,
                 pageBuilder: (_, GoRouterState state) =>
                     CupertinoTransitionPage(
-                        child: AppointmentDetailPage(
-                  id: state.params['appointmentId']!,
-                  extra: state.extra,
-                )),
+                  child: AppointmentDetailPage(
+                    id: state.params['appointmentId']!,
+                    extra: state.extra,
+                  ),
+                ),
               ),
             ],
           ),
@@ -127,6 +128,19 @@ GoRouter routing(BuildContext context, String? initialLocation) {
             name: Routes.notification,
             pageBuilder: (_, __) =>
                 const FadeTransitionPage(child: NotificationPage()),
+            routes: <GoRoute>[
+              GoRoute(
+                path: '${AppointmentDetailPage.routePath}/:appointmentId',
+                parentNavigatorKey: moliNavigatorKey,
+                pageBuilder: (_, GoRouterState state) =>
+                    CupertinoTransitionPage(
+                  child: AppointmentDetailPage(
+                    id: state.params['appointmentId']!,
+                    extra: state.extra,
+                  ),
+                ),
+              ),
+            ],
           ),
           // * Menu
           GoRoute(

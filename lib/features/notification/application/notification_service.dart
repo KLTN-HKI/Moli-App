@@ -44,12 +44,13 @@ class NotificationService {
   }
 
   static void _onMessageOpenedApp(RemoteMessage message) {
-    if (message.data['notification'] is String) {
-      final UserNotification notification = UserNotification.fromJson(
-          jsonDecode(message.data['notification'] as String) as JSON);
+    if (message.data['appointmentUuid'] is String) {
+      final UserNotification notification =
+          UserNotification.fromJson(message.data);
       getIt<NotificationBloc>().add(NotificationEvent.add(notification));
 
-      moliNavigatorKey.currentContext?.goRouter.go(Routes.notification);
+      moliNavigatorKey.currentContext?.goRouter.go(
+          '${Routes.notification}/${AppointmentDetailPage.routePath}/${notification.appointmentUuid}');
     }
   }
 
@@ -67,7 +68,7 @@ Future<void> showSnackbar(
       onTap: () {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         context.goRouter.go(
-            '${Routes.appointment}/${AppointmentDetailPage.routePath}/${json['appointmentUuid']}');
+            '${Routes.notification}/${AppointmentDetailPage.routePath}/${json['appointmentUuid']}');
       },
       child: DefaultTextStyle(
         style: const TextStyle(fontSize: 12, color: ColorPalettes.neutral10),

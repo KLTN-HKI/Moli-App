@@ -14,7 +14,10 @@ enum NotificationChannel {
   cancel('APPOINTMENT_CANCEL'),
 
   @JsonValue('APPOINTMENT_REMIND')
-  remind('APPOINTMENT_REMIND');
+  remind('APPOINTMENT_REMIND'),
+
+  @JsonValue('APPOINTMENT_CONFIRM')
+  confirm('APPOINTMENT_CONFIRM');
 
   const NotificationChannel(this.type);
   final String type;
@@ -28,6 +31,8 @@ enum NotificationChannel {
         return 'Nhắc nhở';
       case 'APPOINTMENT_CANCEL':
         return 'Báo hủy';
+      case 'APPOINTMENT_CONFIRM':
+        return 'Xác nhận';
       default:
         return '';
     }

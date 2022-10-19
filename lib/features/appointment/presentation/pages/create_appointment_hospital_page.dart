@@ -79,6 +79,7 @@ class _CreateAppointmentByHospitalPageState
               title: 'Thành công',
               content: 'Bạn đã đặt lịch khám thành công',
               mode: SmoothMode.asset,
+              dialogType: DialogType.error,
               onDismiss: () => context.goRouter.go(Routes.appointment),
             );
           } else if (state.exception != null) {
@@ -248,8 +249,15 @@ class _CreateAppointmentByHospitalPageState
                                   return ToggleableTag<DoctorSchedule>(
                                     enable: selectedShedule == slot.id,
                                     // isDense: true,
-                                    onTap: () => setState(
-                                        () => selectedShedule = slot.id),
+                                    onTap: () {
+                                      setState(() {
+                                        if (selectedShedule != slot.id) {
+                                          selectedShedule = slot.id;
+                                        } else {
+                                          selectedShedule = null;
+                                        }
+                                      });
+                                    },
                                     text:
                                         '${DateTimeUtils.fromTimeToStringType2(slot.workTimeStart)}',
                                   );
@@ -280,30 +288,43 @@ class _CreateAppointmentByHospitalPageState
             bottomNavigationBar: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: AppElevatedButton(
-                onPressed: () async {
-                  final bool result = await context.showConfirmDialog(
-                    title: AppText.t0('Lưu ý'),
-                    content: AppText.b1(
-                        'Vui lòng kiểm tra thông tin đặt khám một lần nữa '),
-                  );
+                onPressed: selectedShedule != null
+                    ? () async {
+                        final bool result = await context.showConfirmDialog(
+                          title: AppText.t0('Lưu ý'),
+                          content: AppText.b1(
+                              'Vui lòng kiểm tra thông tin đặt khám một lần nữa '),
+                        );
 
-                  if (result) {
-                    if (patient != null) {
-                      _formCubit.submit(AppointmentRequest(
-                        doctorId: _doctor.id,
-                        doctorScheduleId: selectedShedule!,
-                        patientId: patient!.id!,
-                        emailPatient: patient!.email,
-                        patientName: patient!.name,
-                        genderPatient: patient?.gender!.gender,
-                        forSelf: forSelf,
-                        patientRealPhoneNumber: patient!.realPhoneNumber,
-                        hospitalId: widget.hospitalId,
-                        describeSymptoms: '',
-                      ));
+                        if (result) {
+                          if (patient != null) {
+                            _formCubit.submit(AppointmentRequest(
+                              doctorId: _doctor.id,
+                              doctorScheduleId: selectedShedule!,
+                              patientId: patient!.id!,
+                              emailPatient: patient!.email,
+                              patientName: patient!.name,
+                              genderPatient: patient?.gender!.gender,
+                              forSelf: forSelf,
+                              patientRealPhoneNumber: patient!.realPhoneNumber,
+                              hospitalId: widget.hospitalId,
+                              describeSymptoms: '',
+                            ));
+                          }
+                        }
                     }
-                  }
-                },
+                    : () {
+                        SmoothDialog(
+                          context: context,
+                          path: ImageAssets.warning,
+                          imageHeight: 200,
+                          imageWidth: 200,
+                          title: 'Lưu ý',
+                          content: 'Vui lòng chọn thời gian khám',
+                          mode: SmoothMode.asset,
+                          dialogType: DialogType.error,
+                        );
+                      },
                 child: const Text('Đặt khám'),
               ),
             ),
