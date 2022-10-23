@@ -4,7 +4,6 @@ import 'package:moli_shared/moli_shared.dart';
 
 import '../../domain/user_notification.dart';
 import 'notification_appointment_cancel.dart';
-import 'notification_appointment_remind.dart';
 
 class NotificationAppointment {
   const NotificationAppointment._();

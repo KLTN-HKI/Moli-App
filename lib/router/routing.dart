@@ -116,7 +116,6 @@ GoRouter routing(BuildContext context, String? initialLocation) {
                     CupertinoTransitionPage(
                   child: AppointmentDetailPage(
                     id: state.params['appointmentId']!,
-                    extra: state.extra,
                   ),
                 ),
               ),
@@ -136,7 +135,6 @@ GoRouter routing(BuildContext context, String? initialLocation) {
                     CupertinoTransitionPage(
                   child: AppointmentDetailPage(
                     id: state.params['appointmentId']!,
-                    extra: state.extra,
                   ),
                 ),
               ),

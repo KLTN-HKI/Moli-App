@@ -14,54 +14,50 @@ part 'appointment_cubit.freezed.dart';
 class AppointmentCubit extends Cubit<AppointmentState> {
   AppointmentCubit()
       : _repository = getIt<AppointmentRepositoryApi>(),
-        super(const AppointmentState.initial());
+        super(const AppointmentState());
 
   final AppointmentRepository _repository;
 
-  Future<void> fetchAppointmentByUuid(String appointmentUuId) async {
-    emit(const AppointmentState.initial(isLoading: true));
+  Future<void> getAppointmentByUuid(String appointmentUuId) async {
+    emit(state.copyWith(status: StateStatus.loading));
     try {
       final Appointment result = await _repository.getAppointment(
         id: appointmentUuId,
         data: <String, dynamic>{},
       );
-
-      emit(AppointmentState.initial(appointment: result, isLoading: false));
+      emit(state.copyWith(
+          status: StateStatus.success,
+          appointment: result,
+          isLoading: false,
+          exception: null));
     } on NetworkException catch (e) {
-      emit(AppointmentState.initial(exception: e));
+      emit(state.copyWith(
+          status: StateStatus.failure, isLoading: false, exception: e));
     }
   }
 
   Future<void> updateAppointment(
       String appointmentUuid, AppointmentUpdateRequest request) async {
     try {
-      emit(
-        state.copyWith(
-          exception: null,
-          isLoading: true,
-          isSucess: false,
-        ),
-      );
+      emit(state.copyWith(exception: null, isLoading: true));
       final Appointment result = await _repository.updateAppointmentStatus(
+        appointmentId: appointmentUuid,
         data: <String, dynamic>{
           'appointmentStatus': request.appointmentStatus.status,
           'reason': request.reason,
         },
-        appointmentId: appointmentUuid,
       );
-      emit(
-        state.copyWith(
-          appointment: result,
-          exception: null,
-          isLoading: false,
-          isSucess: true,
-        ),
-      );
+      emit(state.copyWith(
+        status: StateStatus.updated,
+        appointment: result,
+        exception: null,
+        isLoading: false,
+      ));
     } on NetworkException catch (e) {
       emit(state.copyWith(
+        status: StateStatus.failure,
         exception: e,
         isLoading: false,
-        isSucess: false,
       ));
     }
   }

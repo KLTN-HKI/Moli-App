@@ -24,7 +24,8 @@ class DashBoard extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       body: SafeArea(top: false, left: false, right: false, child: child),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar:  Routes.homeRoutes.contains(context.goRouter.location)
+          ?  BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: true,
         showUnselectedLabels: true,
@@ -43,7 +44,7 @@ class DashBoard extends StatelessWidget {
         ),
         currentIndex: _routeToIndex(location),
         onTap: (int index) => context.goRouter.go(indexToLocation(index)),
-      ),
+      ):null,
     );
   }
 

@@ -16,9 +16,18 @@ class _CourseBannerState extends State<CourseBanner> {
   late int _currentPage;
 
   final List<ImageBanner> bannerImages = const <ImageBanner>[
-    ImageBanner(imageUrl: ImageAssets.banner, url: ''),
-    ImageBanner(imageUrl: ImageAssets.banner, url: ''),
-    ImageBanner(imageUrl: ImageAssets.banner, url: ''),
+    ImageBanner(
+        imageUrl: ImageAssets.banner,
+        url:
+            'https://careplusvn.com/files/bac-si-gia-dinh-co-nhiem-vu-nhu-the-nao-1.jpg'),
+    ImageBanner(
+        imageUrl: ImageAssets.banner,
+        url:
+            'https://image.thanhnien.vn/w660/Uploaded/2022/pwivoviu/2020_03_31/benhnhan1-nb_igil.jpg'),
+    ImageBanner(
+        imageUrl: ImageAssets.banner,
+        url:
+            'https://imgs.vietnamnet.vn/Images/vnn/2015/07/09/12/20150709125707-doctors-office-premier.jpg'),
   ];
 
   @override
@@ -83,7 +92,7 @@ class _CourseBannerState extends State<CourseBanner> {
       onTap: onTap,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
-        child: Image.asset(banner.imageUrl, fit: BoxFit.fill),
+        child: Image.network(banner.url, fit: BoxFit.fill),
       ),
     );
   }

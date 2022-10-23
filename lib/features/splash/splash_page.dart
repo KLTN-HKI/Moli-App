@@ -33,7 +33,7 @@ class SplashPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             AppText.d1(
-              AppConstant.appName,
+              AppConstant.patientApp,
               fontWeight: FontWeight.w700,
               color: ColorPalettes.primary40,
             )

@@ -39,7 +39,6 @@ dependencies:
   package_info_plus: ^2.0.0
   carousel_slider: ^4.1.1
   pinput: ^2.2.16
-
   moli_shared:
     git:
       url: https://github.com/KLTN-HKI/Moli-Shared.git

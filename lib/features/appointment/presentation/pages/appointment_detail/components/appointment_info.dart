@@ -1,54 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_shared/moli_shared.dart';
 
 import '../../../../domain/appointment.dart';
+import '../../../bloc/appointment/appointment_cubit.dart';
 import 'appointment_card.dart';
 
 class AppointmentInfo extends StatelessWidget {
-  const AppointmentInfo({super.key, required this.appointment});
-  final Appointment appointment;
+  const AppointmentInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AppointmentCard(
-      child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          AppText.t0('${appointment.hospital?.hospitalName}').bold,
-          const SizedBox(height: 4),
-          AppText.t0('${appointment.appointmentStatus}'),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocBuilder<AppointmentCubit, AppointmentState>(
+      builder: (BuildContext context, AppointmentState state) {
+        final Appointment appointment = state.appointment;
+        return AppointmentCard(
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              AppText.b0('Mã lịch hẹn'),
-              AppText.b0('${appointment.appointmentCode}').weight600,
+              AppText.t0('${appointment.hospital?.hospitalName}').bold,
+              const SizedBox(height: 4),
+              AppText.t0('${appointment.appointmentStatus}'),
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  AppText.b0('Mã lịch hẹn'),
+                  AppText.b0('${appointment.appointmentCode}').weight600,
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  AppText.b0('Ngày khám'),
+                  AppText.b0(
+                          '${DateTimeUtils.formatDateTimeDateOnly(appointment.appointmentBookingDate)}')
+                      .weight600,
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  AppText.b0('Giờ khám'),
+                  AppText.b0(
+                    '${DateTimeUtils.fromTimeToStringType2(appointment.appointmentStartTime)} - ${DateTimeUtils.fromTimeToStringType2(appointment.appointmentEndTime)}',
+                    color: context.colorScheme.error,
+                  ).weight600,
+                ],
+              ),
+              // const SizedBox(height: 12),
             ],
           ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              AppText.b0('Ngày khám'),
-              AppText.b0(
-                      '${DateTimeUtils.formatDateTimeDateOnly(appointment.appointmentBookingDate)}')
-                  .weight600,
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              AppText.b0('Giờ khám'),
-              AppText.b0(
-                '${DateTimeUtils.fromTimeToStringType2(appointment.appointmentStartTime)} - ${DateTimeUtils.fromTimeToStringType2(appointment.appointmentEndTime)}',
-                color: context.colorScheme.error,
-              ).weight600,
-            ],
-          ),
-          // const SizedBox(height: 12),
-        ],
-      ),
+        );
+      },
     );
   }
 }

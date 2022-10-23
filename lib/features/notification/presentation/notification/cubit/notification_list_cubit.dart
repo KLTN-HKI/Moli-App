@@ -16,25 +16,28 @@ class NotificationListCubit extends Cubit<NotificationListState> {
       : _repository = getIt<NotificationRepositoryApi>(),
         _repositoryLocal = getIt<NotificationRepositoryLocal>(),
         _bloc = getIt<NotificationBloc>(),
-        super(const NotificationListState.initial());
+        super(const NotificationListState());
 
   final NotificationRepository _repository;
   final NotificationRepositoryLocal _repositoryLocal;
   final NotificationBloc _bloc;
 
   Future<void> fetchData() async {
-    emit(state.copyWith(exception: null, isLoading: true));
     try {
+      emit(state.copyWith(
+          status: StateStatus.loading, exception: null, isLoading: false));
       final UserNotificationList data = await _repository
           .fetchUserNotificationList(data: <String, dynamic>{});
-
       emit(state.copyWith(
+        status: StateStatus.success,
         notificationlist: data,
         isLoading: false,
         exception: null,
       ));
+      _bloc.add(const NotificationEvent.clear());
     } on NetworkException catch (e) {
       emit(state.copyWith(
+        status: StateStatus.failure,
         isLoading: false,
         exception: e,
       ));
@@ -53,16 +56,17 @@ class NotificationListCubit extends Cubit<NotificationListState> {
         });
 
         emit(state.copyWith(
+          status: StateStatus.success,
           notificationlist: data.copyWith(
-            notifications:
-                state.notificationlist.notifications + data.notifications,
-          ),
+              notifications:
+                  state.notificationlist.notifications + data.notifications),
           isLoading: false,
           exception: null,
         ));
       }
     } on NetworkException catch (e) {
       emit(state.copyWith(
+        status: StateStatus.failure,
         isLoading: false,
         exception: e,
       ));
@@ -80,12 +84,14 @@ class NotificationListCubit extends Cubit<NotificationListState> {
   Future<void> loadDataLocal() async {
     if (state.exception != null &&
         state.notificationlist.notifications.isEmpty) {
-      emit(state.copyWith(exception: null, isLoading: true));
+      emit(state.copyWith(
+          status: StateStatus.loading, exception: null, isLoading: false));
 
       final UserNotificationList data = await _repositoryLocal
           .fetchUserNotificationList(data: <String, dynamic>{});
 
       emit(state.copyWith(
+        status: StateStatus.success,
         notificationlist: data,
         isLoading: false,
         exception: null,

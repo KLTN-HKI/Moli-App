@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moli_app/features/appointment/presentation/pages/appointment_detail/appointment_detail_page.dart';
-import 'package:moli_app/router/router.dart';
 import 'package:moli_shared/moli_shared.dart';
 
 import '../../domain/user_notification.dart';
@@ -16,7 +14,7 @@ class NotificationAppointmentCancel extends StatelessWidget {
     return Bounceable(
       onTap: () {
         context.goRouter.go(
-            '${Routes.appointment}/${AppointmentDetailPage.routePath}/${notification.appointment?.appointmentUuid}');
+            '${context.goRouter.location}/detail/${notification.appointment?.appointmentUuid}');
       },
       child: Row(
         children: <Widget>[

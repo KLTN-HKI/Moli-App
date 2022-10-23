@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:moli_app/config/config.dart';
-
 import 'package:moli_app/features/notification/application/bloc/notification_bloc.dart';
 import 'package:moli_app/router/router.dart';
 import 'package:moli_app/router/routing.dart';
@@ -17,7 +18,14 @@ import '../domain/user_notification.dart';
 class NotificationService {
   const NotificationService._();
 
+  static Future<void> get playNotificationSound =>
+      FlutterRingtonePlayer.playNotification();
+
+  static Future<void> get runNotificationvibrate =>
+      HapticFeedback.mediumImpact();
+
   static Future<void> initialize() async {
+    const AndroidSound(1);
     await MoliMessaging.instance.requestPermission();
     _onInitialMessage(await MoliMessaging.instance.getInitialMessage());
 
@@ -26,12 +34,14 @@ class NotificationService {
   }
 
   static void _onMessage(RemoteMessage message) {
+    playNotificationSound;
     final Map<String, dynamic> json = message.data;
     final BuildContext? context = moliNavigatorKey.currentContext;
 
     if ((json['channel'] == 'APPOINTMENT_REMIND' ||
             json['channel'] == 'APPOINTMENT_REQUEST' ||
-            json['channel'] == 'APPOINTMENT_CANCEL') &&
+            json['channel'] == 'APPOINTMENT_CANCEL' ||
+            json['channel'] == 'APPOINTMENT_CONFIRM') &&
         context != null) {
       context.read<AppointmentListCubit>().getAppoinments();
       showSnackbar(context, json);
@@ -45,6 +55,7 @@ class NotificationService {
 
   static void _onMessageOpenedApp(RemoteMessage message) {
     if (message.data['appointmentUuid'] is String) {
+      runNotificationvibrate;
       final UserNotification notification =
           UserNotification.fromJson(message.data);
       getIt<NotificationBloc>().add(NotificationEvent.add(notification));

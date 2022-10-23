@@ -12,46 +12,57 @@ part 'appointment_list_cubit.freezed.dart';
 class AppointmentListCubit extends Cubit<AppointmentListState> {
   AppointmentListCubit()
       : _repository = getIt<AppointmentRepositoryApi>(),
-        super(const AppointmentListState.initial());
+        super(const AppointmentListState());
 
   final AppointmentRepository _repository;
 
   Future<void> getAppoinments() async {
+    emit(state.copyWith(status: StateStatus.loading, exception: null));
     try {
       final AppointmentList result =
           await _repository.getAppointments(data: <String, dynamic>{
         'page': 0,
-        'size': 25,
       });
-      emit(AppointmentListState.success(appointmentList: result));
+      emit(state.copyWith(
+        status: StateStatus.success,
+        appointmentList: result,
+        isLoading: false,
+        exception: null,
+      ));
     } on NetworkException catch (e) {
-      emit(AppointmentListState.failed(e));
+      emit(state.copyWith(
+        status: StateStatus.failure,
+        isLoading: false,
+        exception: e,
+      ));
     }
   }
 
   Future<void> loadMore() async {
     try {
-      final AppointmentList? dataOld = state.whenOrNull(
-          success: (AppointmentList appointmentList, _) => appointmentList);
+      final AppointmentList dataOld = state.appointmentList;
       if (dataOld != null && dataOld.pagination.hasMore) {
-        emit(AppointmentListState.success(
-            appointmentList: dataOld, isLoading: true));
+        emit(state.copyWith(isLoading: true, exception: null));
 
         final AppointmentList dataNew = await _repository.getAppointments(
           data: <String, dynamic>{
-            'size': 10,
             'page': dataOld.pagination.currentPage + 1,
           },
         );
 
-        emit(AppointmentListState.success(
-          appointmentList: dataNew.copyWith(
-              appointments: dataOld.appointments + dataNew.appointments),
-          isLoading: false,
-        ));
+        emit(state.copyWith(
+            status: StateStatus.success,
+            appointmentList: dataNew.copyWith(
+                appointments: dataOld.appointments + dataNew.appointments),
+            isLoading: false,
+            exception: null));
       }
     } on NetworkException catch (e) {
-      emit(AppointmentListState.failed(e));
+      emit(state.copyWith(
+        status: StateStatus.failure,
+        isLoading: false,
+        exception: e,
+      ));
     }
   }
 }

@@ -26,6 +26,21 @@ enum AppointmentStatus {
   bool get isChange => this == change;
   bool get isCancel => this == cancel;
 
+  String acction() {
+    switch (status) {
+      case 'PENDING':
+        return 'chờ xác nhận';
+      case 'CONFIRM':
+        return 'xác nhận';
+      case 'CHANGE':
+        return 'đổi';
+      case 'CANCEL':
+        return 'hủy';
+      default:
+        return '';
+    }
+  }
+
   @override
   String toString() {
     switch (status) {

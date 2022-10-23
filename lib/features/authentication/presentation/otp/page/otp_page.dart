@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:moli_shared/moli_shared.dart';
 
 import 'components/otp_body.dart';
@@ -18,14 +17,10 @@ class OTPPage extends StatelessWidget {
           currentFocus.unfocus();
         }
       },
-      child: Scaffold(
+      child: const Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: AppBar(
-            backgroundColor: ColorPalettes.transparent,
-            systemOverlayStyle: context.isDarkMode
-                ? SystemUiOverlayStyle.light
-                : SystemUiOverlayStyle.dark),
-        body: const OTPBody(),
+        appBar: HeaderAppBar(transparentAppBar: true),
+        body: OTPBody(),
       ),
     );
   }

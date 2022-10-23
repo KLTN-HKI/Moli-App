@@ -15,7 +15,8 @@ class NotificationPage extends StatefulWidget {
   State<NotificationPage> createState() => _NotificationPageState();
 }
 
-class _NotificationPageState extends State<NotificationPage> {
+class _NotificationPageState extends State<NotificationPage>
+    with WidgetsBindingObserver {
   late final NotificationListCubit _cubit;
   late final ScrollController _controller;
 
@@ -23,17 +24,25 @@ class _NotificationPageState extends State<NotificationPage> {
   void initState() {
     super.initState();
     _cubit = NotificationListCubit();
+    _controller = ScrollController()..addListener(_loadMoreData);
     _cubit.fetchData();
-
-    _controller = ScrollController();
-    _controller.addListener(_loadMoreData);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     _cubit.close();
     _controller.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _cubit.fetchData();
+    }
+    super.didChangeAppLifecycleState(state);
   }
 
   @override
@@ -42,23 +51,25 @@ class _NotificationPageState extends State<NotificationPage> {
       value: _cubit,
       child: Scaffold(
         appBar: HeaderAppBar(
-          titleText: context.l10n.notification,
-          transparentAppBar: true,
-        ),
+            titleText: context.l10n.notification, transparentAppBar: true),
         body: SafeArea(
-            child: RefreshIndicator(
-          onRefresh: () => _cubit.fetchData(),
           child: RefreshIndicator(
             onRefresh: _cubit.fetchData,
-            child: ListView(
-              controller: _controller,
-              children: const <Widget>[
-                // NotificationLaster(),
-                NotificationBody(),
-              ],
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return SingleChildScrollView(
+                  controller: _controller,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: ConstrainedBox(
+                    constraints:
+                        BoxConstraints(minHeight: constraints.maxHeight),
+                    child: const NotificationBody(),
+                  ),
+                );
+              },
             ),
           ),
-        )),
+        ),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_app/features/notification/domain/user_notification.dart';
 import 'package:moli_shared/moli_shared.dart';
 
+import '../../../../application/bloc/notification_bloc.dart';
 import '../../../appointment/notification_appointment.dart';
 import '../../cubit/notification_list_cubit.dart';
 
@@ -11,26 +12,56 @@ class NotificationBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NotificationListCubit, NotificationListState>(
-      listener: (BuildContext context, NotificationListState state) {
-        if (state.exception != null) {
-          context.showNetworkExceptionDialog(state.exception!);
-        }
+    return BlocListener<NotificationBloc, NotificationState>(
+      listenWhen: (NotificationState previous, NotificationState current) =>
+          previous.notificationsLastest != current.notificationsLastest,
+      listener: (BuildContext context, NotificationState state) {
+        context.read<NotificationListCubit>().fetchData();
       },
-      builder: (BuildContext context, NotificationListState state) {
-        final Iterable<Widget> items = state.notificationlist.notifications
-            .map(NotificationBody.buildNotificationItem)
-            .whereType<Widget>();
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            // AppText.t0('Trước đó').weight500.paddingSymmetric(horizontal: 16),
-            ...items,
-            if (state.isLoading) const LoadingIndicator()
-          ].applySeparator(separator: const SizedBox(height: 16)),
-        );
-      },
+      child: BlocConsumer<NotificationListCubit, NotificationListState>(
+        listener: (BuildContext context, NotificationListState state) {
+          if (state.exception != null) {
+            context.showNetworkExceptionDialog(state.exception!);
+          }
+        },
+        builder: (BuildContext context, NotificationListState state) {
+          switch (state.status) {
+            case StateStatus.loading:
+              return const LoadingIndicator();
+            case StateStatus.success:
+              final UserNotificationList list = state.notificationlist;
+              if (list.notifications.isNotEmpty) {
+                return ListView.separated(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index >= list.notifications.length &&
+                        list.pagination.hasMore) {
+                      return const LoadingIndicator();
+                    }
+                    final UserNotification notification =
+                        list.notifications[index];
+                    return buildNotificationItem(notification) ??
+                        const SizedBox();
+                  },
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(height: 16),
+                  itemCount:
+                      list.notifications.length + (state.isLoading ? 1 : 0),
+                );
+              } else {
+                return const CustomErrorWidget(
+                  message: 'Không có thông báo nào',
+                );
+              }
+            case StateStatus.initial:
+            case StateStatus.updated:
+            case StateStatus.failure:
+              return const SizedBox();
+          }
+        },
+      ),
     );
   }
 

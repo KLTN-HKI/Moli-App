@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:moli_app/features/hospital/presentation/cubit/hospital_cubit.dart';
-import 'package:moli_app/router/router.dart';
 import 'package:moli_shared/moli_shared.dart';
 
 import '../../domain/hospital.dart';
@@ -15,15 +14,7 @@ class HospitalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<HospitalCubit>(
       create: (BuildContext context) => HospitalCubit(),
-      child: const Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: HeaderAppBar(
-          transparentAppBar: true,
-          routeBack: Routes.home,
-          titleText: 'Tìm bệnh viện',
-        ),
-        body: SafeArea(child: HospitalBody()),
-      ),
+      child: const HospitalBody(),
     );
   }
 }
@@ -41,7 +32,7 @@ class _HospitalBodyState extends State<HospitalBody> {
 
   @override
   void initState() {
-    _cubit = HospitalCubit();
+    _cubit = context.read<HospitalCubit>();
     _controller = ScrollController();
     _controller.addListener(_loadMoreData);
     _cubit.fetchAllHospital();
@@ -57,55 +48,93 @@ class _HospitalBodyState extends State<HospitalBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HospitalCubit, HospitalState>(
-      bloc: _cubit,
-      listener: (BuildContext context, HospitalState state) {
-        state.whenOrNull(failed: context.showNetworkExceptionDialog);
-      },
-      builder: (BuildContext context, HospitalState state) {
-        return state.when(
-          initial: () => const LoadingIndicator(),
-          success: _buildBody,
-          failed: (_) => const SizedBox(),
-        );
-      },
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: SearchAppBar(
+        title: AppText.t1('Tìm bệnh viện').weight500,
+        hintText: 'Tìm bệnh viện',
+        onSearch: (String value) {
+          if (!StringUtils.isNullOrBlank(value)) {
+            _cubit.fetchAllHospital(value);
+          } else {
+            _cubit.fetchAllHospital();
+          }
+        },
+      ),
+      body: SafeArea(
+          child: RefreshIndicator(
+        onRefresh: _cubit.fetchAllHospital,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) =>
+              SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            physics: const AlwaysScrollableScrollPhysics(),
+            controller: _controller,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: BlocConsumer<HospitalCubit, HospitalState>(
+                bloc: _cubit,
+                listener: (BuildContext context, HospitalState state) {
+                  if (state.exception != null) {
+                    context.showNetworkExceptionDialog(state.exception!);
+                  }
+                },
+                builder: (BuildContext context, HospitalState state) {
+                  switch (state.status) {
+                    case StateStatus.loading:
+                      return const LoadingIndicator();
+                    case StateStatus.success:
+                      return _buildBody(context, state);
+                    case StateStatus.initial:
+                    case StateStatus.updated:
+                    case StateStatus.failure:
+                      return const SizedBox();
+                  }
+                },
+              ),
+            ),
+          ),
+        ),
+      )),
     );
   }
 
-  Widget _buildBody(HospitalList list, bool isloading) =>
-      Builder(builder: (BuildContext context) {
-        final List<Hospital> temp = list.hospitals;
-        if (temp.isEmpty) {
-          return CustomErrorWidget(
-            message: 'Không có bệnh viện nào',
-            child: Image.asset(ImageAssets.notFound),
-          );
-        } else {
-          return RefreshIndicator(
-            onRefresh: _cubit.fetchAllHospital,
-            child: ListView(
-                controller: _controller,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                physics: const AlwaysScrollableScrollPhysics(),
-                children: <Widget>[
-                  ...temp.map((Hospital hospital) =>
-                      HospitalListItem(hospital: hospital)),
-                  if (isloading) const LoadingIndicator()
-                ].applySeparator(separator: const SizedBox(height: 12))),
-          );
-        }
-      });
-
-  void _loadMoreData() {
-    if (_controller.position.extentAfter < 100) {
-      _cubit.state.whenOrNull(
-        success: (HospitalList hospitals, bool isLoading) {
-          if (!isLoading && hospitals.pagination.hasMore) {
-            _cubit.fetchAllHospital(page: hospitals.pagination.currentPage + 1);
+  Widget _buildBody(BuildContext context, HospitalState state) => Builder(
+        builder: (BuildContext context) {
+          final List<Hospital> hospitals = state.hospitals.hospitals;
+          if (hospitals.isEmpty) {
+            return CustomErrorWidget(
+              message: 'Không có bệnh viện nào',
+              child: Image.asset(
+                ImageAssets.notFound,
+                height: 250,
+                width: 250,
+              ),
+            );
+          } else {
+            return ListView.separated(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: hospitals.length + (state.isLoading ? 1 : 0),
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox(height: 12),
+              itemBuilder: (BuildContext context, int index) {
+                if (index >= hospitals.length &&
+                    state.hospitals.pagination.hasMore) {
+                  return const LoadingIndicator();
+                }
+                final Hospital hospital = hospitals[index];
+                return HospitalListItem(hospital: hospital);
+              },
+            );
           }
         },
       );
+
+  void _loadMoreData() {
+    if (_controller.position.extentAfter < 100) {
+      _cubit.loadMore();
     }
   }
 }

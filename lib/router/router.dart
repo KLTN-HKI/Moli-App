@@ -23,6 +23,12 @@ class Routes {
   static const String checkPhoneNumber = '/check-phone-exist';
 
   /// Home router
+  static final List<String> homeRoutes = <String>[
+    home,
+    appointment,
+    notification,
+    menu,
+  ];
   static const String home = '/home';
   static const String appointment = '/appointment';
   static const String notification = '/notification';

@@ -17,7 +17,7 @@ class ChooseHospitalBuilder extends StatelessWidget {
         AppText.t0(' Bệnh viện').weight500.paddingSymmetric(horizontal: 24),
         // SizedBox(height: 4),
         const SizedBox(
-          height: 210,
+          height: 215,
           child: HostpitalListView(),
         ),
       ],
@@ -54,17 +54,24 @@ class _HostpitalListViewState extends State<HostpitalListView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HospitalCubit, HospitalState>(
+     return BlocConsumer<HospitalCubit, HospitalState>(
       bloc: _cubit,
       listener: (BuildContext context, HospitalState state) {
-        state.whenOrNull(failed: context.showNetworkExceptionDialog);
+        if (state.exception != null) {
+          context.showNetworkExceptionDialog(state.exception!);
+        }
       },
       builder: (BuildContext context, HospitalState state) {
-        return state.when(
-          initial: () => const LoadingIndicator(),
-          success: _buildBody,
-          failed: (_) => const SizedBox(),
-        );
+        switch (state.status) {
+          case StateStatus.loading:
+            return const LoadingIndicator();
+          case StateStatus.success:
+            return _buildBody(state.hospitals, state.isLoading);
+          case StateStatus.initial:
+          case StateStatus.updated:
+          case StateStatus.failure:
+            return const SizedBox();
+        }
       },
     );
   }
@@ -93,13 +100,7 @@ class _HostpitalListViewState extends State<HostpitalListView> {
 
   void _loadMoreData() {
     if (_controller.position.extentAfter < 100) {
-      _cubit.state.whenOrNull(
-        success: (HospitalList hospitals, bool isLoading) {
-          if (!isLoading && hospitals.pagination.hasMore) {
-            _cubit.fetchAllHospital(page: hospitals.pagination.currentPage + 1);
-          }
-        },
-      );
+      _cubit.loadMore();
     }
   }
 }

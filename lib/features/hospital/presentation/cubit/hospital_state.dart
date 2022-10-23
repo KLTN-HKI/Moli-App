@@ -2,12 +2,11 @@ part of 'hospital_cubit.dart';
 
 @freezed
 class HospitalState with _$HospitalState {
-  const factory HospitalState.initial() = _Initial;
-
-  const factory HospitalState.success({
-    required HospitalList hospitals,
+  const factory HospitalState({
+    @Default(StateStatus.initial) StateStatus status,
+    @Default(HospitalList()) HospitalList hospitals,
     @Default(false) bool isLoading,
-  }) = _Success;
-
-  const factory HospitalState.failed(NetworkException exception) = _Failed;
+    String? term,
+    NetworkException? exception,
+  }) = _HospitalState;
 }
