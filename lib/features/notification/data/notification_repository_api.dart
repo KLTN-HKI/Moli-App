@@ -22,4 +22,14 @@ class NotificationRepositoryApi implements NotificationRepository {
       converter: UserNotificationList.fromJson,
     );
   }
+
+  @override
+  Future<void> readNotification(int notificationId) {
+    return _apiService.updatePartialData<void>(
+      endpoint: ApiEndpoint.notification(NotificationEndpoint.readNotification,
+          id: notificationId),
+      data: <String, dynamic>{},
+      converter: (JSON responseBody) => <String, dynamic>{},
+    );
+  }
 }

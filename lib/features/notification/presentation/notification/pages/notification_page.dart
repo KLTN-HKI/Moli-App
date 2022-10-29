@@ -4,7 +4,6 @@ import 'package:moli_shared/moli_shared.dart';
 
 import '../cubit/notification_list_cubit.dart';
 import 'components/notification_body.dart';
-import 'components/notification_laster.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});

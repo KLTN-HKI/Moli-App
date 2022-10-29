@@ -23,15 +23,19 @@ class UserNotificationHive extends HiveBox {
 
   @HiveField(4)
   late DateTime? createdAt;
+
+  @HiveField(5)
+  late bool? read;
 }
 
 extension ToUserNotification on UserNotificationHive {
   UserNotification toUserNotification() => UserNotification(
-        // id: int.tryParse(id) ?? 0,
+        id: int.tryParse(id) ?? 0,
         channel: channel,
         appointment: appointment,
         detail: detail,
         createdAt: createdAt,
+        read: read ?? false,
       );
 }
 
@@ -41,5 +45,6 @@ extension ToUserNotificationHive on UserNotification {
     ..channel = channel
     ..appointment = appointment
     ..detail = detail
-    ..createdAt = createdAt;
+    ..createdAt = createdAt
+    ..read = read;
 }

@@ -22,4 +22,9 @@ class HospitalRepositoryLocal implements HospitalRepository {
   Future<HospitalList> fetchHospitalList({required JSON data}) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<Hospital> fetchHospitalByid({required int hospitalId}) {
+    throw UnimplementedError();
+  }
 }

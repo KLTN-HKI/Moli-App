@@ -24,6 +24,7 @@ class LoginPage extends StatelessWidget {
         child: Scaffold(
           extendBodyBehindAppBar: true,
           extendBody: true,
+          // resizeToAvoidBottomInset: false,
           body: GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: const LoginBody(),
@@ -34,8 +35,8 @@ class LoginPage extends StatelessWidget {
             primary: context.colorScheme.primary,
             height: 40,
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            onPressed: () =>
-                context.push('${Routes.auth}/${CheckPhoneNumberPage.routeName}'),
+            onPressed: () => context
+                .push('${Routes.auth}/${CheckPhoneNumberPage.routeName}'),
             child: Text(context.l10n.register),
           ).marginSymmetric(horizontal: 48, vertical: 16),
         ),

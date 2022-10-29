@@ -46,4 +46,9 @@ class NotificationRepositoryLocal implements NotificationRepository {
     await KeyValueStorageBase.instance
         .saveItems<UserNotificationHive>(items: data);
   }
+  
+  @override
+  Future<void> readNotification(int notificationId) {
+    throw UnimplementedError();
+  }
 }

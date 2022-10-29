@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moli_shared/moli_shared.dart';
 
 import '../../domain/user_notification.dart';
-import 'notification_appointment.dart';
+import '../notification/pages/components/notification_body.dart';
 
 class NotificationAppointmentCancel extends StatelessWidget {
   const NotificationAppointmentCancel({super.key, required this.notification});
@@ -13,6 +13,7 @@ class NotificationAppointmentCancel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Bounceable(
       onTap: () {
+        MyNotification().dispatch(context);
         context.goRouter.go(
             '${context.goRouter.location}/detail/${notification.appointment?.appointmentUuid}');
       },
@@ -25,14 +26,18 @@ class NotificationAppointmentCancel extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               leading: Stack(
                 clipBehavior: Clip.none,
-                children: const <Widget>[
-                  RoundedImage(
-                    size: 44,
+                children: <Widget>[
+                  // RoundedImage(
+                  //   size: 44,
+                  // ),
+                  SvgPicture.asset(
+                    IconAssets.icCanceledRed,
+                    height: 48,
                   ),
-                  Positioned(
-                      bottom: -1,
-                      right: 0,
-                      child: NotificationAppointmentIcon())
+                  // Positioned(
+                  //     bottom: -1,
+                  //     right: 0,
+                  //     child: NotificationAppointmentIcon())
                 ],
               ),
               leadingGap: 8,
@@ -46,6 +51,16 @@ class NotificationAppointmentCancel extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(width: 8),
+          Container(
+            alignment: Alignment.center,
+            height: 8,
+            width: 8,
+            decoration: BoxDecoration(
+              color: !notification.read ? context.colorScheme.primary : null,
+              shape: BoxShape.circle,
+            ),
+          )
         ],
       ).paddingSymmetric(horizontal: 24),
     );

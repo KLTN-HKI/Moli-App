@@ -3,18 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moli_app/app/bloc/bloc.dart';
 import 'package:moli_app/features/appointment/presentation/pages/appointment_detail/appointment_detail_page.dart';
-import 'package:moli_app/features/appointment/presentation/pages/create_appointment_hospital_page.dart';
+import 'package:moli_app/features/appointment/presentation/pages/create_appointment/create_appointment_page.dart';
 import 'package:moli_app/features/authentication/presentation/register/page/register_page.dart';
-import 'package:moli_app/features/doctor/presentation/pages/doctor_detail_page.dart';
+import 'package:moli_app/features/doctor/presentation/pages/doctor_detail/doctor_detail_page.dart';
 import 'package:moli_app/features/error/error_page.dart';
 import 'package:moli_app/features/features.dart';
 import 'package:moli_app/features/home/page/menu_page.dart';
-import 'package:moli_app/features/hospital/presentation/pages/hospital_page.dart';
+import 'package:moli_app/features/hospital/presentation/pages/hospitals/hospitals_page.dart';
 import 'package:moli_shared/moli_shared.dart';
 
 import '../features/authentication/presentation/check_user/page/check_phone_page.dart';
-import '../features/doctor/presentation/pages/components/hospital_doctors.dart';
-import '../features/doctor/presentation/pages/doctor_page.dart';
+import '../features/doctor/presentation/pages/doctors/components/hospital_doctors.dart';
+import '../features/doctor/presentation/pages/doctors/doctors_page.dart';
 import 'go_router_refresh_stream.dart';
 import 'router.dart';
 import 'transition_page.dart';
@@ -164,7 +164,7 @@ GoRouter routing(BuildContext context, String? initialLocation) {
         path: Routes.hospitals,
         name: Routes.hospitals,
         pageBuilder: (_, __) =>
-            const CupertinoTransitionPage(child: HospitalPage()),
+            const CupertinoTransitionPage(child: HospitalsPage()),
         routes: <GoRoute>[
           GoRoute(
               path: ':hospitalId',
@@ -182,18 +182,6 @@ GoRouter routing(BuildContext context, String? initialLocation) {
                   ),
               routes: <RouteBase>[
                 GoRoute(
-                  path: 'create-appointment-by-hospital',
-                  name: 'create-appointment-by-hospital',
-                  // parentNavigatorKey: moliNavigatorKey,
-                  pageBuilder: (_, GoRouterState state) =>
-                      CupertinoTransitionPage(
-                    child: CreateAppointmentByHospitalPage(
-                      hospitalId: int.tryParse(state.params['hospitalId']!)!,
-                      extra: state.extra,
-                    ),
-                  ),
-                ),
-                GoRoute(
                     path: 'hospital-doctors',
                     name: 'hospital-doctors',
                     parentNavigatorKey: moliNavigatorKey,
@@ -207,16 +195,30 @@ GoRouter routing(BuildContext context, String? initialLocation) {
                     routes: <RouteBase>[
                       GoRoute(
                         path: ':doctorId',
+                        name: 'doctor-detail',
                         pageBuilder: (_, GoRouterState state) =>
                             CupertinoTransitionPage(
-                                child: DoctorDetailPage(
-                          doctorId: int.tryParse(state.params['doctorId']!)!,
-                          extra: state.extra,
-                        )),
+                          child: DoctorDetailPage(
+                            doctorId: state.params['doctorId']!,
+                            extra: state.extra,
+                            viewOnly: state.queryParams['viewOnly'] == 'true',
+                          ),
+                        ),
                       ),
                     ]),
               ]),
         ],
+      ),
+      GoRoute(
+        path: '/create-appointment',
+        name: CreateAppointmentPage.routeName,
+        // parentNavigatorKey: moliNavigatorKey,
+        pageBuilder: (_, GoRouterState state) => SlideTransitionPage(
+          child: CreateAppointmentPage(
+            doctorId: state.queryParams['doctorId']!,
+            extra: state.extra,
+          ),
+        ),
       ),
       // * Doctors
       GoRoute(
@@ -224,8 +226,24 @@ GoRouter routing(BuildContext context, String? initialLocation) {
         name: Routes.doctors,
         parentNavigatorKey: moliNavigatorKey,
         pageBuilder: (_, __) =>
-            const CupertinoTransitionPage(child: DoctorPage()),
-        routes: const <GoRoute>[],
+            const CupertinoTransitionPage(child: DoctorsPage()),
+        routes: <GoRoute>[
+          GoRoute(
+            path: ':doctorId',
+            redirect: (_, GoRouterState state) {
+              if (state.extra == null) {
+                return Routes.home;
+              }
+              return null;
+            },
+            pageBuilder: (_, GoRouterState state) => CupertinoTransitionPage(
+              child: DoctorDetailPage(
+                doctorId: state.params['doctorId']!,
+                extra: state.extra,
+              ),
+            ),
+          ),
+        ],
       ),
     ],
     errorPageBuilder: (_, __) => const ScaleTransitionPage(child: ErrorPage()),

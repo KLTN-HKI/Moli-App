@@ -21,7 +21,7 @@ class DoctorList with _$DoctorList {
 @freezed
 class Doctor with _$Doctor {
   const factory Doctor({
-    @JsonKey() required int id,
+    @JsonKey(name: 'id') required int id,
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'phoneNumber') String? phoneNumber,
     @JsonKey(name: 'realPhoneNumber') String? realPhoneNumber,
@@ -34,6 +34,7 @@ class Doctor with _$Doctor {
     @JsonKey() Degree? degree,
     @JsonKey() Hospital? hospital,
     @JsonKey() @Default(<Specialist>[]) List<Specialist> specialists,
+    @JsonKey() @Default(0.0) double rate,
   }) = _Doctor;
   factory Doctor.fromJson(JSON json) => _$DoctorFromJson(json);
 }

@@ -4,7 +4,7 @@ import 'package:moli_shared/moli_shared.dart';
 
 class AppointmentRepositoryLocal implements AppointmentRepository {
   @override
-  Future<void> bookDoctor({required JSON data}) {
+  Future<Appointment> bookDoctor({required JSON data}) {
     throw UnimplementedError();
   }
 

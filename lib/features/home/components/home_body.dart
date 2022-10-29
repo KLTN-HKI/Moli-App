@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_app/features/home/components/banner.dart';
-import 'package:moli_app/features/hospital/presentation/cubit/hospital_cubit.dart';
 import 'package:moli_shared/moli_shared.dart';
 
+import '../../hospital/presentation/cubit/hospital_list/hospital_list_cubit.dart';
 import '../page/components/menu_body.dart';
 import 'choose_hospital.dart';
 import 'feature_buttons.dart';
@@ -34,8 +34,8 @@ class _HomeBodyState extends State<HomeBody>
             child: FeatureButtons(),
           ),
           const SizedBox(height: 12),
-          BlocProvider<HospitalCubit>(
-            create: (BuildContext context) => HospitalCubit(),
+          BlocProvider<HospitalListCubit>(
+            create: (BuildContext context) => HospitalListCubit(),
             child: const ChooseHospitalBuilder(),
           ),
           const SizedBox(height: 12),

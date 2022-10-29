@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
       child: Scaffold(
         appBar: HeaderAppBar(
           transparentAppBar: true,
-          title: Text(context.l10n.my_profile),
+          title: AppText.t0(context.l10n.my_profile),
         ),
         body: const SafeArea(child: ProfileBody()),
         // bottomNavigationBar: AppElevatedButton(

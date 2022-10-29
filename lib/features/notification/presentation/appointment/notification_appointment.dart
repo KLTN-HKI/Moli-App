@@ -4,17 +4,21 @@ import 'package:moli_shared/moli_shared.dart';
 
 import '../../domain/user_notification.dart';
 import 'notification_appointment_cancel.dart';
+import 'notification_appointment_cofirm.dart';
+import 'notification_appointment_remind.dart';
 
 class NotificationAppointment {
   const NotificationAppointment._();
 
   static Widget? buildNotificationAppointment(UserNotification item) {
-    // if (item.channel == NotificationChannel.remind) {
-    //   return NotificationAppointmentRemind(notification: item);
-    // } else if (item.channel == NotificationChannel.cancel) {
+    if (item.channel == NotificationChannel.remind) {
+      return NotificationAppointmentRemind(notification: item);
+    } else if (item.channel == NotificationChannel.cancel) {
       return NotificationAppointmentCancel(notification: item);
-    // }
-    // return null;
+    } else if (item.channel == NotificationChannel.confirm) {
+      return NotificationAppointmentConfirm(notification: item);
+    }
+    return null; 
   }
 }
 

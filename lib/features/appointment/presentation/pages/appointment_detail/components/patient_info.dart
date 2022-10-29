@@ -18,6 +18,7 @@ class PatientInfo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Center(child: AppText.b0('Bệnh nhân').weight500),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

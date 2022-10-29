@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,14 +41,13 @@ class NotificationService {
             json['channel'] == 'APPOINTMENT_CANCEL' ||
             json['channel'] == 'APPOINTMENT_CONFIRM') &&
         context != null) {
-      context.read<AppointmentListCubit>().getAppoinments();
       showSnackbar(context, json);
-    }
-    if (message.data['notification'] is String) {
-      final UserNotification notification = UserNotification.fromJson(
-          jsonDecode(message.data['notification'] as String) as JSON);
+      context.read<AppointmentListCubit>().getAppoinments();
+      final UserNotification notification =
+          UserNotification.fromJson(message.data);
       getIt<NotificationBloc>().add(NotificationEvent.add(notification));
     }
+    if (message.data['notification'] is String) {}
   }
 
   static void _onMessageOpenedApp(RemoteMessage message) {

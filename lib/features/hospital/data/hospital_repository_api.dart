@@ -21,4 +21,13 @@ class HospitalRepositoryApi implements HospitalRepository {
       converter: HospitalList.fromJson,
     );
   }
+
+  @override
+  Future<Hospital> fetchHospitalByid({required int hospitalId}) {
+    return _apiService.getDocumentData<Hospital>(
+      endpoint: ApiEndpoint.hospital(HospitalEndpoint.detail, id: hospitalId),
+      converter: (JSON responseBody) =>
+          Hospital.fromJson(responseBody['data'] as JSON),
+    );
+  }
 }

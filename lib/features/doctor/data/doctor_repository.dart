@@ -8,4 +8,6 @@ abstract class DoctorRepository {
       {required JSON data, required int hospitalId});
 
   Future<DoctorAvailableTime> fetchDoctorsSchedule({required JSON data});
+  Future<DoctorList> fetchAllDoctor({required JSON data});
+  Future<Doctor> fetchDoctorById({required int doctorId});
 }

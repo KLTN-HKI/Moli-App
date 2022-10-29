@@ -99,8 +99,8 @@ class MenuBody extends StatelessWidget {
       dialogType: DialogType.confirmation,
       path: JsonAssets.logout,
       mode: SmoothMode.lottie,
-      content: context.l10n.log_out_confirmation,
-      title: context.l10n.log_out,
+      contentString: context.l10n.log_out_confirmation,
+      titleString: context.l10n.log_out,
       // dialogHeight: 350,
       submit: () => context
           .read<AuthenticationBloc>()

@@ -21,7 +21,7 @@ class HospitalInfo extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  const RoundedImage(size: 40),
+                  const RoundedRectImage(height: 40, width: 40),
                   const SizedBox(width: 12),
                   Expanded(
                       child: AppText.t0('${appointment.hospital?.hospitalName}')
@@ -38,9 +38,9 @@ class HospitalInfo extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  AppText.b0('Chuyên khoa'),
+                  AppText.b0('Bác sĩ'),
                   AppText.b0(
-                    '${appointment.doctor?.specialists.map((Specialist specialist) => specialist.specialistName).join('\n')}',
+                    '${appointment.doctor?.name}',
                   ).weight600,
                 ],
               ),
@@ -48,9 +48,9 @@ class HospitalInfo extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  AppText.b0('Bác sĩ'),
+                  AppText.b0('Chuyên khoa'),
                   AppText.b0(
-                    '${appointment.doctor?.name}',
+                    '${appointment.doctor?.specialists.map((Specialist specialist) => specialist.specialistName).join('\n')}',
                   ).weight600,
                 ],
               ),

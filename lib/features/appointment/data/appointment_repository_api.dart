@@ -10,12 +10,13 @@ class AppointmentRepositoryApi implements AppointmentRepository {
   final ApiService _apiService;
 
   @override
-  Future<void> bookDoctor({required JSON data}) {
+  Future<Appointment> bookDoctor({required JSON data}) {
     return _apiService.setData(
       endpoint: ApiEndpoint.appointment(AppointmentEndpoint.bookingAppointment),
       requiresAuthToken: true,
       data: data,
-      converter: (_) {},
+      converter: (JSON response) =>
+          Appointment.fromJson(response['data'] as JSON),
     );
   }
 

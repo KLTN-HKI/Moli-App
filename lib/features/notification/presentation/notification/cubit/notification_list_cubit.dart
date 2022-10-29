@@ -22,6 +22,13 @@ class NotificationListCubit extends Cubit<NotificationListState> {
   final NotificationRepositoryLocal _repositoryLocal;
   final NotificationBloc _bloc;
 
+  @override
+  Future<void> close() {
+    saveDataLocal();
+    _bloc.add(const NotificationEvent.clear());
+    return super.close();
+  }
+
   Future<void> fetchData() async {
     try {
       emit(state.copyWith(
@@ -99,10 +106,30 @@ class NotificationListCubit extends Cubit<NotificationListState> {
     }
   }
 
-  @override
-  Future<void> close() {
-    saveDataLocal();
-    _bloc.add(const NotificationEvent.clear());
-    return super.close();
+  Future<void> readNotification(int notificationId) async {
+    try {
+      _repository.readNotification(notificationId);
+      final List<UserNotification> data =
+          state.notificationlist.notifications.toList();
+
+      final int index =
+          data.indexWhere((UserNotification noti) => noti.id == notificationId);
+      if (index != -1 && !data[index].read) {
+        data[index] = data[index].copyWith(read: true);
+        emit(state.copyWith(
+          status: StateStatus.success,
+          notificationlist:
+              state.notificationlist.copyWith(notifications: data),
+          isLoading: false,
+          exception: null,
+        ));
+      }
+    } on NetworkException catch (e) {
+      emit(state.copyWith(
+        status: StateStatus.failure,
+        isLoading: false,
+        exception: e,
+      ));
+    }
   }
 }

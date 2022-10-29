@@ -38,11 +38,11 @@ class LoginForm extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const _PhoneNumberInput(),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             const _PasswordInput(),
-            const SizedBox(height: 60),
+            const SizedBox(height: 40),
             const _LoginSubmitted(),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             InkWell(
               onTap: () {},
               child: AppText.l0(
@@ -69,7 +69,7 @@ class _LoginSubmitted extends StatelessWidget {
           onPressed: () => context
               .read<LoginCubit>()
               .login(state.phoneNumber.value, state.password.value),
-          height: 64,
+          height: 48,
           isLoading: state.status.isSubmissionInProgress,
           primary: context.theme.colorScheme.primary,
           child: Text(context.l10n.log_in),

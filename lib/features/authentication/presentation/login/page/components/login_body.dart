@@ -13,8 +13,7 @@ class LoginBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          AppText.d1(context.l10n.log_in).weight500,
-          const SizedBox(height: 4),
+          Flexible(child: AppText.d1(context.l10n.log_in).weight500),
           AppText.b1(context.l10n.login_to_continue),
           const LoginForm(),
         ],

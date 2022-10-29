@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_app/features/notification/domain/user_notification.dart';
@@ -51,8 +54,13 @@ class NotificationBody extends StatelessWidget {
                       list.notifications.length + (state.isLoading ? 1 : 0),
                 );
               } else {
-                return const CustomErrorWidget(
+                return CustomErrorWidget(
                   message: 'Không có thông báo nào',
+                  child: Image.asset(
+                    ImageAssets.notFound,
+                    height: 250,
+                    width: 250,
+                  ),
                 );
               }
             case StateStatus.initial:
@@ -66,6 +74,28 @@ class NotificationBody extends StatelessWidget {
   }
 
   static Widget? buildNotificationItem(UserNotification item) {
-    return NotificationAppointment.buildNotificationAppointment(item);
+    Widget? body;
+    body = NotificationAppointment.buildNotificationAppointment(item);
+    if (body != null) {
+      return Builder(builder: (BuildContext context) {
+        return NotificationListener<MyNotification>(
+          onNotification: (Object? notificationInfo) {
+            if (notificationInfo is MyNotification) {
+              if (kDebugMode) {
+                log('NotificationAbsenceSubmitted');
+              }
+
+              context.read<NotificationListCubit>().readNotification(item.id!);
+            }
+
+            return true;
+          },
+          child: body!,
+        );
+      });
+    }
+    return body;
   }
 }
+
+class MyNotification extends Notification {}

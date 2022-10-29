@@ -13,7 +13,7 @@ part 'schedule_bloc.freezed.dart';
 class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   ScheduleBloc()
       : _repository = getIt<DoctorRepositoryApi>(),
-        super(const _Initial()) {
+        super(const ScheduleState()) {
     on<_FetchSchedule>(_onFetchDoctorSchedule);
   }
   final DoctorRepository _repository;
@@ -21,6 +21,12 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   Future<void> _onFetchDoctorSchedule(
       _FetchSchedule event, Emitter<ScheduleState> emit) async {
     try {
+      emit(state.copyWith(
+        status: StateStatus.loading,
+        exception: null,
+        isLoading: false,
+      ));
+
       final DoctorAvailableTime data = await _repository.fetchDoctorsSchedule(
         data: <String, dynamic>{
           'page': 0,
@@ -29,12 +35,18 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
           'date': event.dayOfYear,
         },
       );
-      emit(ScheduleState.success(
+      emit(state.copyWith(
+        status: StateStatus.success,
         schedule: data,
+        exception: null,
         isLoading: false,
       ));
     } on NetworkException catch (e) {
-      emit(ScheduleState.failed(e));
+      emit(state.copyWith(
+        status: StateStatus.failure,
+        exception: e,
+        isLoading: false,
+      ));
     }
   }
 }

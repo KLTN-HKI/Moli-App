@@ -7,10 +7,13 @@ class ApiEndpoint {
     switch (endpoint) {
       case HospitalEndpoint.all:
         return '$path/patient/hospitals';
+      case HospitalEndpoint.detail:
+        return '$path/patient/hospitals/$id';
     }
   }
 }
 
 enum HospitalEndpoint {
   all,
+  detail,
 }

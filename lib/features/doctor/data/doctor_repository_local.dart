@@ -17,4 +17,14 @@ class DoctorRepositoryLocal implements DoctorRepository {
   Future<DoctorAvailableTime> fetchDoctorsSchedule({required JSON data}) {
     throw UnimplementedError();
   }
+  
+  @override
+  Future<DoctorList> fetchAllDoctor({required JSON data}) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Doctor> fetchDoctorById({required int doctorId}) {
+    throw UnimplementedError();
+  }
 }

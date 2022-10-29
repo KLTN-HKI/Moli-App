@@ -49,7 +49,7 @@ enum AppointmentStatus {
       case 'CONFIRM':
         return 'Đã xác nhận';
       case 'CHANGE':
-        return 'Đổi';
+        return 'Đổi lịch';
       case 'CANCEL':
         return 'Đã hủy';
       default:

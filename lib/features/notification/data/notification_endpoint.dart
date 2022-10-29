@@ -7,10 +7,13 @@ class ApiEndpoint {
     switch (endpoint) {
       case NotificationEndpoint.all:
         return '$path/notification/patient';
+      case NotificationEndpoint.readNotification:
+        return '$path/notification/$id';
     }
   }
 }
 
 enum NotificationEndpoint {
   all,
+  readNotification,
 }

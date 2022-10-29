@@ -5,6 +5,7 @@ class AppointmentState with _$AppointmentState {
   const factory AppointmentState({
     @Default(StateStatus.initial) StateStatus status,
     @Default(Appointment(id: 0)) Appointment appointment,
+    @Default(Reason.pure()) Reason reason,
     @Default(false) bool isLoading,
     NetworkException? exception,
   }) = _AppointmentState;
