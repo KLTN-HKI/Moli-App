@@ -119,7 +119,9 @@ class _AppointmentBottomModalState extends State<AppointmentBottomModal> {
                   Expanded(
                     child: AppElevatedButton(
                       expandedWith: false,
-                      primary: context.colorScheme.error,
+                      primary: appointment.appointmentStatus!.isChange
+                          ? context.colorScheme.primary
+                          : context.colorScheme.error,
                       child: AppText.t1(
                         context.l10n.confirm,
                         color: ColorPalettes.white,

@@ -98,85 +98,6 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                 ],
               ),
             ),
-            // body: SingleChildScrollView(
-            //   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: <Widget>[
-            //       BaseCard(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         mainAxisAlignment: MainAxisAlignment.center,
-            //         leading: const RoundedRectImage(
-            //           height: 100,
-            //           width: 100,
-            //         ),
-            //         content: <Widget>[
-            //           AppText.b0(_doctor.name ?? '').weight600,
-            //           const Divider(),
-            //           AppText.b2(_doctor.degree?.degreeName ?? ''),
-            //           const SizedBox(height: 4),
-            //           AppText.b2(_doctor.address ?? 'Địa chỉ...'),
-            //         ],
-            //       ),
-            //       const SizedBox(height: 16),
-            //       Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: <Widget>[
-            //           AppText.t0('Về bác sĩ').bold,
-            //           AppText.b0(_doctor.detail ?? ' (Chưa có thông tin)')
-            //         ],
-            //       ),
-            //       const SizedBox(height: 16),
-            //       // Column(
-            //       //   crossAxisAlignment: CrossAxisAlignment.start,
-            //       //   children: <Widget>[
-            //       //     AppText.t0('Thời gian làm việc').bold,
-            //       //     // AppText.b0('//${}')
-            //       //   ],
-            //       // ),
-            //       // const SizedBox(height: 16),
-            //       // Column(
-            //       //   crossAxisAlignment: CrossAxisAlignment.start,
-            //       //   children: <Widget>[
-            //       //     AppText.t0('Lịch rảnh').bold,
-            //       //     const SizedBox(height: 16),
-            //       //     BlocBuilder<ScheduleBloc, ScheduleState>(
-            //       //       builder: (BuildContext context, ScheduleState state) {
-            //       //         return state.when(
-            //       //             initial: () => const LoadingIndicator(),
-            //       //             success:
-            //       //                 (DoctorAvailableTime schedule, bool isLoading) {
-            //       //               return GridView.builder(
-            //       //                 gridDelegate:
-            //       //                     const SliverGridDelegateWithMaxCrossAxisExtent(
-            //       //                   maxCrossAxisExtent: 80,
-            //       //                   mainAxisSpacing: 10,
-            //       //                   crossAxisSpacing: 10,
-            //       //                 ),
-            //       //                 shrinkWrap: true,
-            //       //                 itemCount: schedule.doctorSchedules.length,
-            //       //                 itemBuilder: (BuildContext context, int index) {
-            //       //                   final DoctorSchedule slot =
-            //       //                       schedule.doctorSchedules[index];
-            //       //                   return ToggleableTag<DoctorSchedule>(
-            //       //                     onTap: () {},
-            //       //                     text:
-            //       //                         '${DateTimeUtils.fromTimeToStringType2(slot.workTimeStart)}',
-            //       //                   );
-            //       //                 },
-            //       //               );
-            //       //             },
-            //       //             failed: (NetworkException e) => CustomErrorWidget(
-            //       //                   message: e.toString(),
-            //       //                   child: Image.asset(ImageAssets.errorResponse),
-            //       //                 ));
-            //       //       },
-            //       //     )
-            //       //   ],
-            //       // ),
-            //     ],
-            //   ),
-            // ),
             bottomNavigationBar: widget.viewOnly
                 ? null
                 : Padding(
@@ -245,7 +166,12 @@ class _DoctorInformation extends StatelessWidget {
                     AppText.t0('About doctor').bold,
                     const SizedBox(height: 4),
                     AppText.t1(
-                      '${context.l10n.address}: ${doctor.address ?? 'Chưa cập nhật'}',
+                      doctor.detail ?? 'chưa cập nhật',
+                      // color: ColorPalettes.white,
+                    ),
+                    const SizedBox(height: 4),
+                    AppText.t1(
+                      'Làm việc tại địa chỉ: ${doctor.address ?? 'chưa cập nhật'}',
                       // color: ColorPalettes.white,
                     ),
                   ],

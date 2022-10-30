@@ -154,16 +154,53 @@ class _DoctorItem extends StatelessWidget {
               decoration: const BoxDecoration(),
               // crossAxisAlignment: CrossAxisAlignment.start,
               leading: const RoundedRectImage(
-                width: 90,
-                height: 90,
+                height: 95,
+                width: 95,
+                customErrorImage: CustomErrorImage(
+                  errorImage: ImageAssets.doctor,
+                ),
               ),
               leadingGap: 12,
               content: <Widget>[
-                AppText.b0(doctor.name ?? 'sdsd').bold,
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: AppText.t0(
+                        doctor.name ?? 'Bác sĩ ...',
+                        textOverflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                      ).weight600,
+                    ),
+                    const AppIcon(
+                      IconAssets.icStarBold,
+                      color: ColorPalettes.coreWarning,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 4),
+                    AppText.t2(
+                      '${doctor.rate}',
+                      textOverflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    )
+                  ],
+                ),
                 const SizedBox(height: 4),
-                AppText.b0(doctor.specialists
-                    .map((Specialist e) => e.specialistName)
-                    .join('\n')),
+                AppText.l0(
+                  doctor.specialists.isNotEmpty
+                      ? doctor.specialists
+                          .map((Specialist e) => e.specialistName)
+                          .join('\n')
+                      : 'Chưa cập nhật',
+                  color: context.colorScheme.primary,
+                  maxLines: 2,
+                  textOverflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+                AppText.l1(
+                  doctor.degree?.degreeName ?? 'Chưa cập nhật',
+                  color: context.colorScheme.primary,
+                  textOverflow: TextOverflow.ellipsis,
+                ),
               ],
             ),
             const SizedBox(height: 4),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:moli_app/features/appointment/domain/appointment.dart';
-import 'package:moli_app/features/appointment/domain/appointment_update.dart';
 import 'package:moli_app/features/appointment/presentation/bloc/appointment_list/appointment_list_cubit.dart';
 import 'package:moli_shared/moli_shared.dart';
 

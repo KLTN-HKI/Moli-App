@@ -21,7 +21,13 @@ class HospitalInfo extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  const RoundedRectImage(height: 40, width: 40),
+                  const RoundedRectImage(
+                    height: 40,
+                    width: 40,
+                    customErrorImage: CustomErrorImage(
+                      errorImage: ImageAssets.hospital1,
+                    ),
+                  ),
                   const SizedBox(width: 12),
                   Expanded(
                       child: AppText.t0('${appointment.hospital?.hospitalName}')

@@ -61,8 +61,7 @@ class AppointmentInfo extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    AppText.b0(
-                        'Lý do ${state.appointment.appointmentStatus!.isChange ? 'đổi lịch' : ' hủy lịch'}:'),
+                    AppText.b0('Lý do:'),
                     AppText.b0(
                       '${appointment.reason}',
                       color: context.colorScheme.error,
@@ -70,14 +69,16 @@ class AppointmentInfo extends StatelessWidget {
                   ],
                 )
               else ...<Widget>[
-                _DisplayCountdown(
-                  appointment.appointmentBookingDate
-                      ?.copyWith(
-                        hour: appointment.appointmentStartTime?.hour,
-                        minute: appointment.appointmentStartTime?.minute,
-                      )
-                      .difference(DateTime.now()),
-                ),
+                if (appointment.appointmentBookingDate != null &&
+                    appointment.appointmentStartTime != null)
+                  _DisplayCountdown(
+                    appointment.appointmentBookingDate
+                        ?.copyWith(
+                          hour: appointment.appointmentStartTime?.hour,
+                          minute: appointment.appointmentStartTime?.minute,
+                        )
+                        .difference(DateTime.now()),
+                  ),
                 const SizedBox(height: 8),
                 AppText.b2(
                   'Vui lòng có mặt ở địa điểm khám trước 30 phút',
