@@ -14,8 +14,10 @@ class NotificationAppointmentCancel extends StatelessWidget {
     return Bounceable(
       onTap: () {
         MyNotification().dispatch(context);
-        context.goRouter.go(
-            '${context.goRouter.location}/detail/${notification.appointment?.appointmentUuid}');
+        context.goRouter.pushNamed('appointment-detail',
+            params: <String, String>{
+              'appointmentId': '${notification.appointment?.appointmentUuid}'
+            });
       },
       child: Row(
         children: <Widget>[

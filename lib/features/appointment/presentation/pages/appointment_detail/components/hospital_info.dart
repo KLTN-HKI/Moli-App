@@ -5,7 +5,7 @@ import 'package:moli_shared/moli_shared.dart';
 
 import '../../../../domain/appointment.dart';
 import '../../../bloc/appointment/appointment_cubit.dart';
-import 'appointment_card.dart';
+import '../../components/appointment_card.dart';
 
 class HospitalInfo extends StatelessWidget {
   const HospitalInfo({super.key});

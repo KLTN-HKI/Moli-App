@@ -56,11 +56,7 @@ class _HostpitalListViewState extends State<HostpitalListView> {
   Widget build(BuildContext context) {
     return BlocConsumer<HospitalListCubit, HospitalListState>(
       bloc: _cubit,
-      listener: (BuildContext context, HospitalListState state) {
-        if (state.exception != null) {
-          context.showNetworkExceptionDialog(state.exception!);
-        }
-      },
+      listener: (BuildContext context, HospitalListState state) {},
       builder: (BuildContext context, HospitalListState state) {
         switch (state.status) {
           case StateStatus.loading:
@@ -92,8 +88,11 @@ class _HostpitalListViewState extends State<HostpitalListView> {
             }
           case StateStatus.initial:
           case StateStatus.updated:
-          case StateStatus.failure:
             return const SizedBox();
+          case StateStatus.failure:
+            return NetworkExceptionWidget(
+              exception: state.exception!,
+            );
         }
       },
     );

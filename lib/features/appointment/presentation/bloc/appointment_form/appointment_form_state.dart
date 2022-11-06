@@ -11,7 +11,7 @@ class AppointmentFormState with _$AppointmentFormState {
     @Default(0) int doctorId,
     @Default(0) int doctorScheduleId,
     @Default(true) bool forSelf,
-    Appointment? appointment,
+    CreateAppointmentResult? appointment,
     @Default(false) bool isLoading,
     @Default(false) bool isSucess,
     NetworkException? exception,

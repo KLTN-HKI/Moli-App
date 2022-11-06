@@ -18,7 +18,7 @@ class NotificationAppointment {
     } else if (item.channel == NotificationChannel.confirm) {
       return NotificationAppointmentConfirm(notification: item);
     }
-    return null; 
+    return null;
   }
 }
 

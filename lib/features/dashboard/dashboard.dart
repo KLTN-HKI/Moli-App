@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moli_app/router/router.dart';
 import 'package:moli_shared/moli_shared.dart';
 
+import '../appointment/presentation/bloc/patient_appointment/patient_appointment_bloc.dart';
 import '../notification/application/bloc/notification_bloc.dart';
 
 class DashBoard extends StatelessWidget {
@@ -21,30 +22,71 @@ class DashBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      body: SafeArea(top: false, left: false, right: false, child: child),
-      bottomNavigationBar:  Routes.homeRoutes.contains(context.goRouter.location)
-          ?  BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        selectedLabelStyle: context.textTheme.labelMedium
-            ?.copyWith(color: context.colorScheme.primary)
-            .weight500,
-        unselectedLabelStyle: context.textTheme.labelMedium
-            ?.copyWith(color: context.colorScheme.surface),
-        selectedItemColor: context.colorScheme.primary,
-        unselectedItemColor: context.colorScheme.onSurface,
-        elevation: 0,
-        items: bottomIcons(
-          context,
-          defaultColor: context.colorScheme.onSurfaceVariant,
-          activeColor: context.colorScheme.primary,
-        ),
-        currentIndex: _routeToIndex(location),
-        onTap: (int index) => context.goRouter.go(indexToLocation(index)),
-      ):null,
+    return BlocListener<PatientAppointmentBloc, PatientAppointmentState>(
+      listener: (BuildContext context, PatientAppointmentState state) {
+        if (state.patientState.appointmentNotRatings.isNotEmpty) {
+          context.showDefaultDialog(
+            title: AppText.t0('Đánh giá buổi khám').weight600,
+            content: AppText.b0('Bạn có muốn đánh giá lịch khám đã hoàn thành'),
+            actions: <Widget>[
+              ButtonBar(
+                children: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop();
+                    },
+                    child: AppText.t1('Nhắc tôi sau'),
+                  ),
+                  AppElevatedButton(
+                    expandedWith: false,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop();
+                      context.goRouter.pushNamed('appointment-rating',
+                          params: <String, String>{
+                            'appointmentId':
+                                '${state.patientState.appointmentNotRatings.first.appointmentUuid}'
+                          });
+                    },
+                    child: AppText.t1(
+                      'Đánh giá',
+                      color: ColorPalettes.white,
+                    ),
+                  ),
+                ],
+              )
+            ],
+          );
+        }
+      },
+      child: Scaffold(
+        extendBody: true,
+        body: SafeArea(top: false, left: false, right: false, child: child),
+        bottomNavigationBar:
+            Routes.homeRoutes.contains(context.goRouter.location)
+                ? BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
+                    showSelectedLabels: true,
+                    showUnselectedLabels: true,
+                    selectedLabelStyle: context.textTheme.labelMedium
+                        ?.copyWith(color: context.colorScheme.primary)
+                        .weight500,
+                    unselectedLabelStyle: context.textTheme.labelMedium
+                        ?.copyWith(color: context.colorScheme.surface),
+                    selectedItemColor: context.colorScheme.primary,
+                    unselectedItemColor: context.colorScheme.onSurface,
+                    elevation: 0,
+                    items: bottomIcons(
+                      context,
+                      defaultColor: context.colorScheme.onSurfaceVariant,
+                      activeColor: context.colorScheme.primary,
+                    ),
+                    currentIndex: _routeToIndex(location),
+                    onTap: (int index) =>
+                        context.goRouter.go(indexToLocation(index)),
+                  )
+                : null,
+      ),
     );
   }
 

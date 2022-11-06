@@ -73,7 +73,7 @@ class FeatureButtons extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 24),
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 3,
+      itemCount: 2,
       itemBuilder: (BuildContext context, int index) {
         final FeatureModel feature = features[index];
         return InkWell(

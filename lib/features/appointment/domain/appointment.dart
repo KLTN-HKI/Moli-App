@@ -70,6 +70,17 @@ class AppointmentList with _$AppointmentList {
 }
 
 @freezed
+class CreateAppointmentResult with _$CreateAppointmentResult {
+  const factory CreateAppointmentResult({
+    @JsonKey() @Default(Appointment(id: 0)) Appointment appointment,
+    @JsonKey() @Default(0) int appointmentBookingCount,
+  }) = _CreateAppointmentResult;
+
+  factory CreateAppointmentResult.fromJson(Map<String, dynamic> json) =>
+      _$CreateAppointmentResultFromJson(json);
+}
+
+@freezed
 class Appointment with _$Appointment {
   const factory Appointment({
     @JsonKey()

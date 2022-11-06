@@ -5,6 +5,7 @@ import 'package:moli_app/features/appointment/data/appointment_repository_api.da
 import 'package:moli_app/features/doctor/data/doctor_repository_api.dart';
 import 'package:moli_shared/moli_shared.dart';
 
+import '../features/appointment/presentation/bloc/patient_appointment/patient_appointment_bloc.dart';
 import '../features/authentication/authentication.dart';
 import '../features/hospital/data/hospital_repository_api.dart';
 import '../features/notification/application/bloc/notification_bloc.dart';
@@ -49,5 +50,9 @@ Future<void> resolveDependencies({
 
     ///Doctor
     ..registerSingleton<DoctorRepositoryApi>(DoctorRepositoryApi())
-    ..registerSingleton<AppointmentRepositoryApi>(AppointmentRepositoryApi());
+    ..registerSingleton<AppointmentRepositoryApi>(AppointmentRepositoryApi())
+
+    ///
+    ..registerSingleton<PatientAppointmentBloc>(
+        PatientAppointmentBloc(getIt()));
 }

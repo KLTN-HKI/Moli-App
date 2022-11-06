@@ -79,7 +79,7 @@ class _CreateAppointmentPageState extends State<CreateAppointmentPage> {
           if (state.exception != null) {
             context.showNetworkExceptionDialog(state.exception!);
           } else if (state.isSucess) {
-            final Appointment? appointment = state.appointment;
+            final Appointment? appointment = state.appointment?.appointment;
             SmoothDialog(
               context: context,
               mode: SmoothMode.asset,

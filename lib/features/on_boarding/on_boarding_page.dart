@@ -46,6 +46,35 @@ class _IntroductionPageState extends State<IntroductionPage> {
             imagePadding: EdgeInsets.zero,
           ),
         ),
+        PageViewModel(
+          bodyWidget: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(height: 16),
+              AppText.b0('Bước 1:').bold,
+              const SizedBox(height: 8),
+              AppText.b0(
+                  'Chọn bệnh viện/bác sĩ phù hợp với nhu cầu bệnh lý của bạn'),
+              const SizedBox(height: 16),
+              AppText.b0('Bước 2:').bold,
+              const SizedBox(height: 8),
+              AppText.b0(
+                  'Tạo lịch hẹn với đầy đủ thông tin bệnh nhân, thời gian khám mong muốn'),
+              const SizedBox(height: 16),
+              AppText.b0('Bước 3:').bold,
+              const SizedBox(height: 8),
+              AppText.b0(
+                  'Xác nhận tạo lịch hẹn khám và chờ xác nhận từ bác sĩ'),
+              const SizedBox(height: 16),
+            ],
+          ),
+          titleWidget: AppText.h2('Đặt lịch đơn giản chỉ với vài bước').bold,
+          image: Image.asset(ImageAssets.appointment),
+          decoration: const PageDecoration(
+            bodyAlignment: Alignment.center,
+          ),
+        ),
       ],
       showBackButton: true,
       curve: Curves.fastOutSlowIn,

@@ -75,8 +75,10 @@ Future<void> showSnackbar(
     content: InkWell(
       onTap: () {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        context.goRouter.go(
-            '${Routes.notification}/${AppointmentDetailPage.routePath}/${json['appointmentUuid']}');
+        context.goRouter.pushNamed('appointment-detail',
+            params: <String, String>{
+              'appointmentId': '${json['appointmentUuid']}'
+            });
       },
       child: DefaultTextStyle(
         style: const TextStyle(fontSize: 12, color: ColorPalettes.neutral10),

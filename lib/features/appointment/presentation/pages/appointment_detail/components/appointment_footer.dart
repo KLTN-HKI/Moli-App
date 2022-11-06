@@ -29,7 +29,14 @@ class _AppointmentFooterState extends State<AppointmentFooter> {
       bloc: _cubit,
       builder: (BuildContext context, AppointmentState state) {
         final Appointment appointment = state.appointment;
+        final DateTime appointmentDateTime =
+            appointment.appointmentBookingDate?.copyWith(
+                  hour: appointment.appointmentStartTime?.hour,
+                  minute: appointment.appointmentStartTime?.minute,
+                ) ??
+                DateTime(0);
         if (appointment.appointmentStatus != null &&
+            DateTime.now().isBefore(appointmentDateTime) &&
             (appointment.appointmentStatus!.isChange ||
                 appointment.appointmentStatus!.isConfirm)) {
           return AppOutlinedButton(

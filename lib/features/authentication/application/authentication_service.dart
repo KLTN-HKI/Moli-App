@@ -36,6 +36,10 @@ class AuthenticationService extends AuthenticationStorageService {
     return _keyValueStorage.getItem<bool?>('onboarding', key: 'firstTime');
   }
 
+  Future<bool?> getShowcase() async {
+    return _keyValueStorage.getItem<bool?>('showcase', key: 'isShowcase');
+  }
+
   @override
   Future<String?> refreshTokenRequest({
     required DioError dioError,
@@ -106,6 +110,11 @@ class AuthenticationService extends AuthenticationStorageService {
   Future<void> setFirstTimeLogin() async {
     await _keyValueStorage.saveItem<bool?>('onboarding',
         key: 'firstTime', value: false);
+  }
+
+  Future<void> setShowcase() async {
+    await _keyValueStorage.saveItem<bool?>('showcase',
+        key: 'isShowcase', value: false);
   }
 
   /// Resets the authentication. Even though these methods are asynchronous, we

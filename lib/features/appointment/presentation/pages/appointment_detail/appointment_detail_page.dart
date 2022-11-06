@@ -22,7 +22,6 @@ class AppointmentDetailPage extends StatefulWidget {
 
 class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
   late AppointmentCubit _cubit;
-  TextEditingController reasonController = TextEditingController();
 
   @override
   void initState() {

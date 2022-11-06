@@ -2,6 +2,7 @@ import 'package:moli_app/config/dependency_container.dart';
 import 'package:moli_app/features/appointment/domain/appointment.dart';
 import 'package:moli_shared/moli_shared.dart';
 
+import '../domain/patient_state.dart';
 import 'appointment_endpoint.dart';
 import 'appointment_repository.dart';
 
@@ -10,13 +11,13 @@ class AppointmentRepositoryApi implements AppointmentRepository {
   final ApiService _apiService;
 
   @override
-  Future<Appointment> bookDoctor({required JSON data}) {
+  Future<CreateAppointmentResult> bookDoctor({required JSON data}) {
     return _apiService.setData(
       endpoint: ApiEndpoint.appointment(AppointmentEndpoint.bookingAppointment),
       requiresAuthToken: true,
       data: data,
       converter: (JSON response) =>
-          Appointment.fromJson(response['data'] as JSON),
+          CreateAppointmentResult.fromJson(response['data'] as JSON),
     );
   }
 
@@ -53,6 +54,25 @@ class AppointmentRepositoryApi implements AppointmentRepository {
       queryParams: data,
       converter: (JSON responseBody) =>
           Appointment.fromJson(responseBody['data'] as JSON),
+    );
+  }
+
+  @override
+  Future<PatientStateResult> getUserState() {
+    return _apiService.getDocumentData(
+        endpoint: ApiEndpoint.appointment(AppointmentEndpoint.state),
+        requiresAuthToken: true,
+        converter: (JSON response) {
+          return PatientStateResult.fromJson(response['data'] as JSON);
+        });
+  }
+
+  @override
+  Future<void> ratingAppointment({required JSON data}) {
+    return _apiService.setData(
+      endpoint: ApiEndpoint.appointment(AppointmentEndpoint.ratingAppointment),
+      data: data,
+      converter: (_) {},
     );
   }
 }

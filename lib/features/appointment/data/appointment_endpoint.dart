@@ -13,6 +13,10 @@ class ApiEndpoint {
         return '$path/appointment/patient/manage-appointment';
       case AppointmentEndpoint.updateAppointmentStatus:
         return '$path/appointment/$id/update-status?forRole=ROLE_DOCTOR';
+      case AppointmentEndpoint.state:
+        return '$path/patient/state';
+      case AppointmentEndpoint.ratingAppointment:
+        return '$path/rating/save-rating';
     }
   }
 }
@@ -25,4 +29,7 @@ enum AppointmentEndpoint {
   manageAppointment,
 
   updateAppointmentStatus,
+
+  ratingAppointment,
+  state,
 }

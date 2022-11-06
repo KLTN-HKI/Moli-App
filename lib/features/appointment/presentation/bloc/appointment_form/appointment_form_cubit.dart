@@ -112,7 +112,7 @@ class AppointmentFormCubit extends Cubit<AppointmentFormState> {
     try {
       emit(state.copyWith(exception: null, isLoading: true, isSucess: false));
       if (forSelf && currentUser != null) {
-        final Appointment appointment =
+        final CreateAppointmentResult appointment =
             await _repository.bookDoctor(data: <String, dynamic>{
           'describeSymptoms': state.patientForm.description.value,
           'doctorId': doctorId,
@@ -134,7 +134,7 @@ class AppointmentFormCubit extends Cubit<AppointmentFormState> {
       } else {
         final FormzStatus status = Formz.validate(state.patientForm.inputs);
         if (validDateTime() && status.isValid && !forSelf) {
-          final Appointment appointment =
+          final CreateAppointmentResult appointment =
               await _repository.bookDoctor(data: <String, dynamic>{
             'describeSymptoms': state.patientForm.description.value,
             'doctorId': doctorId,

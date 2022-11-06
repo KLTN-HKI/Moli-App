@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moli_app/app/bloc/bloc.dart';
 import 'package:moli_app/features/appointment/presentation/pages/appointment_detail/appointment_detail_page.dart';
+import 'package:moli_app/features/appointment/presentation/pages/apppointment_rating/appointment_rating_page.dart';
 import 'package:moli_app/features/appointment/presentation/pages/create_appointment/create_appointment_page.dart';
 import 'package:moli_app/features/authentication/presentation/register/page/register_page.dart';
 import 'package:moli_app/features/doctor/presentation/pages/doctor_detail/doctor_detail_page.dart';
@@ -111,11 +112,23 @@ GoRouter routing(BuildContext context, String? initialLocation) {
             routes: <GoRoute>[
               GoRoute(
                 path: '${AppointmentDetailPage.routePath}/:appointmentId',
+                name: 'appointment-detail',
                 parentNavigatorKey: moliNavigatorKey,
                 pageBuilder: (_, GoRouterState state) =>
                     CupertinoTransitionPage(
                   child: AppointmentDetailPage(
                     id: state.params['appointmentId']!,
+                  ),
+                ),
+              ),
+              GoRoute(
+                path: 'rating/:appointmentId',
+                name: 'appointment-rating',
+                parentNavigatorKey: moliNavigatorKey,
+                pageBuilder: (_, GoRouterState state) =>
+                    CupertinoTransitionPage(
+                  child: AppointmentRatingPage(
+                    appointmentUuid: state.params['appointmentId']!,
                   ),
                 ),
               ),
@@ -127,18 +140,6 @@ GoRouter routing(BuildContext context, String? initialLocation) {
             name: Routes.notification,
             pageBuilder: (_, __) =>
                 const FadeTransitionPage(child: NotificationPage()),
-            routes: <GoRoute>[
-              GoRoute(
-                path: '${AppointmentDetailPage.routePath}/:appointmentId',
-                parentNavigatorKey: moliNavigatorKey,
-                pageBuilder: (_, GoRouterState state) =>
-                    CupertinoTransitionPage(
-                  child: AppointmentDetailPage(
-                    id: state.params['appointmentId']!,
-                  ),
-                ),
-              ),
-            ],
           ),
           // * Menu
           GoRoute(

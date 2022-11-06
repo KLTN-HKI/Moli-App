@@ -14,6 +14,7 @@ import 'package:moli_app/features/notification/application/notification_service.
 import 'package:moli_shared/moli_shared.dart';
 
 import '../../features/appointment/presentation/bloc/appointment_list/appointment_list_cubit.dart';
+import '../../features/appointment/presentation/bloc/patient_appointment/patient_appointment_bloc.dart';
 import '../../router/routing.dart';
 
 class MoliApp extends StatelessWidget {
@@ -36,6 +37,10 @@ class MoliApp extends StatelessWidget {
         BlocProvider<AppointmentListCubit>(
             create: (_) => AppointmentListCubit()),
         BlocProvider<AppointmentCubit>(create: (_) => AppointmentCubit()),
+        BlocProvider<PatientAppointmentBloc>(
+          create: (BuildContext context) => getIt(),
+          lazy: false,
+        )
       ],
       child: const MoliView(),
     );

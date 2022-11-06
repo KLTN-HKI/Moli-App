@@ -6,7 +6,7 @@ import 'package:moli_shared/moli_shared.dart';
 
 import '../../../../domain/appointment.dart';
 import '../../../bloc/appointment/appointment_cubit.dart';
-import 'appointment_card.dart';
+import '../../components/appointment_card.dart';
 
 class AppointmentInfo extends StatelessWidget {
   const AppointmentInfo({super.key});
@@ -16,6 +16,12 @@ class AppointmentInfo extends StatelessWidget {
     return BlocBuilder<AppointmentCubit, AppointmentState>(
       builder: (BuildContext context, AppointmentState state) {
         final Appointment appointment = state.appointment;
+        final DateTime appointmentDateTime =
+            appointment.appointmentBookingDate?.copyWith(
+                  hour: appointment.appointmentStartTime?.hour,
+                  minute: appointment.appointmentStartTime?.minute,
+                ) ??
+                DateTime(0);
         return AppointmentCard(
           child: Column(
             // crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,29 +62,27 @@ class AppointmentInfo extends StatelessWidget {
                   ).weight600,
                 ],
               ),
-              const Divider(),
-              if (!StringUtils.isNullOrBlank(state.appointment.reason))
+              if (!StringUtils.isNullOrBlank(
+                  state.appointment.reason)) ...<Widget>[
+                const Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     AppText.b0('Lý do:'),
-                    AppText.b0(
-                      '${appointment.reason}',
-                      color: context.colorScheme.error,
-                    ).weight600,
+                    Expanded(
+                      child: AppText.b0(
+                        '${appointment.reason}',
+                        color: context.colorScheme.error,
+                      ).weight600,
+                    ),
                   ],
                 )
-              else ...<Widget>[
-                if (appointment.appointmentBookingDate != null &&
-                    appointment.appointmentStartTime != null)
-                  _DisplayCountdown(
-                    appointment.appointmentBookingDate
-                        ?.copyWith(
-                          hour: appointment.appointmentStartTime?.hour,
-                          minute: appointment.appointmentStartTime?.minute,
-                        )
-                        .difference(DateTime.now()),
-                  ),
+              ] else if (DateTime.now()
+                  .isBefore(appointmentDateTime)) ...<Widget>[
+                const Divider(),
+                _DisplayCountdown(
+                  appointmentDateTime.difference(DateTime.now()),
+                ),
                 const SizedBox(height: 8),
                 AppText.b2(
                   'Vui lòng có mặt ở địa điểm khám trước 30 phút',
